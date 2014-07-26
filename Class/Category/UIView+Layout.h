@@ -79,3 +79,14 @@
 
 
 @end
+
+
+@interface UIView (BackGround)
+
+- (void)setBgColorWithImage:(NSString *)name;
+
+
+
+@end
+
+

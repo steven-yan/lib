@@ -119,3 +119,16 @@
 
 
 @end
+
+
+@implementation UIView (BackGround)
+
+- (void)setBgColorWithImage:(NSString *)name {
+    UIColor *bgColor = [UIColor colorWithPatternImage:[UIImage imageNamed:name]];
+    self.backgroundColor = bgColor;
+}
+
+
+
+@end
+

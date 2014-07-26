@@ -15,8 +15,10 @@
     //window
     UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     //root vc
-    RootVc *rvc = [[RootVc alloc] init];
-    [win setRootViewController:rvc];
+    MainVc *rvc = [[MainVc alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:rvc];
+    nvc.navigationBar.hidden = YES;
+    [win setRootViewController:nvc];
     [win makeKeyAndVisible];
     
     self.window = win;

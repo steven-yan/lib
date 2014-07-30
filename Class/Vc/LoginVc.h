@@ -1,8 +1,10 @@
 /**
  *
- * @author steven.yan
+ *  LoginVc
+ *  @author steven
+ *  @date July 23 2014
  *
- */
+ **/
 
 @interface LoginVc : BaseLayoutVc <UITextFieldDelegate, UIScrollViewDelegate>
 

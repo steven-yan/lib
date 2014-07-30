@@ -42,7 +42,7 @@
 		1682D904196EC2C6008EDEE6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1682D900196EC2C6008EDEE6 /* AppDelegate.m */; };
 		1682D906196EC2C6008EDEE6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1682D903196EC2C6008EDEE6 /* main.m */; };
 		1682D950196ECC6B008EDEE6 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1682D94F196ECC6B008EDEE6 /* libsqlite3.0.dylib */; };
-		169E591E197FF730009541D4 /* main_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 169E591D197FF730009541D4 /* main_bg.png */; };
+		169B0E171989438400351AC7 /* HealthyCheckCenterCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 169B0E161989438400351AC7 /* HealthyCheckCenterCell.mm */; };
 		169E592119800A99009541D4 /* MyInfoVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 169E592019800A99009541D4 /* MyInfoVc.mm */; };
 		16A16C2D1970D11C00374A9C /* 0_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16A16C231970D11C00374A9C /* 0_hl@2x.png */; };
 		16A16C2E1970D11C00374A9C /* 0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16A16C241970D11C00374A9C /* 0@2x.png */; };
@@ -55,11 +55,14 @@
 		16A16C351970D11C00374A9C /* 4_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16A16C2B1970D11C00374A9C /* 4_hl@2x.png */; };
 		16A16C361970D11C00374A9C /* 4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16A16C2C1970D11C00374A9C /* 4@2x.png */; };
 		16A891DC19833D10000A9E23 /* BaseLayoutVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A891DB19833D10000A9E23 /* BaseLayoutVc.mm */; };
-		16A891E019835BC5000A9E23 /* BaseSingleListVc.h.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A891DF19835BC5000A9E23 /* BaseSingleListVc.h.mm */; };
+		16A891E019835BC5000A9E23 /* BaseSingleListVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A891DF19835BC5000A9E23 /* BaseSingleListVc.mm */; };
 		16A891E319835BE1000A9E23 /* BaseSectionListVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A891E219835BE1000A9E23 /* BaseSectionListVc.mm */; };
 		16A891EB19835EB7000A9E23 /* BottomPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A891E619835EB7000A9E23 /* BottomPanel.mm */; };
 		16A891EC19835EB7000A9E23 /* RefreshPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A891E819835EB7000A9E23 /* RefreshPanel.mm */; };
 		16A891ED19835EB7000A9E23 /* TopPanel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A891EA19835EB7000A9E23 /* TopPanel.mm */; };
+		16A8920F19837294000A9E23 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16A8920C19837294000A9E23 /* Default-568h@2x.png */; };
+		16A8921019837294000A9E23 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 16A8920D19837294000A9E23 /* Default.png */; };
+		16A8921119837294000A9E23 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 16A8920E19837294000A9E23 /* Default~iphone.png */; };
 		16D4A468198333E300AAB270 /* HealthyCheckCenterVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16D4A467198333E300AAB270 /* HealthyCheckCenterVc.mm */; };
 		16E3A08B1971407500A1AB22 /* rr_rmd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16E3A08A1971407500A1AB22 /* rr_rmd@2x.png */; };
 /* End PBXBuildFile section */
@@ -128,7 +131,8 @@
 		1682D903196EC2C6008EDEE6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1682D94F196ECC6B008EDEE6 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		1682D9BC196ED011008EDEE6 /* e-Heathy-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "e-Heathy-Info.plist"; sourceTree = "<group>"; };
-		169E591D197FF730009541D4 /* main_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_bg.png; sourceTree = "<group>"; };
+		169B0E151989438400351AC7 /* HealthyCheckCenterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthyCheckCenterCell.h; sourceTree = "<group>"; };
+		169B0E161989438400351AC7 /* HealthyCheckCenterCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HealthyCheckCenterCell.mm; sourceTree = "<group>"; };
 		169E591F19800A99009541D4 /* MyInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoVc.h; sourceTree = "<group>"; };
 		169E592019800A99009541D4 /* MyInfoVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyInfoVc.mm; sourceTree = "<group>"; };
 		16A16C231970D11C00374A9C /* 0_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0_hl@2x.png"; sourceTree = "<group>"; };
@@ -144,7 +148,7 @@
 		16A891DA19833D10000A9E23 /* BaseLayoutVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseLayoutVc.h; sourceTree = "<group>"; };
 		16A891DB19833D10000A9E23 /* BaseLayoutVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseLayoutVc.mm; sourceTree = "<group>"; };
 		16A891DE19835BC5000A9E23 /* BaseSingleListVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSingleListVc.h; sourceTree = "<group>"; };
-		16A891DF19835BC5000A9E23 /* BaseSingleListVc.h.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseSingleListVc.h.mm; sourceTree = "<group>"; };
+		16A891DF19835BC5000A9E23 /* BaseSingleListVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseSingleListVc.mm; sourceTree = "<group>"; };
 		16A891E119835BE1000A9E23 /* BaseSectionListVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSectionListVc.h; sourceTree = "<group>"; };
 		16A891E219835BE1000A9E23 /* BaseSectionListVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseSectionListVc.mm; sourceTree = "<group>"; };
 		16A891E519835EB7000A9E23 /* BottomPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomPanel.h; sourceTree = "<group>"; };
@@ -153,6 +157,9 @@
 		16A891E819835EB7000A9E23 /* RefreshPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RefreshPanel.mm; sourceTree = "<group>"; };
 		16A891E919835EB7000A9E23 /* TopPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPanel.h; sourceTree = "<group>"; };
 		16A891EA19835EB7000A9E23 /* TopPanel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TopPanel.mm; sourceTree = "<group>"; };
+		16A8920C19837294000A9E23 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		16A8920D19837294000A9E23 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		16A8920E19837294000A9E23 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
 		16D4A466198333E300AAB270 /* HealthyCheckCenterVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthyCheckCenterVc.h; sourceTree = "<group>"; };
 		16D4A467198333E300AAB270 /* HealthyCheckCenterVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HealthyCheckCenterVc.mm; sourceTree = "<group>"; };
 		16E3A08A1971407500A1AB22 /* rr_rmd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rr_rmd@2x.png"; sourceTree = "<group>"; };
@@ -303,7 +310,7 @@
 				16A891E119835BE1000A9E23 /* BaseSectionListVc.h */,
 				16A891E219835BE1000A9E23 /* BaseSectionListVc.mm */,
 				16A891DE19835BC5000A9E23 /* BaseSingleListVc.h */,
-				16A891DF19835BC5000A9E23 /* BaseSingleListVc.h.mm */,
+				16A891DF19835BC5000A9E23 /* BaseSingleListVc.mm */,
 			);
 			path = Vc;
 			sourceTree = "<group>";
@@ -321,10 +328,10 @@
 			isa = PBXGroup;
 			children = (
 				16A891EE19835EC8000A9E23 /* Ctrl */,
-				164AA7F6197D5E19000B1202 /* MainVc.h */,
-				164AA7F7197D5E19000B1202 /* MainVc.mm */,
 				16D4A466198333E300AAB270 /* HealthyCheckCenterVc.h */,
 				16D4A467198333E300AAB270 /* HealthyCheckCenterVc.mm */,
+				164AA7F6197D5E19000B1202 /* MainVc.h */,
+				164AA7F7197D5E19000B1202 /* MainVc.mm */,
 				169E591F19800A99009541D4 /* MyInfoVc.h */,
 				169E592019800A99009541D4 /* MyInfoVc.mm */,
 				164AA7F4197D5E19000B1202 /* LoginVc.h */,
@@ -383,7 +390,9 @@
 		1682DA3E196EEC4F008EDEE6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				169E591D197FF730009541D4 /* main_bg.png */,
+				16A8920C19837294000A9E23 /* Default-568h@2x.png */,
+				16A8920D19837294000A9E23 /* Default.png */,
+				16A8920E19837294000A9E23 /* Default~iphone.png */,
 				164AA7A3197D4E0B000B1202 /* main_1.png */,
 				164AA7A4197D4E0B000B1202 /* main_3.png */,
 				164AA7A5197D4E0B000B1202 /* main_0.png */,
@@ -420,6 +429,8 @@
 		16A891EE19835EC8000A9E23 /* Ctrl */ = {
 			isa = PBXGroup;
 			children = (
+				169B0E151989438400351AC7 /* HealthyCheckCenterCell.h */,
+				169B0E161989438400351AC7 /* HealthyCheckCenterCell.mm */,
 			);
 			path = Ctrl;
 			sourceTree = "<group>";
@@ -478,6 +489,7 @@
 				16E3A08B1971407500A1AB22 /* rr_rmd@2x.png in Resources */,
 				16A16C351970D11C00374A9C /* 4_hl@2x.png in Resources */,
 				16A16C341970D11C00374A9C /* 3@2x.png in Resources */,
+				16A8921119837294000A9E23 /* Default~iphone.png in Resources */,
 				16A16C331970D11C00374A9C /* 3_hl@2x.png in Resources */,
 				164AA7AA197D4E0B000B1202 /* main_2.png in Resources */,
 				16A16C2D1970D11C00374A9C /* 0_hl@2x.png in Resources */,
@@ -486,9 +498,10 @@
 				16A16C321970D11C00374A9C /* 2@2x.png in Resources */,
 				1614BF79197114E9004402FA /* search_icon@2x.png in Resources */,
 				16A16C361970D11C00374A9C /* 4@2x.png in Resources */,
+				16A8921019837294000A9E23 /* Default.png in Resources */,
+				16A8920F19837294000A9E23 /* Default-568h@2x.png in Resources */,
 				164AA7A9197D4E0B000B1202 /* main_0.png in Resources */,
 				16A16C301970D11C00374A9C /* 1@2x.png in Resources */,
-				169E591E197FF730009541D4 /* main_bg.png in Resources */,
 				164AA7A8197D4E0B000B1202 /* main_3.png in Resources */,
 				16A16C2E1970D11C00374A9C /* 0@2x.png in Resources */,
 				164AA7A7197D4E0B000B1202 /* main_1.png in Resources */,
@@ -511,12 +524,13 @@
 				164AA824197D5E19000B1202 /* MainVc.mm in Sources */,
 				164AA815197D5E19000B1202 /* SysInfo.mm in Sources */,
 				164AA813197D5E19000B1202 /* const.mm in Sources */,
-				16A891E019835BC5000A9E23 /* BaseSingleListVc.h.mm in Sources */,
+				16A891E019835BC5000A9E23 /* BaseSingleListVc.mm in Sources */,
 				164AA818197D5E19000B1202 /* FMDatabaseAdditions.m in Sources */,
 				16A891EC19835EB7000A9E23 /* RefreshPanel.mm in Sources */,
 				1682D904196EC2C6008EDEE6 /* AppDelegate.m in Sources */,
 				164AA819197D5E19000B1202 /* FMDatabasePool.m in Sources */,
 				164AA823197D5E19000B1202 /* LoginVc.mm in Sources */,
+				169B0E171989438400351AC7 /* HealthyCheckCenterCell.mm in Sources */,
 				164AA80F197D5E19000B1202 /* UIImage+Addition.mm in Sources */,
 				164AA81A197D5E19000B1202 /* FMDatabaseQueue.m in Sources */,
 				164AA822197D5E19000B1202 /* ChkUtil.mm in Sources */,
@@ -616,7 +630,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Main/e-Heathy-Prefix.pch";
 				INFOPLIST_FILE = "Main/e-Heathy-Info.plist";
@@ -633,7 +646,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Main/e-Heathy-Prefix.pch";
 				INFOPLIST_FILE = "Main/e-Heathy-Info.plist";

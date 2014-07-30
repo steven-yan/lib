@@ -1,10 +1,12 @@
 /**
  *
- * @author steven.yan
+ *  RegisterVc
+ *  @author steven
+ *  @date July 23 2014
  *
- */
+ **/
 
-#import "registerVc.h"
+#import "RegisterVc.h"
 
 @implementation RegisterVc
 static int kLeftMargin = 15;

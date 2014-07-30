@@ -18,7 +18,7 @@
     
     //页面--------------
     //背景--------
-    self.view.backgroundColor = [UIColor colorWithHexStr:@"#eae6d1"];
+    self.view.backgroundColor = [UIColor colorWithHexStr:@"#f1f1f1"];
     
     //覆盖方法
     [self _onCreateBegin];

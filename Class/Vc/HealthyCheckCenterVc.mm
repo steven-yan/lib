@@ -26,8 +26,6 @@
     
     //底部面板-----------
     //其他--------------
-    //refresh panel
-    [self hideDropPanel];
 }
 
 //解析导航进
@@ -58,13 +56,35 @@
 - (void)topRightBtnClicked {
 }
 
-//dropPanel
-- (void)dropPanelWhileLoading {
-    [self dropPanelFinisnLoading];
+
+
+#pragma mark -
+#pragma mark ------------------------------tableView----------------------------------
+/*------------------------------------------------------------------------------
+ |  tableView
+ |
+ -----------------------------------------------------------------------------*/
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
 }
 
-- (void)risePanelWhileLoading {
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [HealthyCheckCenterCell CellHeight];
 }
+
+- (void) createCell:(UITableViewCell *)cell {
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+
+    HealthyCheckCenterCell *c = [[HealthyCheckCenterCell alloc] initWithVc:self];
+    c.tag = 100;
+    [cell addSubview:c];
+}
+
+- (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    
+}
+
 
 
 #pragma mark -

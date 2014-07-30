@@ -1,8 +1,10 @@
 /**
  *
- * @author steven.yan
+ *  RegisterVc
+ *  @author steven
+ *  @date July 23 2014
  *
- */
+ **/
 
 @interface RegisterVc : BaseLayoutVc <UIScrollViewDelegate, UITextFieldDelegate>
 

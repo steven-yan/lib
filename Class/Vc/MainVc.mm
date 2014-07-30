@@ -1,6 +1,6 @@
 /**
  *
- *  TemplateVC 页面模板
+ *  MainVc
  *  @author steven
  *  @date   June 9 2014
  *
@@ -65,9 +65,6 @@
     [btn4 setTitle:@"个人信息"];
     [btn4 addTarget:self action:@selector(btnClicked:)];
     [self.contentPanel addSubview:btn4];
-    
-    //背景
-    [self.contentPanel setBgColorWithImage:@"main_bg"];
     
     //底部面板-----------
     //其他--------------

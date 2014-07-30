@@ -1,6 +1,6 @@
 /**
  *
- *  TemplateVC 页面模板
+ *  MainVc
  *  @author steven
  *  @date   June 9 2014
  *

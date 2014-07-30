@@ -18,7 +18,7 @@
     //顶部面板------
     //margin view
     UIView *topMarginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, [SysInfo instance].topMarginHeight)];
-    topMarginView.backgroundColor = [UIColor colorWithHexStr:@"#435f24"];
+    topMarginView.backgroundColor = [UIColor colorWithHexStr:@"#d0efa5"];
     [self.view addSubview:topMarginView];
     //top panel
     TopPanel *tp = [[TopPanel alloc] init];

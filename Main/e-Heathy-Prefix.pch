@@ -24,7 +24,7 @@
     #import "ChkUtil.h"
 
     //vc
-    #import "BaseVC.h"
+    #import "BaseVc.h"
     #import "BaseLayoutVc.h"
     #import "BaseListVc.h"
     #import "BaseSingleListVc.h"

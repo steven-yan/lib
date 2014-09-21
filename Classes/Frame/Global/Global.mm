@@ -28,6 +28,8 @@
 //初始化
 -(instancetype)init {
     if (self = [super init]) {
+        //sys info
+        self.sysInfo = [SysInfo instance];
     }
     
     return self;

@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 steven. All rights reserved.
 //
 
-#import "MainVc.h"
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+//win
 @property (strong, nonatomic) UIWindow *window;
 
 

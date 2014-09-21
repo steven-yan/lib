@@ -3,6 +3,7 @@
  * @author steven.yan
  *
  */
+#import "BaseSingleListVc.h"
 
 @implementation BaseSingleListVc
 
@@ -17,16 +18,8 @@
     [super _onCreateBegin];
     //顶部面板-----------
     //内容面板-----------
-//    //下拉刷新
-//    RefreshPanel *rp = [[RefreshPanel alloc] initWithVc:self sv:self.tableView isDropPanel:YES];
-//    rp.delegate = self;
-//    self.ctrlDropRefreshPanel = rp;
-//    //上拉刷新
-//    rp = [[RefreshPanel alloc] initWithVc:self sv:self.tableView isDropPanel:NO];
-//    rp.delegate = self;
-//    self.ctrlRiseRefreshPanel = rp;
-    
     //底部面板-----------
+    //数据-----------
     //其他--------------
     self.uniqueCellIdForSingleList = NSStringFromClass([self class]);
 }
@@ -39,62 +32,6 @@
 
 - (void)onWillHide {
 }
-
-
-
-//#pragma mark -
-//#pragma mark ----------------------------RefreshPanel------------------------------
-///*------------------------------------------------------------------------------
-// |  RefreshPanel
-// |
-// -----------------------------------------------------------------------------*/
-//- (void)RefreshPanelWhileLoading:(RefreshPanel *)p {
-//    if (p == self.ctrlDropRefreshPanel) {
-//        [self dropPanelWhileLoading];
-//    } else {
-//        [self risePanelWhileLoading];
-//    }
-//}
-//
-////dropPanel
-//- (void)dropPanelWhileLoading {
-//}
-//- (void)dropPanelFinisnLoading {
-//    [self.ctrlDropRefreshPanel finishLoading];
-//}
-//
-////risePanel
-//- (void)risePanelWhileLoading {
-//}
-//- (void)risePanelFinishLoading {
-//    [self.ctrlRiseRefreshPanel finishLoading];
-//}
-//
-////hide
-//- (void)hideDropPanel {
-//    self.ctrlDropRefreshPanel.hidden = YES;
-//}
-//- (void)hideRisePanel {
-//    self.ctrlRiseRefreshPanel.hidden = YES;
-//}
-//
-//
-//
-//#pragma mark -
-//#pragma mark ----------------------------scrollView------------------------------
-///*------------------------------------------------------------------------------
-// |  scrollView
-// |
-// -----------------------------------------------------------------------------*/
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    [self.ctrlDropRefreshPanel refreshPanelScrollViewDidScroll:scrollView];
-//    [self.ctrlRiseRefreshPanel refreshPanelScrollViewDidScroll:scrollView];
-//}
-//
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-//    [self.ctrlDropRefreshPanel refreshPanelScrollViewDidEndDragging:scrollView];
-//    [self.ctrlRiseRefreshPanel refreshPanelScrollViewDidEndDragging:scrollView];
-//}
 
 
 

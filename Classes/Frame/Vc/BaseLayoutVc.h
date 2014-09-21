@@ -5,7 +5,6 @@
  */
 
 #import "TopPanel.h"
-#import "BottomPanel.h"
 #import "MBProgressHUD.h"
 
 @interface BaseLayoutVc : BaseVc <TopPanelDelegate>

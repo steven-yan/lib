@@ -18,7 +18,7 @@
     //顶部面板------
     //margin view
     UIView *topMarginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, [SysInfo instance].topMarginHeight)];
-    topMarginView.backgroundColor = [UIColor colorWithHexStr:@"#d0efa5"];
+    topMarginView.backgroundColor = [UIColor colorWithHexStr:kGeneralColor];
     [self.view addSubview:topMarginView];
     //top panel
     TopPanel *tp = [[TopPanel alloc] init];
@@ -27,10 +27,11 @@
     [self.view addSubview:tp];
     
     //内容面板------
-    UIView *cv = [[UIView alloc] initWithFrame:CGRectMake(0, self.topPanel.bottom, self.view.width, [SysInfo instance].contentHeight)];
-    [self.view addSubview:cv];
-    self.contentPanel = cv;
+    UIView *cp = [[UIView alloc] initWithFrame:CGRectMake(0, self.topPanel.bottom, self.view.width, [SysInfo instance].contentHeight)];
+    [self.view addSubview:cp];
+    self.contentPanel = cp;
     
+    //数据-----------
     //其他--------
     //hud----
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.contentPanel];

@@ -20,7 +20,7 @@
     #import "UIView+Layout.h"
     #import "UIButton+Addition.h"
 
-    //utility
+    //Utility
     #import "ChkUtil.h"
 
     //vc
@@ -29,7 +29,7 @@
     #import "BaseListVc.h"
     #import "BaseSingleListVc.h"
 
-    //const
+    #import "Global.h"
     #import "const.h"
 
 #endif

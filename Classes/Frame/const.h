@@ -10,3 +10,4 @@ extern BOOL  kAppDebugTag;
 
 //空字符串
 extern NSString * const kEmptyStr;
+extern NSString * const kGeneralColor;

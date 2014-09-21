@@ -4,8 +4,6 @@
  *
  */
 
-#import "SysInfo.h"
-
 @protocol TopPanelDelegate <NSObject>
 @optional
 -(void)onTopPanelLeftBtnClicked;
@@ -31,9 +29,12 @@
 //设置左侧按键标题
 - (void)changeLeftBtnWithTitle:(NSString *)title;
 //设置标题
-- (void)changeTitle:(NSString *)str;
+- (void)changeTitle:(NSString *)title;
 //设置右侧按键标题
 - (void)changeRightBtnWithTitle:(NSString *)title;
+//改变图片
+- (void)changeRightBtnWithImg:(NSString *)img;
+- (void)changeRightBtnWithHlImg:(NSString *)hlImg;
 
 
 

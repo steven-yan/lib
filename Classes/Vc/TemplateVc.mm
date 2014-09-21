@@ -1,14 +1,14 @@
 /**
  *
- *  RootVc
+ *  TemplateVc
  *  @author steven
- *  @date   July 10 2014
+ *  @date Sep 20 2014
  *
  **/
 
-#import "RootVc.h"
+#import "TemplateVc.h"
 
-@implementation RootVc
+@implementation TemplateVc
 
 
 
@@ -21,15 +21,10 @@
 //窗体创建
 - (void)onCreate {
     //顶部面板-----------
-    [self hideTopLeftBtn];
-    [self hideTopRightBtn];
-    //内容面板-----------
-    TabBarBottomPanel *tb = [[TabBarBottomPanel alloc] initWithImgList:@[@"btn_air_hospital_normal", @"btn_user_center_normal"] selectedImgList:@[@"btn_air_hospital_selected", @"btn_user_center_selected"] titleList:@[@"体检中心", @"专家推荐"]];
-    tb.delegate = self;
-    tb.bottom = self.contentPanel.height;
-    [self.contentPanel addSubview:tb];
-    self.ctrlTabBar = tb;
     
+    //内容面板-----------
+    
+    //底部面板-----------
     //其他--------------
 }
 
@@ -59,18 +54,6 @@
 }
 
 - (void)topRightBtnClicked {
-}
-
-
-
-#pragma mark -
-#pragma mark -------------------------------tabBar---------------------------------
-/*------------------------------------------------------------------------------
- |  tabBar
- |
- -----------------------------------------------------------------------------*/
-- (void)tabBarBottomPanelClicked:(TabBarBottomPanel *)tabBar index:(NSInteger)index {
-    
 }
 
 

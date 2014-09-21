@@ -8,8 +8,10 @@
 #import "RefreshPanel.h"
 
 @implementation RefreshPanel
+static NSString *kKeyPathContentOffset = @"contentOffset";
+static NSString *kKeyPathDragging = @"dragging";
 static float kPanelHeight = 50;
-static float kMinDragTransHeight = 40;
+static float kMinDragTransHeight = 50;
 
 
 
@@ -68,9 +70,15 @@ static float kMinDragTransHeight = 40;
         self.needRefreshTag = NO;
         //是否加载中
         self.isLoadingTag = NO;
+        //其他-------------------
+        [self.nrSv addObserver:self forKeyPath:kKeyPathContentOffset options:NSKeyValueObservingOptionNew context:nil];
     }
     
     return self;
+}
+
+- (void)onWillHide {
+    [self.nrSv removeObserver:self forKeyPath:kKeyPathContentOffset];
 }
 
 
@@ -149,15 +157,15 @@ static float kMinDragTransHeight = 40;
         [self.ctrlIndicator startAnimating];
         [UIView animateWithDuration:0.4 animations:^{
             if (self.isDropTag) {
-                sv.contentInset = UIEdgeInsetsMake(kPanelHeight, 0, 0, 0);
+                self.nrSv.contentInset = UIEdgeInsetsMake(kPanelHeight, 0, 0, 0);
             } else {
-                sv.contentInset = UIEdgeInsetsMake(0, 0, kPanelHeight, 0);
+                self.nrSv.contentInset = UIEdgeInsetsMake(0, 0, kPanelHeight, 0);
             }
         } completion:^(BOOL finished) {
             if (finished) {
-                BOOL r = [self.delegate respondsToSelector:@selector(RefreshPanelWhileLoading:)];
+                BOOL r = [self.delegate respondsToSelector:@selector(refreshPanelWhileLoading:)];
                 if (r) {
-                    [self.delegate RefreshPanelWhileLoading:self];
+                    [self.delegate refreshPanelWhileLoading:self];
                 }
             }
         }];
@@ -182,6 +190,85 @@ static float kMinDragTransHeight = 40;
  |  其他
  |
  -----------------------------------------------------------------------------*/
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    //容错
+    if (self.isLoadingTag) {
+        return;
+    }
+    
+    //重置panel位置
+    if (self.isDropTag) {
+        self.top = -kPanelHeight;
+    } else {
+        if (self.nrSv.contentSize.height <= self.nrSv.height) {
+            return;
+        }
+        
+        self.top = self.nrSv.contentSize.height;
+    }
+    
+    //判断偏移量
+    int offset = 0;
+    NSString *hint0;
+    NSString *hint1;
+    if (self.isDropTag) {
+        offset = - self.nrSv.contentOffset.y;
+        hint0 = @"下拉重新刷新";
+        hint1 = @"重新载入";
+    } else {
+        offset = self.nrSv.contentOffset.y + self.nrSv.height - self.nrSv.contentSize.height;
+        hint0 = @"上拉加载更多";
+        hint1 = @"松开载入更多";
+    }
+    
+    if (offset <= 0) {
+        return;
+    }
+    
+    if (self.nrSv.isDragging) {
+        [UIView animateWithDuration:0.2 animations:^{
+            if (offset > kMinDragTransHeight) {
+                //需要刷新
+                self.needRefreshTag = YES;
+                self.ctrlHintLabel.text = hint1;
+                self.ctrlArrow.transform = CGAffineTransformMakeRotation(-3.14);
+            } else {
+                //不需要刷新
+                self.needRefreshTag = NO;
+                self.ctrlHintLabel.text = hint0;
+                self.ctrlArrow.transform = CGAffineTransformMakeRotation(0);
+            }
+        }];
+    } else {
+        if (self.needRefreshTag) {
+            //是否需要刷新
+            self.needRefreshTag = NO;
+            //是否正在读取
+            self.isLoadingTag = YES;
+            //隐藏arrow
+            self.ctrlArrow.hidden = YES;
+            //设置hint
+            self.ctrlHintLabel.text = @"加载中...";
+            //启动转子
+            [self.ctrlIndicator startAnimating];
+            [UIView animateWithDuration:0.4 animations:^{
+                if (self.isDropTag) {
+                    self.nrSv.contentInset = UIEdgeInsetsMake(kPanelHeight, 0, 0, 0);
+                } else {
+                    self.nrSv.contentInset = UIEdgeInsetsMake(0, 0, kPanelHeight, 0);
+                }
+            } completion:^(BOOL finished) {
+                if (finished) {
+                    BOOL r = [self.delegate respondsToSelector:@selector(refreshPanelWhileLoading:)];
+                    if (r) {
+                        [self.delegate refreshPanelWhileLoading:self];
+                    }
+                }
+            }];
+        }
+    }
+}
+
 - (void)reset {
     //显示arrow
     self.ctrlArrow.hidden = NO;

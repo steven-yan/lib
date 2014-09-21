@@ -7,18 +7,22 @@
 //
 
 #import "AppDelegate.h"
+#import "RootVc.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //ios7以上设置状态栏
+    if (SysInfo.instance.isIos6Tag == NO) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }
+    
     //window
     UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    //root vc
-    MainVc *rvc = [[MainVc alloc] init];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:rvc];
-    nvc.navigationBar.hidden = YES;
-    [win setRootViewController:nvc];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[RootVc alloc] init]];
+    [nvc.navigationBar removeFromSuperview];
+    win.rootViewController = nvc;
     [win makeKeyAndVisible];
     
     self.window = win;

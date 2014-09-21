@@ -1,17 +1,17 @@
-/*
+/**
  *
  *@author steven.yan
  *@date June 4 2014
  *
- */
+ **/
 
-#import "BaseVc.h"
+#import "BaseVC.h"
 
 @class RefreshPanel;
 
 @protocol RefreshPanelDelegate <NSObject>
 @optional
-- (void)RefreshPanelWhileLoading:(RefreshPanel *)p;
+- (void)refreshPanelWhileLoading:(RefreshPanel *)p;
 @end
 
 @interface RefreshPanel : UIView
@@ -38,9 +38,8 @@
 @property BOOL isLoadingTag;
 
 - (id)initWithVc:(BaseVc *)vc sv:(UIScrollView *)sv isDropPanel:(BOOL)isDropTag;
--(void)refreshPanelScrollViewDidScroll:(UIScrollView *)scrollView;
--(void)refreshPanelScrollViewDidEndDragging:(UIScrollView *)scrollView;
 -(void)finishLoading;
+-(void)onWillHide;
 
 
 

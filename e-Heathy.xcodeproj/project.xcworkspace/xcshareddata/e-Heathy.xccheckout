@@ -10,29 +10,29 @@
 	<string>e-Heathy</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>2576C19A-FF82-4EF3-B685-BCCCE7DBD7AA</key>
+		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
 		<string>https://github.com/steven-yan/e-healthy.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>e-Heathy.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>2576C19A-FF82-4EF3-B685-BCCCE7DBD7AA</key>
+		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/steven-yan/e-healthy.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>2576C19A-FF82-4EF3-B685-BCCCE7DBD7AA</string>
+	<string>AEB73AE683B81A1A78354F55AD29ACCC959090EA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>2576C19A-FF82-4EF3-B685-BCCCE7DBD7AA</string>
+			<string>AEB73AE683B81A1A78354F55AD29ACCC959090EA</string>
 			<key>IDESourceControlWCCName</key>
 			<string>e-Heathy</string>
 		</dict>

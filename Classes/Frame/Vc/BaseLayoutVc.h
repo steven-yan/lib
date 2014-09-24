@@ -7,7 +7,7 @@
 #import "TopPanel.h"
 #import "MBProgressHUD.h"
 
-@interface BaseLayoutVc : BaseVc <TopPanelDelegate>
+@interface BaseLayoutVc : BaseHttpVc <TopPanelDelegate>
 
 //顶部面板
 @property (nonatomic, strong) TopPanel *topPanel;

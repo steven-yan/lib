@@ -19,12 +19,14 @@
     #import "UIImage+Addition.h"
     #import "UIView+Layout.h"
     #import "UIButton+Addition.h"
+    #import "UILabel+Addition.h"
 
     //Utility
     #import "ChkUtil.h"
 
     //vc
     #import "BaseVc.h"
+    #import "BaseHttpVc.h"
     #import "BaseLayoutVc.h"
     #import "BaseListVc.h"
     #import "BaseSingleListVc.h"
@@ -32,4 +34,6 @@
     #import "Global.h"
     #import "const.h"
 
+    //3rdParty
+    #import "UIImageView+WebCache.h"
 #endif

@@ -3,12 +3,13 @@
  *@author steven.yan
  *
  **/
+#import "TabBarContentPanel.h"
 
 @class BaseLayoutVc;
 @class TabBarBottomPanel;
 
 @protocol TabBarBottomPanelDelegate <NSObject>
-- (void)tabBarBottomPanelClicked:(TabBarBottomPanel *)sender index:(NSInteger)index;
+//- (void)tabBarBottomPanelClicked:(TabBarBottomPanel *)sender index:(NSInteger)index;
 @optional
 @end
 
@@ -25,21 +26,22 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfNormalImg;
 //高亮图片列表
 @property (nonatomic, strong) NSMutableArray *arrayOfSelectedImg;
+//高亮图片列表
+@property (nonatomic, strong) NSMutableArray *arrayOfTabBarContent;
 
 //个数
 @property (nonatomic) NSInteger itemNum;
-//选中索引
+//上次选中的索引
 @property NSInteger selectedIndex;
 
-//init
-- (id)initWithImgList:(NSArray *)imgList
-      selectedImgList:(NSArray *)selectedImgList
-            titleList:(NSArray *)titleList;
-//
+//初始化
+- (id)initWithVc:(BaseLayoutVc *)vc;
+//设置 底部面板
 - (void)setImgList:(NSArray *)normalImgTitleList
    selectedImgList:(NSArray *)selectedImgTitleList
          titleList:(NSArray *)titleList;
-
+//设置 内容面板
+- (void)setContentPanel:(NSArray *)tabBarContentPanelList;
 
 
 @end

@@ -85,8 +85,10 @@
 
 - (void)setBgColorWithImage:(NSString *)name;
 
-
-
 @end
 
+@interface UIView (Line)
 
++ (instancetype)lineWithWidth:(CGFloat)width;
+    
+@end

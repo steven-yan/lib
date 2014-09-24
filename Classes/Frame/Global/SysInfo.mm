@@ -26,7 +26,7 @@
     if (self = [super init]) {
         self.topMarginHeight = 20;
         self.topPanelHeight = 44;
-        self.bottomPanelHeight = 49;
+        self.tabBarPanelHeight = 49;
         self.bounds = CGRectZero;
         self.isIphone4Tag = NO;
         self.isIphone5Tag = NO;

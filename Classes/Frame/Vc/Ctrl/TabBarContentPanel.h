@@ -19,6 +19,10 @@
 //nrVc
 @property (weak) BaseLayoutVc *nrVc;
 
+- (id)initWithVc:(BaseLayoutVc *)vc frame:(CGRect)frame;
+- (void)onWillShow;
+- (void)onWillHide;
+
 
 
 @end

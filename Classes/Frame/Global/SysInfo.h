@@ -17,7 +17,7 @@
 //内容面板
 @property float contentHeight;
 //底部面板
-@property float bottomPanelHeight;
+@property float tabBarPanelHeight;
 //宽度
 @property float fullWidth;
 

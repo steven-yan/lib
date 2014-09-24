@@ -17,6 +17,23 @@
  |  初始化 ,销毁
  |
  -----------------------------------------------------------------------------*/
+- (id)initWithVc:(BaseLayoutVc *)vc frame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        //页面------
+        self.nrVc = vc;
+        self.height = self.height - SysInfo.instance.tabBarPanelHeight;
+        //数据------
+        //其他------
+    }
+    
+    return self;
+}
+
+- (void)onWillShow {
+}
+
+- (void)onWillHide {
+}
 
 
 

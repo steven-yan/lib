@@ -21,7 +21,7 @@
     //window
     UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[RootVc alloc] init]];
-    [nvc.navigationBar removeFromSuperview];
+    nvc.navigationBarHidden = YES;
     win.rootViewController = nvc;
     [win makeKeyAndVisible];
     

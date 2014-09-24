@@ -7,6 +7,8 @@
 #import "TabBarBottomPanel.h"
 
 @implementation TabBarBottomPanel
+static int kDefaultSelectedIndex = 0;
+static int kInitNum = -1;
 
 
 
@@ -16,23 +18,21 @@
  |  初始化 ,销毁
  |
  -----------------------------------------------------------------------------*/
-- (id)initWithImgList:(NSArray *)normalImgList selectedImgList:(NSArray *)selectedImgList titleList:(NSArray *)titleList {
-    if (self = [super initWithFrame:CGRectMake(0, 0, 320, 49)]) {
-        //页面------
-        if (normalImgList.count != selectedImgList.count || selectedImgList.count != titleList.count) {
-            return nil;
-        }
-        
-        //控件----------------
+- (id)initWithVc:(BaseLayoutVc *)vc {
+    if (self = [super initWithFrame:CGRectMake(0, 0, Global.instance.sysInfo.fullWidth, Global.instance.sysInfo.tabBarPanelHeight)]) {
+        //页面--------
+        self.nrVc = vc;
+        self.backgroundColor = [UIColor whiteColor];
+        //控件-------
         //分隔线------
         UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0.5)];
         v.backgroundColor = [UIColor colorWithHexStr:@"#c8c8c8"];
         [self addSubview:v];
-        //设置
-        [self setImgList:normalImgList selectedImgList:selectedImgList titleList:titleList];
-        
-        //视图索引
-        self.selectedIndex = 0;
+        //数据-------
+        //索引
+        self.selectedIndex = kDefaultSelectedIndex;
+        self.itemNum = kInitNum;
+        self.selectedIndex = kInitNum;
     }
     
     return self;
@@ -46,16 +46,19 @@
  |  方法
  |
  -----------------------------------------------------------------------------*/
-- (void)setImgList:(NSArray *)normalImgList
-   selectedImgList:(NSArray *)selectedImgList
-         titleList:(NSArray *)titleList {
+- (void)setImgList:(NSArray *)normalImgList selectedImgList:(NSArray *)selectedImgList titleList:(NSArray *)titleList {
     //容错
     if (normalImgList.count != selectedImgList.count || selectedImgList.count != titleList.count) {
         return;
     }
     
     //itemNum
+    if (self.itemNum != kInitNum && self.itemNum != normalImgList.count) {
+        return;
+    }
     self.itemNum = normalImgList.count;
+    
+    //array
     self.arrayOfBtn = [[NSMutableArray alloc] init];
     self.arrayOfNormalImg = [[NSMutableArray alloc] init];
     self.arrayOfSelectedImg = [[NSMutableArray alloc] init];
@@ -95,7 +98,30 @@
     }
     
     //设置索引
-    [self setIndex:0];
+    [self setIndex:kDefaultSelectedIndex];
+}
+
+- (void)setContentPanel:(NSArray *)tabBarContentPanelList {
+    //itemNum
+    if (self.itemNum != kInitNum && self.itemNum != tabBarContentPanelList.count) {
+        return;
+    }
+    self.itemNum = tabBarContentPanelList.count;
+    
+    //check TabBarContentPanel class
+    for (id content in tabBarContentPanelList) {
+        if (![content isKindOfClass:NSClassFromString(@"TabBarContentPanel")]) {
+            return;
+        }
+    }
+    
+    self.arrayOfTabBarContent = [[NSMutableArray alloc] init];
+    for (TabBarContentPanel *tabBarContent in tabBarContentPanelList) {
+        [self.arrayOfTabBarContent addObject:tabBarContent];
+    }
+    
+    //设置索引
+    [self setIndex:kDefaultSelectedIndex];
 }
 
 
@@ -115,29 +141,39 @@
     
     //设置索引
     [self setIndex:index];
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(tabBarBottomPanelClicked:index:)]) {
-        [self.delegate tabBarBottomPanelClicked:self index:btn.tag];
-    }
 }
 
 - (void)setIndex:(NSInteger)index {
-    //设置默认索引
-    self.selectedIndex = index;
-    
-    //设置默认
-    for (NSInteger i = 0; i < self.itemNum; i++) {
-        UIButton *btn = [self.arrayOfBtn objectAtIndex:i];
-        NSString *normalImg = [self.arrayOfNormalImg objectAtIndex:i];
+    if (self.arrayOfBtn.count > 0) {
+        //设置默认
+        for (NSInteger i = 0; i < self.itemNum; i++) {
+            UIButton *btn = [self.arrayOfBtn objectAtIndex:i];
+            NSString *normalImg = [self.arrayOfNormalImg objectAtIndex:i];
+            
+            [btn setTitleColor:[UIColor colorWithHexStr:@"#cccccc"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:normalImg] forState:UIControlStateNormal];
+        }
         
-        [btn setTitleColor:[UIColor colorWithHexStr:@"#cccccc"] forState:UIControlStateNormal];
-        [btn setImage:[UIImage imageNamed:normalImg] forState:UIControlStateNormal];
+        //设置高亮
+        UIButton *btn = [self.arrayOfBtn objectAtIndex:index];
+        [btn setTitleColor:[UIColor colorWithHexStr:kGeneralColor] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:[self.arrayOfSelectedImg objectAtIndex:index]] forState:UIControlStateNormal];
     }
     
-    //设置高亮
-    UIButton *btn = [self.arrayOfBtn objectAtIndex:index];
-    [btn setTitleColor:[UIColor colorWithHexStr:kGeneralColor] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:[self.arrayOfSelectedImg objectAtIndex:index]] forState:UIControlStateNormal];
+    if (self.arrayOfTabBarContent.count > 0) {
+        TabBarContentPanel *tabBarContent = [self.arrayOfTabBarContent objectAtIndex:self.selectedIndex];
+        [tabBarContent onWillHide];
+        tabBarContent.hidden = YES;
+        
+        tabBarContent = [self.arrayOfTabBarContent objectAtIndex:index];
+        [self.nrVc.contentPanel addSubview:tabBarContent];
+        [self.nrVc.contentPanel setNeedsLayout];
+        [tabBarContent onWillShow];
+        tabBarContent.hidden = NO;
+    }
+    
+    //设置默认索引
+    self.selectedIndex = index;
 }
 
 

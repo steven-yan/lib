@@ -6,6 +6,10 @@
 
 @implementation UIView (Layout)
 
+-(void)setTestColor {
+    self.backgroundColor = [UIColor redColor];
+}
+
 -(void)setStyleForSection{
     self.backgroundColor = [UIColor whiteColor];
     self.layer.borderColor = [UIColor lightGrayColor].CGColor;

@@ -1,14 +1,14 @@
 /**
  *
- *  SignInVc
+ *  ForgetPwdVc
  *  @author steven
  *  @date Sep 27 2014
  *
  **/
 
-#import "SignInVc.h"
+#import "ForgetPwdVc.h"
 
-@implementation SignInVc
+@implementation ForgetPwdVc
 static int kLeftMargin = 15;
 
 
@@ -23,7 +23,7 @@ static int kLeftMargin = 15;
 - (void)onCreate {
     //顶部面板-----------
     //标题栏
-    [self changeTopTitle:@"登录"];
+    [self changeTopTitle:@"忘记密码"];
     //隐藏左侧按键
     [self hideTopRightBtn];
     
@@ -66,22 +66,31 @@ static int kLeftMargin = 15;
     line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
     [self.contentPanel addSubview:line];
     
-    //注册
+    //确认密码----------
+    //tf
+    tf = [[UITextField alloc] initWithFrame:CGRectMake(kLeftMargin, line.bottom + 10, tf.width, 20)];
+    tf.delegate = self;
+    tf.clearButtonMode = UITextFieldViewModeWhileEditing;
+    tf.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    tf.returnKeyType = UIReturnKeySend;
+    tf.font = [UIFont systemFontOfSize:18];
+    tf.secureTextEntry = YES;
+    tf.placeholder = @"确认密码";
+    [tf setValue:[UIColor colorWithHexStr:@"#b3b3b3"] forKeyPath:@"_placeholderLabel.textColor"];
+    [tf setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
+    [self.contentPanel addSubview:tf];
+    self.ctrlTfCmfPasswd = tf;
+    //分隔线
+    line = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, tf.bottom + 10, tf.width, 1)];
+    line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
+    [self.contentPanel addSubview:line];
+
+    //重置密码
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, line.bottom + 25, self.contentPanel.width - 20, 40)];
-    [btn setTitle:@"登录" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(signUpBtnClicked:)];
+    [btn setTitle:@"重置密码" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(resetPwdBtnClicked:)];
     btn.layer.cornerRadius = 6;
     btn.backgroundColor = self.topPanel.backgroundColor;
-    [self.contentPanel addSubview:btn];
-    
-    //忘记密码
-    btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
-    [btn addTarget:self action:@selector(forgetPwdBtn:)];
-    btn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [btn setTitle:@"忘记密码?"];
-    [btn setTitleColor:[UIColor colorWithHexStr:@"#b3b3b3"]];
-    btn.top = 165;
-    btn.right = self.contentPanel.width - 8;
     [self.contentPanel addSubview:btn];
     
     //底部面板-----------
@@ -133,7 +142,10 @@ static int kLeftMargin = 15;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.ctrlTfAcc) {
         [self.ctrlTfPasswd becomeFirstResponder];
-    } else if (textField == self.ctrlTfPasswd) {
+    } else if (textField == self.ctrlTfPasswd){
+        [self.ctrlTfCmfPasswd becomeFirstResponder];
+    } else {
+    
     }
     
     return YES;
@@ -182,8 +194,8 @@ static int kLeftMargin = 15;
     return YES;
 }
 
-- (void)forgetPwdBtn:(UIButton *)btn {
-    [self navTo:@"ForgetPwdVc"];
+- (void)resetPwdBtnClicked:(UIButton *)btn {
+    [self navTo:@""];
 }
 
 //hide

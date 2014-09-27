@@ -6,6 +6,8 @@
 
 @interface UIView (Layout)
 
+-(void)setTestColor;
+
 -(void)setStyleForSection;
 
 -(void)bringToFont;

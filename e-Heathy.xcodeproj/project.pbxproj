@@ -134,6 +134,7 @@
 		16B0452D19D67ABD00F5D441 /* ic_more.png in Resources */ = {isa = PBXBuildFile; fileRef = 16B0452A19D67ABD00F5D441 /* ic_more.png */; };
 		16D8667F19D6990200D89D38 /* SignUpVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16D8667E19D6990200D89D38 /* SignUpVc.mm */; };
 		16D8668219D69E8C00D89D38 /* SignInVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16D8668119D69E8C00D89D38 /* SignInVc.mm */; };
+		16D8668519D6A68C00D89D38 /* ForgetPwdVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16D8668319D6A68C00D89D38 /* ForgetPwdVc.mm */; };
 		16E3A08B1971407500A1AB22 /* rr_rmd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16E3A08A1971407500A1AB22 /* rr_rmd@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -348,6 +349,8 @@
 		16D8667E19D6990200D89D38 /* SignUpVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SignUpVc.mm; sourceTree = "<group>"; };
 		16D8668019D69E8C00D89D38 /* SignInVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInVc.h; sourceTree = "<group>"; };
 		16D8668119D69E8C00D89D38 /* SignInVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SignInVc.mm; sourceTree = "<group>"; };
+		16D8668319D6A68C00D89D38 /* ForgetPwdVc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ForgetPwdVc.mm; sourceTree = "<group>"; };
+		16D8668419D6A68C00D89D38 /* ForgetPwdVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPwdVc.h; sourceTree = "<group>"; };
 		16E3A08A1971407500A1AB22 /* rr_rmd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rr_rmd@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -743,6 +746,8 @@
 				16468CDA19CE8DCD0095EC7D /* Ctrl */,
 				16468B6719CD62FC0095EC7D /* RootVc.h */,
 				16468B6819CD62FC0095EC7D /* RootVc.mm */,
+				16D8668419D6A68C00D89D38 /* ForgetPwdVc.h */,
+				16D8668319D6A68C00D89D38 /* ForgetPwdVc.mm */,
 				16D8668019D69E8C00D89D38 /* SignInVc.h */,
 				16D8668119D69E8C00D89D38 /* SignInVc.mm */,
 				16D8667D19D6990200D89D38 /* SignUpVc.h */,
@@ -863,6 +868,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16A486D119C9E5EF00135A5D /* ASIAuthenticationDialog.m in Sources */,
+				16D8668519D6A68C00D89D38 /* ForgetPwdVc.mm in Sources */,
 				1682D906196EC2C6008EDEE6 /* main.m in Sources */,
 				166A833D19CEBAB200860F29 /* UIImageView+WebCache.m in Sources */,
 				166A833519CEBAB200860F29 /* SDWebImageDownloaderOperation.m in Sources */,

@@ -6,6 +6,8 @@
 
 @interface UIView (Layout)
 
+-(void)setStyleForSection;
+
 -(void)bringToFont;
 -(void)sendToBack;
 

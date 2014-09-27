@@ -15,7 +15,7 @@
 //专家简介
 @property (nonatomic, strong) NSString *desp;
 
-- (id)initWithObj:(NSMutableDictionary *)obj;
+- (id)initWithObj:(NSDictionary *)obj;
 
 
 

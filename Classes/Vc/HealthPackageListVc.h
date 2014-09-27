@@ -23,6 +23,8 @@
 //分隔线
 @property (nonatomic, strong) UIView *ctrlLine;
 
+@property (nonatomic, strong) NSString *centerId;
+
 //array
 @property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 

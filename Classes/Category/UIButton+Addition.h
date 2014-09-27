@@ -17,5 +17,11 @@
 - (void)setTitleColor:(UIColor *)color;
 
 
+@end
+
+@interface UIButton (CellBtn)
+
+//cell btn
++ (UIButton *)btnCellWithTitle:(NSString *)title;
 
 @end

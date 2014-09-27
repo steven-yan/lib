@@ -5,7 +5,6 @@
  */
 
 #import "TopPanel.h"
-#import "MBProgressHUD.h"
 
 @interface BaseLayoutVc : BaseHttpVc <TopPanelDelegate>
 
@@ -13,8 +12,15 @@
 @property (nonatomic, strong) TopPanel *topPanel;
 //内容面板
 @property (nonatomic, strong) UIView *contentPanel;
-//Hud
-@property (nonatomic, strong) MBProgressHUD *ctrlHud;
+
+//提示----
+@property (nonatomic, strong) UIView *ctrlLoading;
+//指示器
+@property (nonatomic, strong) UIActivityIndicatorView *ctrlIndicator;
+
+//toast----
+@property (nonatomic, strong) UILabel *ctrlToastHint;
+@property (nonatomic, strong) UIView *ctrlToastBg;
 
 //顶部面板--------
 //显示隐藏------
@@ -31,16 +37,12 @@
 - (void)showTopRightBtn;
 - (void)changeTopRightBtnTitle:(NSString *)title;
 
-//HUD--------
-//msg------
-- (void)showHudLoading;
-- (void)showHudWithMsg:(NSString *)msg;
-- (void)dismissHud;
+//loading hint
+- (void)startLoading;
+- (void)stopLoading;
+
 //toast----
-- (void)showHudWithHint:(NSString *)hint;
-- (void)showHudWithBottomHint:(NSString *)hint;
-- (void)showHudWithHint:(NSString *)hint yoffset:(float)yoffset;
-
-
+- (void)showToast:(NSString *)text;
+- (void)hideToast:(id)ss;
 
 @end

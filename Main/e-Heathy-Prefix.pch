@@ -30,6 +30,7 @@
     #import "BaseLayoutVc.h"
     #import "BaseListVc.h"
     #import "BaseSingleListVc.h"
+    #import "BaseSectionListVc.h"
 
     #import "Global.h"
     #import "const.h"

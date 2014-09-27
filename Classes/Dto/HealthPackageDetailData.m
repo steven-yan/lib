@@ -10,7 +10,7 @@
 
 @implementation HealthPackageDetailData
 
-- (id)initWithObj:(NSMutableDictionary *)obj {
+- (id)initWithObj:(NSDictionary *)obj {
     if (self = [super init]) {
         //默认------------------------------
         //套餐名字
@@ -18,7 +18,7 @@
         //价格
         self.price = kEmptyStr;
         //描述
-        self.description = kEmptyStr;
+        self.desp = kEmptyStr;
         
         //转换------------------------------
         if (obj!=nil) {

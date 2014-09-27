@@ -10,7 +10,7 @@
 
 @implementation HealthPackageListData
 
-- (id)initWithObj:(NSMutableDictionary *)obj {
+- (id)initWithObj:(NSDictionary *)obj {
     if (self = [super init]) {
         //默认------------------------------
         //体检中心名字

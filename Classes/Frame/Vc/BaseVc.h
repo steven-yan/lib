@@ -24,9 +24,9 @@ typedef enum {
 //导航返回标识
 @property BOOL _navBackTag;
 //导航前进参数
-@property (nonatomic, strong)  NSMutableDictionary *_tmpNavToParams;
+@property (nonatomic, strong)  NSDictionary *_tmpNavToParams;
 //导航返回参数
-@property (nonatomic, strong)  NSMutableDictionary *_tmpNavBackParams;
+@property (nonatomic, strong)  NSDictionary *_tmpNavBackParams;
 
 //创建-销毁
 - (void)_onCreateBegin;
@@ -42,17 +42,17 @@ typedef enum {
 //导航--------
 - (void)navTo:(NSString *)vcKey;
 - (void)navTo:(NSString *)vcKey style:(NavStyle)style;
-- (void)navTo:(NSString *)vcKey params:(NSMutableDictionary *)params;
-- (void)navTo:(NSString *)vcKey params:(NSMutableDictionary *)params style:(NavStyle)style;
+- (void)navTo:(NSString *)vcKey params:(NSDictionary *)params;
+- (void)navTo:(NSString *)vcKey params:(NSDictionary *)params style:(NavStyle)style;
 
 - (void)navBack;
 - (void)navBackWithStyle:(NavStyle)style;
-- (void)navBackWithParams:(NSMutableDictionary *)params;
-- (void)navBackWithParams:(NSMutableDictionary *)params style:(NavStyle)style;
+- (void)navBackWithParams:(NSDictionary *)params;
+- (void)navBackWithParams:(NSDictionary *)params style:(NavStyle)style;
 - (void)navBackTo:(NSString *)vcKey;
 - (void)navBackTo:(NSString *)vcKey style:(NavStyle)style;
-- (void)navBackTo:(NSString *)vcKey params:(NSMutableDictionary *)params;
-- (void)navBackTo:(NSString *)vcKey params:(NSMutableDictionary *)params style:(NavStyle)style;
+- (void)navBackTo:(NSString *)vcKey params:(NSDictionary *)params;
+- (void)navBackTo:(NSString *)vcKey params:(NSDictionary *)params style:(NavStyle)style;
 
 
 

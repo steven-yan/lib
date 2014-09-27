@@ -5,6 +5,7 @@
  *
  **/
 #import "SysInfo.h"
+#import "UserInfoDto.h"
 
 @interface Global : NSObject
 
@@ -13,6 +14,8 @@
 
 //sysInfo
 @property (nonatomic, strong) SysInfo *sysInfo;
+//userInfo
+@property (nonatomic, strong) UserInfoDto *userInfo;
 
 
 

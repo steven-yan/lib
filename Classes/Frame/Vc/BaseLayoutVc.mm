@@ -6,7 +6,7 @@
 #import "BaseLayoutVc.h"
 
 @implementation BaseLayoutVc
-
+static int kToastFontSize = 14;
 
 
 /*------------------------------------------------------------------------------
@@ -31,12 +31,45 @@
     [self.view addSubview:cp];
     self.contentPanel = cp;
     
+    //数据加载提示------
+    //bg
+    UIView *hintBg = [[UIView alloc] initWithFrame:self.contentPanel.bounds];
+    [self.view addSubview:hintBg];
+    hintBg.hidden = YES;
+    self.ctrlLoading = hintBg;
+    //label
+    UILabel *l = [UILabel labelWithLeft:14 Top:0 Width:70 Height:20 FontSize:16];
+    l.text = @"加载中...";
+    l.textColor = [UIColor colorWithHexStr:@"#8e8e8e"];
+    l.textAlignment = NSTextAlignmentCenter;
+    l.centerX = hintBg.width / 2;
+    l.centerY = hintBg.height / 2 - 30;
+    [hintBg addSubview:l];
+    //indicator
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.centerX = hintBg.width / 2;
+    indicator.centerY = hintBg.height / 2;
+    [hintBg addSubview:indicator];
+    self.ctrlIndicator = indicator;
+    
+    //toast------
+    //bg
+    UIView *toast = [[UIView alloc] init];
+    toast.layer.cornerRadius = 5.0f;
+    toast.layer.borderWidth = 1.0f;
+    toast.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
+    toast.backgroundColor = [UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.75f];
+    [self.contentPanel addSubview:toast];
+    self.ctrlToastBg = toast;
+    //l
+    l = [UILabel labelWithLeft:0 Top:0 Width:self.contentPanel.width - 60 Height:0 FontSize:kToastFontSize];
+    l.numberOfLines = 0;
+    l.textAlignment = NSTextAlignmentCenter;
+    l.textColor = [UIColor whiteColor];
+    [toast addSubview:l];
+    self.ctrlToastHint = l;
+    
     //数据-----------
-    //其他--------
-    //hud----
-    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.contentPanel];
-    [self.contentPanel addSubview:hud];
-    self.ctrlHud = hud;
 }
 
 
@@ -106,50 +139,70 @@
 }
 
 
-
 #pragma mark -
-#pragma mark ------------------------------HUD----------------------------------
+#pragma mark ----------------------------Loading--------------------------------
 /*------------------------------------------------------------------------------
- |  HUD
+ |  Loading
  |
  -----------------------------------------------------------------------------*/
-//msg------
-- (void)showHudLoading {
-    [self showHudWithMsg:@"加载中..."];
+- (void)startLoading {
+    //隐藏
+    self.contentPanel.hidden = YES;
+    self.ctrlLoading.hidden = NO;
+    [self.ctrlIndicator startAnimating];
 }
 
-- (void)showHudWithMsg:(NSString *)msg {
-    //view正中心偏移
-    float offset = (self.view.height - self.contentPanel.height) / 2;
+- (void)stopLoading {
+    //显示
+    self.contentPanel.hidden = NO;
+    self.ctrlLoading.hidden = YES;
+    [self.ctrlIndicator stopAnimating];
+}
+
+
+
+#pragma mark -
+#pragma mark ----------------------------toast----------------------------------
+/*------------------------------------------------------------------------------
+ |  toast
+ |
+ -----------------------------------------------------------------------------*/
+//show toast
+- (void)showToast:(NSString *)text {
+    [self.ctrlToastBg bringToFont];
+    CGSize size = [self.ctrlToastHint setDynamicWithStr:text fontSize:kToastFontSize];
+    self.ctrlToastBg.width = size.width + 12;
+    self.ctrlToastBg.height = size.height + 12;
+    self.ctrlToastBg.centerX = self.contentPanel.width / 2;
+    self.ctrlToastBg.bottom = self.contentPanel.height - 60;
     
-    //防止hint已经显示
-    [self dismissHud];
-    
-    self.ctrlHud.margin = 10.f;
-	self.ctrlHud.yOffset = -offset;
-    self.ctrlHud.labelFont = [UIFont systemFontOfSize:16];
-    self.ctrlHud.labelText = msg;
-    [self.ctrlHud show:YES];
+    self.ctrlToastHint.centerX = self.ctrlToastBg.width / 2;
+    self.ctrlToastHint.centerY = self.ctrlToastBg.height / 2;
+    [self showAnimationToast];
+    [self performSelector:@selector(hideToast:) withObject:nil afterDelay:2];
 }
 
-- (void)dismissHud {
-    [self.ctrlHud hide:YES];
+//hide toast
+- (void)hideToast:(id)toast {
+    [self hideAnimationToast];
 }
 
-//toast------
-- (void)showHudWithHint:(NSString *)hint {
-//    [OMGToast showWithText:hint duration:1.0];
+- (void)showAnimationToast {
+    self.ctrlToastBg.alpha = 0;
+    [UIView beginAnimations:@"showAnimationToast" context:nil];
+    self.ctrlToastBg.alpha = 1.0f;
+    [UIView setAnimationDelay:0.3];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView commitAnimations];
 }
 
-- (void)showHudWithBottomHint:(NSString *)hint {
-//    [OMGToast showWithText:hint bottomOffset:60 duration:1.0];
+- (void)hideAnimationToast {
+    [UIView beginAnimations:@"showAnimationToast" context:nil];
+    self.ctrlToastBg.alpha = 0;
+    [UIView setAnimationDelay:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView commitAnimations];
 }
-
-- (void)showHudWithHint:(NSString *)hint yoffset:(float)yoffset {
-//    [OMGToast showWithText:hint topOffset:yoffset duration:1.0];
-}
-
-
 
 #pragma mark -
 #pragma mark ------------------------------其他----------------------------------

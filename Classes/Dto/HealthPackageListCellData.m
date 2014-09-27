@@ -23,11 +23,11 @@
         //转换------------------------------
         if (obj!=nil) {
             //套餐id
-            self.packageId = kEmptyStr;
+            self.packageId = [obj valueForKey:@"itemPackageId"];
             //套餐名字
-            self.packageName = kEmptyStr;
+            self.packageName = [obj valueForKey:@"itemPackageName"];
             //套餐价格
-            self.price = kEmptyStr;;
+            self.price = [obj valueForKey:@"price"];;
         }
         
         //测试

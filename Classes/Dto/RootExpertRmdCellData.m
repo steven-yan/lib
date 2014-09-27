@@ -10,7 +10,7 @@
 
 @implementation RootExpertRmdCellData
 
-- (id)initWithObj:(NSMutableDictionary *)obj {
+- (id)initWithObj:(NSDictionary *)obj {
     if (self = [super init]) {
         //默认------------------------------
         //图片地址

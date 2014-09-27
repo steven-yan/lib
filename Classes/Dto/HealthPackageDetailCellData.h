@@ -13,7 +13,7 @@
 //详情名字
 @property (nonatomic, strong) NSString *detail;
 
-- (id)initWithObj:(NSMutableDictionary *)obj;
+- (id)initWithObj:(NSDictionary *)obj;
 
 
 

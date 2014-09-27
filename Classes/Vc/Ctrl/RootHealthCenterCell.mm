@@ -101,7 +101,7 @@ static int kCellHeight = 80;
  |
  -----------------------------------------------------------------------------*/
 - (void)btnClicked:(UIButton *)btn {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.data.tel]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[@"tel://" stringByAppendingString:self.data.tel]]];
 }
 
 

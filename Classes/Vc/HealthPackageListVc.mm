@@ -25,7 +25,6 @@
     [self hideTopRightBtn];
     //内容面板-----------
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentPanel.width, 80)];
-//    v.backgroundColor = [];
     self.ctrlHeader = v;
     //体检中心地址
     UILabel *l = [UILabel labelWithLeft:10 Top:10 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
@@ -57,6 +56,7 @@
 
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
+    self.centerId = [params valueForKey:@"centerId"];
 }
 
 //解析导航返回
@@ -98,12 +98,37 @@
     [request setCompletionBlock:^{
         NSError *error;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[request.responseString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:&error];
-        if (![dic objectForKey:@"error"]) {
-            [self showHudWithBottomHint:[dic valueForKey:@"error"]];
+        if (![dic valueForKey:@"error"]) {
+//            [self showHudWithBottomHint:[dic valueForKey:@"error"]];
         } else {
             [self.arrayOfCellData removeAllObjects];
             
-            NSArray *arr = [dic valueForKey:@"list"];
+            NSString *peisName = [dic valueForKey:@"peisName"];
+            if ([ChkUtil isEmptyStr:peisName] == NO) {
+                [self changeTopTitle:peisName];
+            }
+            
+            //设置数据
+            NSString *addr = kEmptyStr;
+            if ([dic valueForKey:@"address"]) {
+                addr = [dic valueForKey:@"address"];
+            }
+            NSString *tel = kEmptyStr;
+            if ([dic valueForKey:@"tel"]) {
+                tel = [dic valueForKey:@"tel"];
+            }
+            NSString *fax = kEmptyStr;
+            if ([dic valueForKey:@"fax"]) {
+                fax = [dic valueForKey:@"fax"];
+            }
+            NSString *intro = kEmptyStr;
+            if ([dic valueForKey:@"introduction"]) {
+                intro = [dic valueForKey:@"introduction"];
+            }
+            //刷新
+            [self refreshWithAddr:addr phone:tel fax:fax intro:intro];
+            
+            NSArray *arr = [dic valueForKey:@"itemPackageList"];
             for (NSDictionary *dic in arr) {
                 HealthPackageListCellData *cd = [[HealthPackageListCellData alloc] initWithObj:dic];
                 [self.arrayOfCellData addObject:cd];
@@ -112,17 +137,17 @@
             //刷新
             [self.tableView reloadData];
         }
+        [self stopLoading];
     }];
     
     [request setFailedBlock:^{
+        [self stopLoading];
         NSLog(@"%@", [request responseString]);
     }];
     
+    //显示
+    [self startLoading];
     [request startAsynchronous];
-    
-    //http://180.166.93.195:8888/peiscenter.PeisCenterPRC.getPeisCenterList.submit
-    //    严玺  14:27:49
-    //http://180.166.93.195:8888/peiscenter.PeisCenterPRC.getPeisCenterDetail.submit?peisCenterId=2
 }
 
 
@@ -134,7 +159,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.arrayOfCellData.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -151,9 +176,16 @@
 
 - (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
     //容错
+    NSInteger index = indexPath.row;
     
-    HealthPackageCell *cd = (HealthPackageCell *)[cell viewWithTag:100];
-    [cd refreshWithItemData:[[HealthPackageListCellData alloc] initWithObj:nil]];
+    if (index >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    HealthPackageCell *c = (HealthPackageCell *)[cell viewWithTag:100];
+    HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:index];
+    
+    [c refreshWithItemData:cd];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -171,11 +203,10 @@
     self.ctrlPeisAddr.text = [@"地址: " stringByAppendingString:addr];
     self.ctrlPeisPhone.text = [@"电话: " stringByAppendingString:phone];
     self.ctrlPeisFax.text = [@"传真: " stringByAppendingString:fax];
-    CGSize size = [self.ctrlPeisIntro setDynamicHeightWithStr:[@"简介: " stringByAppendingString:intro]  fontSize:12];
+    CGSize size = [self.ctrlPeisIntro setDynamicWithStr:[@"简介: " stringByAppendingString:intro]  fontSize:12];
     self.ctrlHeader.height = self.ctrlPeisIntro.top + size.height + 10;
     self.ctrlLine.bottom = self.ctrlHeader.height;
     self.ctrlHeader.height = self.ctrlLine.bottom;
-    // tableView.tableHeaderView  高度不会随着ctrlHeader变化 所以要重新赋值
     self.tableView.tableHeaderView = self.ctrlHeader;
 }
 

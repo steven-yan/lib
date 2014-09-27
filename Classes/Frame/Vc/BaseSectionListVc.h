@@ -4,7 +4,7 @@
  *
  */
 
-@interface BaseSectionListVc : BaseListVc <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface BaseSectionListVc : BaseListVc <UITableViewDataSource, UITableViewDelegate>
 
 
 

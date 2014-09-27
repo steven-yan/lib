@@ -124,7 +124,7 @@
  -----------------------------------------------------------------------------*/
 - (void)refreshWithPrice:(NSString *)price detail:(NSString *)detail {
     self.ctrlPrice.text = [@"价格: " stringByAppendingString:price];
-    CGSize size = [self.ctrlDesp setDynamicHeightWithStr:[@"描述: " stringByAppendingString:detail] fontSize:12];
+    CGSize size = [self.ctrlDesp setDynamicWithStr:[@"描述: " stringByAppendingString:detail] fontSize:12];
     self.ctrlHeader.height = self.ctrlDesp.top + size.height + 10;
     self.ctrlLine.bottom = self.ctrlHeader.height;
     self.ctrlHeader.height = self.ctrlLine.bottom;

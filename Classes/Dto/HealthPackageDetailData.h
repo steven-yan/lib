@@ -15,11 +15,11 @@
 //价格
 @property (nonatomic, strong) NSString *price;
 //描述
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *desp;
 //套餐列表
 @property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 
-- (id)initWithObj:(NSMutableDictionary *)obj;
+- (id)initWithObj:(NSDictionary *)obj;
 
 
 

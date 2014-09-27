@@ -18,7 +18,7 @@
     
     //页面--------------
     //背景--------
-    self.view.backgroundColor = [UIColor colorWithHexStr:@"#f1f1f1"];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     //覆盖方法
     [self _onCreateBegin];
@@ -63,9 +63,9 @@
 }
 - (void)onCleanData {
 }
-- (void)onPraseNavToParams:(NSMutableDictionary *)params {
+- (void)onPraseNavToParams:(NSDictionary *)params {
 }
-- (void)onPraseNavBackParams:(NSMutableDictionary *)params {
+- (void)onPraseNavBackParams:(NSDictionary *)params {
 }
 - (void)onWillShow {
 }
@@ -112,10 +112,10 @@
 - (void)navTo:(NSString *)vcKey style:(NavStyle)style {
     [self navTo:vcKey params:nil style:style];
 }
-- (void)navTo:(NSString *)vcKey params:(NSMutableDictionary *)params {
+- (void)navTo:(NSString *)vcKey params:(NSDictionary *)params {
     [self navTo:vcKey params:params style:NavStyleDefault];
 }
-- (void)navTo:(NSString *)vcKey params:(NSMutableDictionary *)params style:(NavStyle)style {
+- (void)navTo:(NSString *)vcKey params:(NSDictionary *)params style:(NavStyle)style {
     BaseVc *rvc = [[NSClassFromString(vcKey) alloc] init];
     
     //设置导航标识
@@ -151,10 +151,10 @@
 - (void)navBackWithStyle:(NavStyle)style {
     [self navBackTo:nil style:style];
 }
-- (void)navBackWithParams:(NSMutableDictionary *)params {
+- (void)navBackWithParams:(NSDictionary *)params {
     [self navBackTo:nil params:params];
 }
-- (void)navBackWithParams:(NSMutableDictionary *)params style:(NavStyle)style {
+- (void)navBackWithParams:(NSDictionary *)params style:(NavStyle)style {
     [self navBackTo:nil params:params style:style];
 }
 - (void)navBackTo:(NSString *)vcKey {
@@ -163,10 +163,10 @@
 - (void)navBackTo:(NSString *)vcKey style:(NavStyle)style {
     [self navBackTo:vcKey params:nil style:style];
 }
-- (void)navBackTo:(NSString *)vcKey params:(NSMutableDictionary *)params {
+- (void)navBackTo:(NSString *)vcKey params:(NSDictionary *)params {
     [self navBackTo:vcKey params:params style:NavStyleDefault];
 }
-- (void)navBackTo:(NSString *)vcKey params:(NSMutableDictionary *)params style:(NavStyle)style {
+- (void)navBackTo:(NSString *)vcKey params:(NSDictionary *)params style:(NavStyle)style {
     BOOL flag = NO;
     BaseVc *rvc = nil;
     NSArray *a = self.navigationController.viewControllers;

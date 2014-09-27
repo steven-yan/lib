@@ -112,11 +112,11 @@
     //name
     self.ctrlName.text = name;
     //summary
-    [self.ctrlSummary setDynamicHeightWithStr:[@"简介:  " stringByAppendingString:summary] fontSize:14];
+    [self.ctrlSummary setDynamicWithStr:[@"简介:  " stringByAppendingString:summary] fontSize:14];
     //line
     self.ctrlLine.top = self.ctrlSummary.bottom + 15;
     //intro
-    [self.ctrlIntro setDynamicHeightWithStr:[@"详细介绍:  " stringByAppendingString:intro] fontSize:14];
+    [self.ctrlIntro setDynamicWithStr:[@"详细介绍:  " stringByAppendingString:intro] fontSize:14];
     self.ctrlIntro.top = self.ctrlLine.bottom + 15;
 }
 

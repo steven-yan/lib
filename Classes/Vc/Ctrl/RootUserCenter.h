@@ -12,9 +12,16 @@
 @optional
 @end
 
-@interface RootUserCenter : TabBarContentPanel
+@interface RootUserCenter : TabBarContentPanel <UITableViewDataSource, UITableViewDelegate>
 
+//tv
+@property (nonatomic, strong) UITableView *ctrlTableView;
+//state
+@property (nonatomic) EN_LOGIN_STATE_T userState;
+
+//init
 - (id)initWithVc:(BaseLayoutVc *)vc;
+
 
 
 @end

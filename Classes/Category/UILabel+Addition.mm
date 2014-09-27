@@ -27,12 +27,15 @@
                                      options:NSStringDrawingUsesLineFragmentOrigin
                                   attributes:[UIFont systemFontOfSize:fontSize].fontDescriptor.fontAttributes
                                      context:nil].size;
+        //修正尺寸
+        textSize.width += 16;
+        textSize.height += 4.2;
     }
     
     return textSize;
 }
 
-- (CGSize)setDynamicHeightWithStr:(NSString *)str fontSize:(int)fontSize {
+- (CGSize)setDynamicWithStr:(NSString *)str fontSize:(int)fontSize {
     CGSize textSize = [UILabel dynamicHeightWithStr:str width:self.width fontSize:fontSize];
     
     self.text = str;

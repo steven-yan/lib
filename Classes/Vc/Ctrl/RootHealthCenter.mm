@@ -63,7 +63,7 @@
         NSError *error;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[request.responseString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:&error];
         if (![dic objectForKey:@"error"]) {
-            [self.nrVc showHudWithBottomHint:[dic valueForKey:@"error"]];
+//            [self.nrVc showHudWithBottomHint:[dic valueForKey:@"error"]];
         } else {
             [self.arrayOfCellData removeAllObjects];
             
@@ -79,7 +79,7 @@
     }];
     
     [request setFailedBlock:^{
-        NSLog(@"%@", [request responseString]);
+        NSLog(@"获取数据失败");
     }];
     
     [request startAsynchronous];
@@ -147,7 +147,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.nrVc navTo:@"HealthPackageListVc"];
+    //容错
+    NSInteger index = indexPath.row;
+    
+    if (index >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    RootHealthCenterCellData *cd = [self.arrayOfCellData objectAtIndex:index];
+    [self.nrVc navTo:@"HealthPackageListVc" params:[NSDictionary dictionaryWithObject:cd.centerId forKey:@"centerId"]];
 }
 
 

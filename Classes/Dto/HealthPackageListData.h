@@ -29,7 +29,7 @@
 //套餐列表
 @property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 
-- (id)initWithObj:(NSMutableDictionary *)obj;
+- (id)initWithObj:(NSDictionary *)obj;
 
 
 

@@ -50,3 +50,21 @@
 
 
 @end
+
+
+@implementation UIButton (CellBtn)
+
++ (UIButton *)btnCellWithTitle:(NSString *)title {
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, Global.instance.sysInfo.fullWidth - 20, 40)];
+    //title
+    UILabel *l = [UILabel labelWithLeft:30 Top:0 Width:btn.width Height:btn.height FontSize:16];
+    l.text = title;
+    [btn addSubview:l];
+    //img
+    [btn setImage:[UIImage imageNamed:@"ic_list"] forState:UIControlStateNormal];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.width - btn.imageView.width - 20, 0, 0)];
+    
+    return btn;
+}
+
+@end

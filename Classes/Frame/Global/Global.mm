@@ -28,8 +28,10 @@
 //初始化
 -(instancetype)init {
     if (self = [super init]) {
-        //sys info
+        //sysInfo
         self.sysInfo = [SysInfo instance];
+        //userInfo
+        self.userInfo = [[UserInfoDto alloc] initWithObj:nil];
     }
     
     return self;

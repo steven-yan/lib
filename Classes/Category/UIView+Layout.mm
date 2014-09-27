@@ -6,6 +6,14 @@
 
 @implementation UIView (Layout)
 
+-(void)setStyleForSection{
+    self.backgroundColor = [UIColor whiteColor];
+    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.layer.borderWidth = 0.5;
+    self.layer.cornerRadius = 8;
+    self.clipsToBounds = YES;
+}
+
 -(void)bringToFont{
     if (self.superview!=nil) {
         [self.superview bringSubviewToFront:self];
@@ -132,7 +140,7 @@
 
 @implementation UIView (Line)
 + (instancetype)lineWithWidth:(CGFloat)width {
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 0.5)];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
     v.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
     return v;
 }

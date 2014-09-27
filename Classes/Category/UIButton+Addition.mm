@@ -55,9 +55,14 @@
 @implementation UIButton (CellBtn)
 
 + (UIButton *)btnCellWithTitle:(NSString *)title {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, Global.instance.sysInfo.fullWidth - 20, 40)];
+    return [UIButton btnCellWithTitle:title height:40];
+}
+
++ (UIButton *)btnCellWithTitle:(NSString *)title height:(CGFloat)height {
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, Global.instance.sysInfo.fullWidth - 20, height)];
     //title
     UILabel *l = [UILabel labelWithLeft:30 Top:0 Width:btn.width Height:btn.height FontSize:16];
+    l.centerY = height / 2;
     l.text = title;
     [btn addSubview:l];
     //img
@@ -66,5 +71,6 @@
     
     return btn;
 }
+
 
 @end

@@ -23,5 +23,6 @@
 
 //cell btn
 + (UIButton *)btnCellWithTitle:(NSString *)title;
++ (UIButton *)btnCellWithTitle:(NSString *)title height:(CGFloat)height;
 
 @end

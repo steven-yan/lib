@@ -144,7 +144,7 @@
 
 @implementation UIView (Line)
 + (instancetype)lineWithWidth:(CGFloat)width {
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 0.5)];
     v.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
     return v;
 }

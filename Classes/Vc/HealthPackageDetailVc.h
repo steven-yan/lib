@@ -19,6 +19,11 @@
 //分隔线
 @property (nonatomic, strong) UIView *ctrlLine;
 
+//packageId
+@property (nonatomic, strong) NSString *packageId;
+//array
+@property (nonatomic, strong) NSMutableArray *arrayOfItemGroup;
+
 
 
 @end

@@ -93,61 +93,50 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    __weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://180.166.93.195:8888/peiscenter.PeisCenterPRC.getPeisCenterDetail.submit?peisCenterId=2"]];
+    [self httpGet:[AppUtil healthUrl:@"peiscenter.PeisCenterPRC.getPeisCenterDetail.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)dic {
+    [self.arrayOfCellData removeAllObjects];
     
-    [request setCompletionBlock:^{
-        NSError *error;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[request.responseString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:&error];
-        if (![dic valueForKey:@"error"]) {
-//            [self showHudWithBottomHint:[dic valueForKey:@"error"]];
-        } else {
-            [self.arrayOfCellData removeAllObjects];
-            
-            NSString *peisName = [dic valueForKey:@"peisName"];
-            if ([ChkUtil isEmptyStr:peisName] == NO) {
-                [self changeTopTitle:peisName];
-            }
-            
-            //设置数据
-            NSString *addr = kEmptyStr;
-            if ([dic valueForKey:@"address"]) {
-                addr = [dic valueForKey:@"address"];
-            }
-            NSString *tel = kEmptyStr;
-            if ([dic valueForKey:@"tel"]) {
-                tel = [dic valueForKey:@"tel"];
-            }
-            NSString *fax = kEmptyStr;
-            if ([dic valueForKey:@"fax"]) {
-                fax = [dic valueForKey:@"fax"];
-            }
-            NSString *intro = kEmptyStr;
-            if ([dic valueForKey:@"introduction"]) {
-                intro = [dic valueForKey:@"introduction"];
-            }
-            //刷新
-            [self refreshWithAddr:addr phone:tel fax:fax intro:intro];
-            
-            NSArray *arr = [dic valueForKey:@"itemPackageList"];
-            for (NSDictionary *dic in arr) {
-                HealthPackageListCellData *cd = [[HealthPackageListCellData alloc] initWithObj:dic];
-                [self.arrayOfCellData addObject:cd];
-            }
-            
-            //刷新
-            [self.tableView reloadData];
-        }
-        [self stopLoading];
-    }];
+    NSString *peisName = [dic valueForKey:@"peisName"];
+    if ([ChkUtil isEmptyStr:peisName] == NO) {
+        [self changeTopTitle:peisName];
+    }
     
-    [request setFailedBlock:^{
-        [self stopLoading];
-        NSLog(@"%@", [request responseString]);
-    }];
+    //设置数据
+    NSString *addr = kEmptyStr;
+    if ([dic valueForKey:@"address"]) {
+        addr = [dic valueForKey:@"address"];
+    }
+    NSString *tel = kEmptyStr;
+    if ([dic valueForKey:@"tel"]) {
+        tel = [dic valueForKey:@"tel"];
+    }
+    NSString *fax = kEmptyStr;
+    if ([dic valueForKey:@"fax"]) {
+        fax = [dic valueForKey:@"fax"];
+    }
+    NSString *intro = kEmptyStr;
+    if ([dic valueForKey:@"introduction"]) {
+        intro = [dic valueForKey:@"introduction"];
+    }
+    //刷新
+    [self refreshWithAddr:addr phone:tel fax:fax intro:intro];
     
-    //显示
-    [self startLoading];
-    [request startAsynchronous];
+    NSArray *arr = [dic valueForKey:@"itemPackageList"];
+    for (NSDictionary *dic in arr) {
+        HealthPackageListCellData *cd = [[HealthPackageListCellData alloc] initWithObj:dic];
+        [self.arrayOfCellData addObject:cd];
+    }
+    
+    //刷新
+    [self.tableView reloadData];
+}
+
+//完善参数
+- (void)completeQueryParams {
+    [self.queryParams setObject:self.centerId forKey:@"peisCenterId"];
 }
 
 
@@ -163,13 +152,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [HealthPackageCell CellHeight];
+    return [HealthPackageListCell CellHeight];
 }
 
 - (void) createCell:(UITableViewCell *)cell {
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    HealthPackageCell *cd = [[HealthPackageCell alloc] initWithVc:self];
+    HealthPackageListCell *cd = [[HealthPackageListCell alloc] initWithVc:self];
     cd.tag = 100;
     [cell addSubview:cd];
 }
@@ -182,15 +171,24 @@
         return;
     }
     
-    HealthPackageCell *c = (HealthPackageCell *)[cell viewWithTag:100];
+    HealthPackageListCell *c = (HealthPackageListCell *)[cell viewWithTag:100];
     HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:index];
     
     [c refreshWithItemData:cd];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self navTo:@"HealthPackageDetailVc"];
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    [self navTo:@"HealthPackageDetailVc" params:[NSDictionary dictionaryWithObject:cd.packageId forKey:@"packageId"]];
 }
+
 
 
 #pragma mark -

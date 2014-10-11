@@ -16,8 +16,11 @@ enum {
     kBtnUpdateTag,
     kBtnDeclareTag,
     kBtnCounselInfoTag,
+    kBtnFillUserInfoTag,
     kBtnChkUpdateTag,
     kBtnUserImgTag,
+    kBtnMkOrderTag,
+    kBtnHealthReportTag,
 };
 
 
@@ -51,7 +54,7 @@ enum {
 - (void)onWillShow {
     [self.nrVc changeTopTitle:@"个人中心"];
     //登录状态
-    self.userState = LOGIN_STATE_AUTH;//Global.instance.userInfo.userState;
+    self.userState = Global.instance.userInfo.userState;
     //刷新
     [self.ctrlTableView reloadData];
 }
@@ -159,10 +162,10 @@ enum {
             line.bottom = btn.height;
             [btn addSubview:line];
             
-            //检查更新----
-            btn = [UIButton btnCellWithTitle:@"完善个人信息"];
+            //完善信息----
+            btn = [UIButton btnCellWithTitle:@"完善信息"];
             [btn addTarget:self action:@selector(btnClicked:)];
-            btn.tag = kBtnChkUpdateTag;
+            btn.tag = kBtnFillUserInfoTag;
             btn.top = btn.height;
             [bg addSubview:btn];
         } else {
@@ -188,9 +191,9 @@ enum {
             [btn addSubview:line];
             
             //预约----
-            btn = [UIButton btnCellWithTitle:@"预约"];
+            btn = [UIButton btnCellWithTitle:@"历史预约"];
             [btn addTarget:self action:@selector(btnClicked:)];
-            btn.tag = kBtnCounselInfoTag;
+            btn.tag = kBtnMkOrderTag;
             btn.top = btn.height;
             [bg addSubview:btn];
             //分隔线----
@@ -201,7 +204,7 @@ enum {
             //体检报告----
             btn = [UIButton btnCellWithTitle:@"体检报告"];
             [btn addTarget:self action:@selector(btnClicked:)];
-            btn.tag = kBtnCounselInfoTag;
+            btn.tag = kBtnHealthReportTag;
             btn.top = btn.height * 2;
             [bg addSubview:btn];
             
@@ -294,9 +297,18 @@ enum {
         case kBtnDeclareTag:
             break;
         case kBtnCounselInfoTag:
+            [self.nrVc navTo:@"CounselInfoListVc"];
             break;
         case kBtnChkUpdateTag:
             break;
+        case kBtnMkOrderTag:
+            [self.nrVc navTo:@"ReservationListVc"];
+            break;
+        case kBtnHealthReportTag:
+            [self.nrVc navTo:@"HealthReportListVc"];
+            break;
+        case  kBtnFillUserInfoTag:
+            [self.nrVc navTo:@"FillUserInfoVc"];
             
         default:
             break;

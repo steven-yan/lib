@@ -91,7 +91,7 @@
     [self onDidHide];
     [super viewDidDisappear:animated];
 }
-- (void)onDidHide {
+- (void)onDidHide{
     //清空标记
     self._navToTag = NO;
     self._navBackTag = NO;

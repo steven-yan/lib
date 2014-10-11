@@ -21,8 +21,15 @@
     #import "UIButton+Addition.h"
     #import "UILabel+Addition.h"
 
+    //3rdParty
+    #import "ASIFormDataRequest.h"
+    #import "UIImageView+WebCache.h"
+
     //Utility
     #import "ChkUtil.h"
+    #import "StringUtil.h"
+    #import "HttpUtil.h"
+    #import "AppUtil.h"
 
     //vc
     #import "BaseVc.h"
@@ -31,10 +38,11 @@
     #import "BaseListVc.h"
     #import "BaseSingleListVc.h"
     #import "BaseSectionListVc.h"
+    //view
+    #import "BaseHttpView.h"
 
+    //other
     #import "Global.h"
     #import "const.h"
 
-    //3rdParty
-    #import "UIImageView+WebCache.h"
 #endif

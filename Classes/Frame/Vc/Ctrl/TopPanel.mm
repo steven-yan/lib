@@ -19,7 +19,7 @@
 -(id)init {
     if (self = [super initWithFrame:CGRectMake(0, Global.instance.sysInfo.topMarginHeight, Global.instance.sysInfo.fullWidth, Global.instance.sysInfo.topPanelHeight)]) {
         //页面
-        self.backgroundColor = [UIColor colorWithHexStr:kGeneralColor];
+        self.backgroundColor = [UIColor generalColor];
         //-
         
         //控件-------------------

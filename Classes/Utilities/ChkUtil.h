@@ -1,12 +1,10 @@
-//
-//  IDValidate.h
-//  SmartCollar
-//
-//  Created by foolbear on 14-4-10.
-//
-//
-
-#import <Foundation/Foundation.h>
+/**
+ *
+ *  RootHealthCenterCellData
+ *  @author steven.yan
+ *  @date Sep 21 2014
+ *
+ **/
 
 @interface ChkUtil : NSObject
 
@@ -16,6 +14,7 @@
 + (BOOL)isIntStr:(NSString *)str;
 + (BOOL)isDoubleStr:(NSString *)str;
 
++(BOOL)isValidateEmail:(NSString *)email;
 
 
 @end

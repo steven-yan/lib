@@ -23,11 +23,13 @@
 @property (nonatomic, strong) UILabel *ctrlGroupName;
 //详情
 @property (nonatomic, strong) UILabel *ctrlDetail;
+//line
+@property (nonatomic, strong) UIView *ctrlLine;
 
 //初始化
 - (id)initWithVc:(BaseLayoutVc *)vc;
 //高度
-+ (float)CellHeight;
++ (float)CellHeight:(NSString *)detail;
 //刷新
 - (void)refreshWithItemData:(HealthPackageDetailCellData *)d;
 

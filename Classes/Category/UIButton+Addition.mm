@@ -52,7 +52,7 @@
 @end
 
 
-@implementation UIButton (CellBtn)
+@implementation UIButton (Style)
 
 + (UIButton *)btnCellWithTitle:(NSString *)title {
     return [UIButton btnCellWithTitle:title height:40];
@@ -71,6 +71,24 @@
     
     return btn;
 }
+
+- (void)setStyleGray {
+    self.layer.borderWidth = 1.0;
+    self.layer.borderColor = [UIColor grayColor].CGColor;
+    [self setTitleColor:[UIColor grayColor]];
+    [self setNormalBtnStyle];
+}
+
+- (void)setStyleGreen {
+    self.backgroundColor =[UIColor generalColor];
+    [self setNormalBtnStyle];
+}
+
+- (void)setNormalBtnStyle {
+    self.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.layer.cornerRadius = 4;
+}
+
 
 
 @end

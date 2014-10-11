@@ -57,33 +57,28 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    __weak ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://180.166.93.195:8888/peiscenter.PeisCenterPRC.getPeisCenterList.submit"]];
-    
-    [request setCompletionBlock:^{
-        NSError *error;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[request.responseString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:&error];
-        if (![dic objectForKey:@"error"]) {
-//            [self.nrVc showHudWithBottomHint:[dic valueForKey:@"error"]];
-        } else {
-            [self.arrayOfCellData removeAllObjects];
-            
-            NSArray *arr = [dic valueForKey:@"list"];
-            for (NSDictionary *dic in arr) {
-                RootHealthCenterCellData *cd = [[RootHealthCenterCellData alloc] initWithObj:dic];
-                [self.arrayOfCellData addObject:cd];
-            }
-            
-            //刷新
-            [self.ctrlTableView reloadData];
-        }
-    }];
-    
-    [request setFailedBlock:^{
-        NSLog(@"获取数据失败");
-    }];
-    
-    [request startAsynchronous];
+    [self httpGet:[AppUtil healthUrl:@"peiscenter.PeisCenterPRC.getPeisCenterList.submit"]];
 }
+
+- (void)onHttpRequestSuccess:(NSString *)response {
+    NSError *error;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[response dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:&error];
+    if (![dic objectForKey:@"error"]) {
+    } else {
+        [self.arrayOfCellData removeAllObjects];
+        NSArray *arr = [dic valueForKey:@"list"];
+        for (NSDictionary *dic in arr) {
+            RootHealthCenterCellData *cd = [[RootHealthCenterCellData alloc] initWithObj:dic];
+            [self.arrayOfCellData addObject:cd];
+        }
+        
+        //刷新
+        [self.ctrlTableView reloadData];
+    }
+}
+
+
+
 
 
 #pragma mark -

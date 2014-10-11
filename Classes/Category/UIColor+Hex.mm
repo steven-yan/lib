@@ -6,6 +6,10 @@
 
 @implementation UIColor(Hex)
 
++(UIColor *)generalColor {
+    return [UIColor colorWithHexStr:kGeneralColor];
+}
+
 +(UIColor*)colorWithHexStr:(NSString *)hexStr {
     return [self colorWithHexStr:hexStr alpha:1.0];
 }

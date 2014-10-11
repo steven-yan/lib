@@ -19,10 +19,15 @@
 
 @end
 
-@interface UIButton (CellBtn)
+@interface UIButton (Style)
 
 //cell btn
 + (UIButton *)btnCellWithTitle:(NSString *)title;
 + (UIButton *)btnCellWithTitle:(NSString *)title height:(CGFloat)height;
+
+- (void)setStyleGray;
+- (void)setStyleGreen;
+
+
 
 @end

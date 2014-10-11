@@ -7,7 +7,7 @@
  **/
 
 #import "HealthPackageListData.h"
-#import "HealthPackageCell.h"
+#import "HealthPackageListCell.h"
 
 @interface HealthPackageListVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate>
 

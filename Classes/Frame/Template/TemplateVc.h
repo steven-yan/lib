@@ -6,7 +6,7 @@
  *
  **/
 
-@interface TemplateVc : BaseVc
+@interface TemplateVc : BaseLayoutVc
 
 
 

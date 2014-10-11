@@ -17,7 +17,7 @@ typedef enum {
     NavStyleNoEffect,
 } NavStyle;
 
-@interface BaseVc : UIViewController <TopPanelDelegate>
+@interface BaseVc : UIViewController
 
 //导航前进标识
 @property BOOL _navToTag;
@@ -32,12 +32,12 @@ typedef enum {
 - (void)_onCreateBegin;
 - (void)onCreate;
 - (void)_onCreateEnd;
-- (void)onDidHide;
 
 //显示-隐藏------
 - (void)onWillShow;
 - (void)onShow;
 - (void)onWillHide;
+- (void)onDidHide;
 
 //导航--------
 - (void)navTo:(NSString *)vcKey;

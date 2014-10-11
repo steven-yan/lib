@@ -24,14 +24,15 @@
     [self changeTopTitle:@"套餐详情"];
     [self changeTopRightBtnTitle:@"预定"];
     //内容面板-----------
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentPanel.width, 80)];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentPanel.width, 20)];
+    [self.contentPanel addSubview:v];
     self.ctrlHeader = v;
     //价格
-    UILabel *l = [UILabel labelWithLeft:10 Top:10 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    UILabel *l = [UILabel labelWithLeft:15 Top:10 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
     [v addSubview:l];
     self.ctrlPrice = l;
     //描述
-    l = [UILabel labelWithLeft:10 Top:l.bottom + 2 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l = [UILabel labelWithLeft:15 Top:l.bottom + 2 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
     l.numberOfLines = 0;
     [v addSubview:l];
     self.ctrlDesp = l;
@@ -42,10 +43,12 @@
     
     //底部面板-----------
     //其他--------------
+    self.arrayOfItemGroup = [[NSMutableArray alloc] init];
 }
 
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
+    self.packageId = [params valueForKey:@"packageId"];
 }
 
 //解析导航返回
@@ -82,7 +85,38 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self refreshWithPrice:@"188" detail:@"sdaf奇偶圣af奇偶圣af奇偶圣af奇偶圣诞节佛山的房间上撒地方"];
+    [self httpGet:[AppUtil healthUrl:@"itempackage.ItemPackagePRC.getItemPackageDetail.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    NSString *title = [obj valueForKey:@"itemPackageName"];
+    if ([ChkUtil isEmptyStr:title] == NO) {
+        [self changeTopTitle:title];
+    }
+    NSString *price = [obj valueForKey:@"price"];
+    if ([ChkUtil isEmptyStr:price]) {
+        price = kEmptyStr;
+    }
+    NSString *des = [obj valueForKey:@"description"];
+    if ([ChkUtil isEmptyStr:des]) {
+        des = kEmptyStr;
+    }
+    //刷新
+    [self refreshWithPrice:price detail:des];
+    
+    //数据
+    NSArray *arr = [obj valueForKey:@"itemGroupList"];
+    for (NSDictionary *obj in arr) {
+        HealthPackageDetailCellData *cd = [[HealthPackageDetailCellData alloc] initWithObj:obj];
+        [self.arrayOfItemGroup addObject:cd];
+    }
+    
+    //刷新
+    [self.tableView reloadData];
+}
+
+- (void)completeQueryParams {
+    [self.queryParams setValue:self.packageId forKey:@"itemPackageId"];
 }
 
 
@@ -94,11 +128,12 @@
  |
  -----------------------------------------------------------------------------*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.arrayOfItemGroup.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [HealthPackageDetailCell CellHeight];
+    HealthPackageDetailCellData *cd = [self.arrayOfItemGroup objectAtIndex:indexPath.row];
+    return [HealthPackageDetailCell CellHeight:cd.detail];
 }
 
 - (void) createCell:(UITableViewCell *)cell {
@@ -108,10 +143,16 @@
 }
 
 - (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
-    //容错
+    NSInteger row = indexPath.row;
     
-    HealthPackageDetailCell *cd = (HealthPackageDetailCell *)[cell viewWithTag:100];
-    [cd refreshWithItemData:[[HealthPackageDetailCellData alloc] initWithObj:nil]];
+    //容错
+    if (row >= self.arrayOfItemGroup.count) {
+        return;
+    }
+    
+    HealthPackageDetailCell *c = (HealthPackageDetailCell *)[cell viewWithTag:100];
+    HealthPackageDetailCellData *cd = [self.arrayOfItemGroup objectAtIndex:row];
+    [c refreshWithItemData:cd];
 }
 
 

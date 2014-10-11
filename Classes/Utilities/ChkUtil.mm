@@ -1,11 +1,10 @@
-//
-//  IDValidate.m
-//  SmartCollar
-//
-//  Created by foolbear on 14-4-10.
-//
-//
-
+/**
+ *
+ *  ChkUtil
+ *  @author steven.yan
+ *  @date Sep 21 2014
+ *
+ **/
 #import "ChkUtil.h"
 
 @implementation ChkUtil
@@ -39,6 +38,11 @@
     return NO;
 }
 
++(BOOL)isValidateEmail:(NSString *)email {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
+}
 
 
 @end

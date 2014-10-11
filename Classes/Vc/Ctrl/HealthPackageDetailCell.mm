@@ -11,6 +11,7 @@
 @implementation HealthPackageDetailCell
 static int kCellHeight = 60;
 static int kLeftMargin = 15;
+static int kWidth;
 
 
 #pragma mark -
@@ -31,16 +32,19 @@ static int kLeftMargin = 15;
         [self addSubview:name];
         self.ctrlGroupName = name;
         //详情
-        UILabel *price = [UILabel labelWithLeft:kLeftMargin Top:name.bottom Width:name.width Height:20 FontSize:14];
-        [self addSubview:price];
-        self.ctrlDetail = price;
+        UILabel *detail = [UILabel labelWithLeft:kLeftMargin Top:name.bottom Width:name.width Height:20 FontSize:14];
+        detail.numberOfLines = 0;
+        [self addSubview:detail];
+        self.ctrlDetail = detail;
         
         //分割线
         UIView *line = [UIView lineWithWidth:self.width];
         line.bottom = self.height;
         [self addSubview:line];
+        self.ctrlLine = line;
         
         //数据-------------------
+        kWidth = detail.width;
     }
     
     return self;
@@ -54,13 +58,16 @@ static int kLeftMargin = 15;
  |  方法
  |
  -----------------------------------------------------------------------------*/
-+ (float)CellHeight {
-    return kCellHeight;
++ (float)CellHeight:(NSString *)detail {
+    CGSize size = [UILabel dynamicHeightWithStr:detail width:kWidth fontSize:14];
+    return kCellHeight + size.height - 20;
 }
 
 - (void)refreshWithItemData:(HealthPackageDetailCellData *)d {
     self.ctrlGroupName.text = [@"组合: " stringByAppendingString:d.groupName];
-    self.ctrlDetail.text = [@"详情: " stringByAppendingString:d.detail];
+    [self.ctrlDetail setDynamicWithStr:d.detail fontSize:14];
+    self.ctrlLine.bottom = self.ctrlDetail.bottom + 10;
+    self.height = self.ctrlLine.bottom;
 }
 
 

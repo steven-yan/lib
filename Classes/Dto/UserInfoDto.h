@@ -19,4 +19,5 @@ typedef enum {
 - (id)initWithObj:(NSDictionary *)obj;
 
 
+
 @end

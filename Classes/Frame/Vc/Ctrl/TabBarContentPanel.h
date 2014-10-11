@@ -12,8 +12,7 @@
 @optional
 @end
 
-@interface TabBarContentPanel : UIView
-
+@interface TabBarContentPanel : BaseHttpView
 //代理
 @property (weak) NSObject<TabBarContentPanelDelegate> *delegate;
 //nrVc

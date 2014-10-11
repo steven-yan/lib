@@ -14,11 +14,13 @@ static int kToastFontSize = 14;
 |
  ------------------------------------------------------------------------------*/
 - (void)_onCreateBegin {
+    [super _onCreateBegin];
+    
     //控件--------
     //顶部面板------
     //margin view
     UIView *topMarginView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, [SysInfo instance].topMarginHeight)];
-    topMarginView.backgroundColor = [UIColor colorWithHexStr:kGeneralColor];
+    topMarginView.backgroundColor = [UIColor generalColor];
     [self.view addSubview:topMarginView];
     //top panel
     TopPanel *tp = [[TopPanel alloc] init];
@@ -27,7 +29,7 @@ static int kToastFontSize = 14;
     [self.view addSubview:tp];
     
     //内容面板------
-    UIView *cp = [[UIView alloc] initWithFrame:CGRectMake(0, self.topPanel.bottom, self.view.width, [SysInfo instance].contentHeight)];
+    UIScrollView *cp = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topPanel.bottom, self.view.width, [SysInfo instance].contentHeight)];
     [self.view addSubview:cp];
     self.contentPanel = cp;
     
@@ -203,6 +205,20 @@ static int kToastFontSize = 14;
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView commitAnimations];
 }
+
+
+
+#pragma mark -
+#pragma mark -----------------------http hint-----------------------------------
+/*------------------------------------------------------------------------------
+ |  toast
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint {
+    [self showToast:hint];
+}
+
+
 
 #pragma mark -
 #pragma mark ------------------------------其他----------------------------------

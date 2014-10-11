@@ -11,7 +11,7 @@
 //顶部面板
 @property (nonatomic, strong) TopPanel *topPanel;
 //内容面板
-@property (nonatomic, strong) UIView *contentPanel;
+@property (nonatomic, strong) UIScrollView *contentPanel;
 
 //提示----
 @property (nonatomic, strong) UIView *ctrlLoading;

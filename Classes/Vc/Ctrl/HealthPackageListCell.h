@@ -8,21 +8,24 @@
 
 #import "HealthPackageListCellData.h"
 
-@protocol HealthPackageCellDelegate <NSObject>
+@protocol HealthPackageListCellDelegate <NSObject>
 @optional
 @end
 
-@interface HealthPackageCell : UIView
+@interface HealthPackageListCell : UIView
 
 //代理
-@property (weak) NSObject<HealthPackageCellDelegate> *delegate;
+@property (weak) NSObject<HealthPackageListCellDelegate> *delegate;
 //页面
-@property (weak) BaseVc *nrVc;
+@property (weak) BaseLayoutVc *nrVc;
 
 //名字
 @property (nonatomic, strong) UILabel *ctrlName;
 //价格
 @property (nonatomic, strong) UILabel *ctrlPrice;
+
+//data
+@property (nonatomic, strong) HealthPackageListCellData *data;
 
 //初始化
 - (id)initWithVc:(BaseLayoutVc *)vc;

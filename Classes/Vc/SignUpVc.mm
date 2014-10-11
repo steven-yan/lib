@@ -211,10 +211,23 @@ static int kLeftMargin = 15;
         [self showToast:@"邮箱不能为空"];
         return NO;
     }
+    if ([ChkUtil isValidateEmail:mail] == NO) {
+        [self showToast:@"邮箱格式不正确"];
+        return NO;
+    }
     
     //检测密码-------
     if ([ChkUtil isEmptyStr:pwd]) {
         [self showToast:@"密码不能为空"];
+        return NO;
+    }
+    if (pwd.length < 6) {
+        [self showToast:@"密码长度不能小于6位"];
+        return NO;
+    }
+    
+    if ([ChkUtil isEmptyStr:cmfPwd]) {
+        [self showToast:@"确认密码不能为空"];
         return NO;
     }
     

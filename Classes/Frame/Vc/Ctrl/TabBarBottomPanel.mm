@@ -156,7 +156,7 @@ static int kInitNum = -1;
         
         //设置高亮
         UIButton *btn = [self.arrayOfBtn objectAtIndex:index];
-        [btn setTitleColor:[UIColor colorWithHexStr:kGeneralColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor generalColor] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:[self.arrayOfSelectedImg objectAtIndex:index]] forState:UIControlStateNormal];
     }
     

@@ -159,6 +159,7 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     HealthPackageListCell *cd = [[HealthPackageListCell alloc] initWithVc:self];
+    cd.delegate = self;
     cd.tag = 100;
     [cell addSubview:cd];
 }
@@ -174,7 +175,7 @@
     HealthPackageListCell *c = (HealthPackageListCell *)[cell viewWithTag:100];
     HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:index];
     
-    [c refreshWithItemData:cd];
+    [c refreshWithItemData:cd index:index];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -187,6 +188,21 @@
     
     HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
     [self navTo:@"HealthPackageDetailVc" params:[NSDictionary dictionaryWithObject:cd.packageId forKey:@"packageId"]];
+}
+
+#pragma mark -
+#pragma mark --------------------HealthPackageListCellDelegate------------------
+/*------------------------------------------------------------------------------
+ |  HealthPackageListCellDelegate
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onHealthPackageListCellClicked:(NSInteger)idx {
+    //容错
+    if (idx >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    
 }
 
 

@@ -10,6 +10,7 @@
 		1614BF79197114E9004402FA /* search_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1614BF78197114E9004402FA /* search_icon@2x.png */; };
 		1629B5DE19EA730D002D1329 /* Cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5DD19EA730D002D1329 /* Cache.mm */; };
 		1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5E319EA7645002D1329 /* TimeUtil.mm */; };
+		1629B5E719EA867E002D1329 /* ReservationListCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5E619EA867E002D1329 /* ReservationListCellData.m */; };
 		162AB3D419CED98300AEC119 /* HealthPackageListCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162AB3D319CED98300AEC119 /* HealthPackageListCellData.m */; };
 		162AB3D719CEDA9000AEC119 /* HealthPackageListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162AB3D619CEDA9000AEC119 /* HealthPackageListData.m */; };
 		16429EE5197189650035EBA4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16429EE4197189650035EBA4 /* MapKit.framework */; };
@@ -166,6 +167,8 @@
 		1629B5DD19EA730D002D1329 /* Cache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cache.mm; sourceTree = "<group>"; };
 		1629B5E219EA7645002D1329 /* TimeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUtil.h; sourceTree = "<group>"; };
 		1629B5E319EA7645002D1329 /* TimeUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeUtil.mm; sourceTree = "<group>"; };
+		1629B5E519EA867E002D1329 /* ReservationListCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationListCellData.h; sourceTree = "<group>"; };
+		1629B5E619EA867E002D1329 /* ReservationListCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationListCellData.m; sourceTree = "<group>"; };
 		162AB3D219CED98300AEC119 /* HealthPackageListCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthPackageListCellData.h; sourceTree = "<group>"; };
 		162AB3D319CED98300AEC119 /* HealthPackageListCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthPackageListCellData.m; sourceTree = "<group>"; };
 		162AB3D519CEDA9000AEC119 /* HealthPackageListData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthPackageListData.h; sourceTree = "<group>"; };
@@ -727,6 +730,8 @@
 		16A4864E19C9E5EF00135A5D /* Dto */ = {
 			isa = PBXGroup;
 			children = (
+				1629B5E519EA867E002D1329 /* ReservationListCellData.h */,
+				1629B5E619EA867E002D1329 /* ReservationListCellData.m */,
 				16A45CC219E42ABC006030F9 /* ReservationDetailData.h */,
 				16A45CC319E42ABC006030F9 /* ReservationDetailData.m */,
 				16A1DFF019D0781D00FF987F /* HealthPackageDetailCellData.h */,
@@ -1044,6 +1049,7 @@
 				166A833719CEBAB200860F29 /* SDWebImagePrefetcher.m in Sources */,
 				166A833119CEBAB200860F29 /* SDImageCache.m in Sources */,
 				16A486E419C9E5EF00135A5D /* BaseSingleListVc.mm in Sources */,
+				1629B5E719EA867E002D1329 /* ReservationListCellData.m in Sources */,
 				1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */,
 				166B432819EA2DA9005C1431 /* ExpertDetailVc.mm in Sources */,
 				16A486E019C9E5EF00135A5D /* BaseHttpVc.mm in Sources */,

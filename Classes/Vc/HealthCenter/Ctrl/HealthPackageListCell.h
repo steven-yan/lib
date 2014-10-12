@@ -9,6 +9,7 @@
 #import "HealthPackageListCellData.h"
 
 @protocol HealthPackageListCellDelegate <NSObject>
+- (void)onHealthPackageListCellClicked:(NSInteger)idx;
 @optional
 @end
 
@@ -23,6 +24,8 @@
 @property (nonatomic, strong) UILabel *ctrlName;
 //价格
 @property (nonatomic, strong) UILabel *ctrlPrice;
+//idx
+@property (nonatomic) NSInteger index;
 
 //data
 @property (nonatomic, strong) HealthPackageListCellData *data;
@@ -32,7 +35,8 @@
 //高度
 + (float)CellHeight;
 //刷新
-- (void)refreshWithItemData:(HealthPackageListCellData *)d;
+- (void)refreshWithItemData:(HealthPackageListCellData *)d index:(NSInteger)idx;
+
 
 
 @end

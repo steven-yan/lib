@@ -9,7 +9,7 @@
 #import "HealthPackageListData.h"
 #import "HealthPackageListCell.h"
 
-@interface HealthPackageListVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate>
+@interface HealthPackageListVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate, HealthPackageListCellDelegate>
 
 @property (nonatomic, strong) UIView *ctrlHeader;
 //体检中心地址

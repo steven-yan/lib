@@ -44,6 +44,7 @@
 
     //other
     #import "Global.h"
+    #import "Cache.h"
     #import "const.h"
 
 #endif

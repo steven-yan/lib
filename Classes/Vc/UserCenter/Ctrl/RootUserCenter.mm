@@ -201,8 +201,8 @@ enum {
             [bg setStyleForSection];
             [cell addSubview:bg];
             
-            //信息咨询----
-            UIButton *btn = [UIButton btnCellWithTitle:@"信息咨询"];
+            //我的咨询----
+            UIButton *btn = [UIButton btnCellWithTitle:@"我的咨询"];
             [btn addTarget:self action:@selector(btnClicked:)];
             btn.tag = kBtnCounselInfoTag;
             [bg addSubview:btn];
@@ -212,7 +212,7 @@ enum {
             [btn addSubview:line];
             
             //预约----
-            btn = [UIButton btnCellWithTitle:@"历史预约"];
+            btn = [UIButton btnCellWithTitle:@"我的预约"];
             [btn addTarget:self action:@selector(btnClicked:)];
             btn.tag = kBtnMkOrderTag;
             btn.top = btn.height;
@@ -256,6 +256,8 @@ enum {
  |
  -----------------------------------------------------------------------------*/
 - (void)confirmAlert:(UIAlertView *)alertView {
+    //清空存储
+    [Cache.instance removeWithDir:kGlobalDir key:kGlobalKeyUser];
     [Global.instance.userInfo clear];
     self.userState = Global.instance.userInfo.userState;
     [self.ctrlTableView reloadData];

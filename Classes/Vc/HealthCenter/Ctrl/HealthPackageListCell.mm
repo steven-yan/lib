@@ -66,11 +66,13 @@ static int kLeftMargin = 15;
     return kCellHeight;
 }
 
-- (void)refreshWithItemData:(HealthPackageListCellData *)d {
+- (void)refreshWithItemData:(HealthPackageListCellData *)d index:(NSInteger)idx {
     self.ctrlName.text = [@"套餐: " stringByAppendingString:d.packageName];
     self.ctrlPrice.text = [@"价格: " stringByAppendingString:d.price];
+    
     //数据
     self.data = d;
+    self.index = idx;
 }
 
 
@@ -82,9 +84,11 @@ static int kLeftMargin = 15;
  |
  -----------------------------------------------------------------------------*/
 - (void)btnClicked:(UIButton *)btn {
-//http://180.166.93.195:8888/itempackage.ItemPackagePRC.getItemPackageDetail.submit?itemPackageId=77
-//    [self.nrVc httpGet:@"itempackage.ItemPackagePRC.getItemPackageDetail.submit" params:<#(NSDictionary *)#> tag:<#(NSInteger)#>];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onHealthPackageListCellClicked:)]) {
+        [self.delegate onHealthPackageListCellClicked:self.index];
+    }
 }
+
 
 
 @end

@@ -13,6 +13,8 @@
 
 //cp
 @property (nonatomic, strong) CounselInfoPanel *ctrlCounselPanel;
+//cd
+@property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 
 
 

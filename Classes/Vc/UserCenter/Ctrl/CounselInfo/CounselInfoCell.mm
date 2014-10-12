@@ -10,7 +10,7 @@
 
 @implementation CounselInfoCell
 static int kLeftMargin = 15;
-static int kCellHeight = 40;
+static int kCellHeight = 50;
 
 
 
@@ -27,15 +27,11 @@ static int kCellHeight = 40;
         //-
         
         //控件-------------------
-        //组合名称
-        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:10 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
-        name.text = @"zizz:";
-        [self addSubview:name];
-        self.ctrlGroupName = name;
-        //详情
-        UILabel *price = [UILabel labelWithLeft:kLeftMargin Top:name.bottom Width:name.width Height:20 FontSize:14];
-        [self addSubview:price];
-        self.ctrlDetail = price;
+        //内容
+        UILabel *content = [UILabel labelWithLeft:kLeftMargin Top:0 Width:vc.contentPanel.width - 2 *kLeftMargin Height:40 FontSize:14];
+        content.numberOfLines = 2;
+        [self addSubview:content];
+        self.ctrlContent = content;
         
         //分割线
         UIView *line = [UIView lineWithWidth:self.width];
@@ -58,6 +54,11 @@ static int kCellHeight = 40;
  -----------------------------------------------------------------------------*/
 + (float)CellHeight {
     return kCellHeight;
+}
+
+- (void)refreshWithContent:(NSString *)content msgId:(NSString *)msgId {
+    self.msgId = msgId;
+    self.ctrlContent.text = [@"内容:" stringByAppendingString:content];
 }
 
 

@@ -6,6 +6,8 @@
  *
  **/
 
+#import "ReservationListCellData.h"
+
 @protocol ReservationListCellDelegate <NSObject>
 @optional
 @end
@@ -17,6 +19,8 @@
 //页面
 @property (weak) BaseVc *nrVc;
 
+//体检号
+@property (nonatomic, strong) UILabel *ctrlPeMasterId;
 //套餐名称
 @property (nonatomic, strong) UILabel *ctrlPackageName;
 //体检中心名称
@@ -32,7 +36,7 @@
 //高度
 + (float)CellHeight;
 //刷新
-- (void)refreshWithPackageName:(NSString *)packageName peisName:(NSString *)peisName status:(NSString *)status date:(NSString *)date;
+- (void)refreshWithCellData:(ReservationListCellData *)d;
 
 
 

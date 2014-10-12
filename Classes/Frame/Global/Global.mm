@@ -31,7 +31,8 @@
         //sysInfo
         self.sysInfo = [SysInfo instance];
         //userInfo
-        self.userInfo = [[UserInfoDto alloc] initWithObj:nil];
+        NSDictionary *obj = [Cache.instance readDicWithDir:kGlobalDir key:kGlobalKeyUser];
+        self.userInfo = [[UserInfoDto alloc] initWithObj:obj];
     }
     
     return self;

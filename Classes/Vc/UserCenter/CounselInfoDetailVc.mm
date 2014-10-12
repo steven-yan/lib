@@ -61,6 +61,26 @@
 
 
 #pragma mark -
+#pragma mark --------------------------获取和提交数据-----------------------------
+/*------------------------------------------------------------------------------
+ |  获取和提交数据
+ |
+ -----------------------------------------------------------------------------*/
+- (void)loadData {
+    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+}
+
+//完善参数
+- (void)completeQueryParams {
+    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+}
+
+
+
+#pragma mark -
 #pragma mark -------------------------------其他---------------------------------
 /*------------------------------------------------------------------------------
  |  其他

@@ -31,6 +31,8 @@
     self.ctrlCounselPanel = ci;
     
     //底部面板-----------
+    //数据--------------
+    self.arrayOfCellData = [[NSMutableArray alloc] init];
     //其他--------------
 }
 
@@ -79,14 +81,15 @@
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-    UserInfoDto *user = [[UserInfoDto alloc] initWithObj:obj];
-    Global.instance.userInfo = user;
-    [self navBackWithParams:[NSDictionary dictionaryWithObject:@"SignInVc" forKey:@"fromPage"]];
+    [self.arrayOfCellData removeAllObjects];
+    NSArray *list = [obj valueForKey:@"list"];
+    [self.arrayOfCellData addObjectsFromArray:list];
+    
+    [self.tableView reloadData];
 }
 
 //完善参数
 - (void)completeQueryParams {
-// http://180.166.93.195:8888/userlogin.UserLoginPRC.getInquiryList.submit?userLoginId=405786
     [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
 }
 
@@ -99,7 +102,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.arrayOfCellData.count;
 }
 
 - (void) createCell:(UITableViewCell *)cell {
@@ -109,7 +112,16 @@
 }
 
 - (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
-//    CounselInfoCell *c = [cell viewWithTag:100];
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    CounselInfoCell *c = (CounselInfoCell *)[cell viewWithTag:100];
+    NSDictionary *dic = [self.arrayOfCellData objectAtIndex:row];
+    [c refreshWithContent:[dic valueForKey:@"content"] msgId:[dic valueForKey:@"messageId"]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

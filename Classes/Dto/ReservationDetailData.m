@@ -20,42 +20,47 @@
  -----------------------------------------------------------------------------*/
 - (id)initWithObj:(NSDictionary *)obj {
     if (self = [super init]) {
-        //默认------------------------------
-        //体检中心名称
-        self.peisName = kEmptyStr;
-        //地址
-        self.addr = kEmptyStr;
-        //电话
-        self.phone = kEmptyStr;
-        //套餐名称
-        self.packageName = kEmptyStr;
-        //套餐详情
-        self.packageDetail = kEmptyStr;
-        //预约时间
-        self.date = kEmptyStr;
-        //预约状态
-        self.status = kEmptyStr;
-        
         //转换------------------------------
         if (obj!=nil) {
-//            //体检中心名称
-//            self.peisName = kEmptyStr;
-//            //地址
-//            self.addr = kEmptyStr;
-//            //电话
-//            self.phone = kEmptyStr;
-//            //套餐名称
-//            self.packageName = kEmptyStr;
-//            //套餐详情
-//            self.packageDetail = kEmptyStr;
-//            //预约时间
-//            self.date = kEmptyStr;
-//            //预约状态
-//            self.status = kEmptyStr;
+            //体检号
+            self.peMasterId = [obj valueForKey:@"peMasterId"];
+            //体检中心名称
+            self.peisName = [obj valueForKey:@"peisName"];
+            //地址
+            self.address = [obj valueForKey:@"address"];
+            //电话
+            self.tel = [obj valueForKey:@"tel"];
+            //套餐名称
+            self.packageName = [obj valueForKey:@"packageName"];
+            //套餐详情
+            self.packageDetail = [obj valueForKey:@"packageDetail"];
+            //预约时间
+            self.peDate = [obj valueForKey:@"peDate"];
+            //预约状态
+            self.statusText = [obj valueForKey:@"statusText"];
+            //预约状态代码
+            self.status = [obj valueForKey:@"status"];
         }
         
-        //test
-        [self unitTest];
+        //容错------------------------------
+        //体检号
+        self.peMasterId = [ChkUtil handleNil:self.peMasterId];
+        //体检中心名称
+        self.peisName = [ChkUtil handleNil:self.peisName];
+        //地址
+        self.address = [ChkUtil handleNil:self.address];
+        //电话
+        self.tel = [ChkUtil handleNil:self.tel];
+        //套餐名称
+        self.packageName = [ChkUtil handleNil:self.packageName];
+        //套餐详情
+        self.packageDetail = [ChkUtil handleNil:self.packageDetail];
+        //预约时间
+        self.peDate = [ChkUtil handleNil:self.peDate];
+        //预约状态
+        self.statusText = [ChkUtil handleNil:self.statusText];
+        //预约状态代码
+        self.status = [ChkUtil handleNil:self.status];
     }
     
 	return self;
@@ -78,22 +83,6 @@
  |  其他
  |
  -----------------------------------------------------------------------------*/
-- (void)unitTest {
-    //体检中心名称
-    self.peisName = @"体检中心名称";
-    //地址
-    self.addr = @"地址";
-    //电话
-    self.phone = @"电话";
-    //套餐名称
-    self.packageName = @"套餐名称";
-    //套餐详情
-    self.packageDetail = @"套餐详情";
-    //预约时间
-    self.date = @"2014 08-26";
-    //预约状态
-    self.status = @"预约状态";
-}
 
 
 

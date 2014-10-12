@@ -17,15 +17,18 @@
 //页面
 @property (weak) BaseVc *nrVc;
 
-//组合名称
-@property (nonatomic, strong) UILabel *ctrlGroupName;
-//详情
-@property (nonatomic, strong) UILabel *ctrlDetail;
+//内容
+@property (nonatomic, strong) UILabel *ctrlContent;
+
+//msgId
+@property (nonatomic, strong) NSString *msgId;
 
 //初始化
 - (id)initWithVc:(BaseLayoutVc *)vc;
 //高度
 + (float)CellHeight;
+//refresh
+- (void)refreshWithContent:(NSString *)content msgId:(NSString *)msgId;
 
 
 

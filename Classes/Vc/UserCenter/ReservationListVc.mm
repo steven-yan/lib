@@ -26,6 +26,8 @@
     
     //内容面板-----------
     //底部面板-----------
+    //数据--------------
+    self.arrayOfCellData = [[NSMutableArray alloc] init];
     //其他--------------
 }
 
@@ -39,6 +41,7 @@
 
 //窗体将要显示------
 - (void)onWillShow {
+    [self loadData];
 }
 
 //窗体显示
@@ -66,7 +69,23 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    //            myReservationList.jsp
+    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    [self.arrayOfCellData removeAllObjects];
+    NSArray *list = [obj valueForKey:@"list"];
+    for (NSDictionary *dic in list) {
+        ReservationListCellData *cd = [[ReservationListCellData alloc] initWithObj:dic];
+        [self.arrayOfCellData addObject:cd];
+    }
+    
+    [self.tableView reloadData];
+}
+
+//完善参数
+- (void)completeQueryParams {
+    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
 }
 
 
@@ -82,7 +101,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.arrayOfCellData.count;
 }
 
 - (void) createCell:(UITableViewCell *)cell {
@@ -92,13 +111,29 @@
 }
 
 - (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
     ReservationListCell *c = (ReservationListCell *)[cell viewWithTag:100];
-    [c refreshWithPackageName:@"PackageName" peisName:@"peisName" status:@"已出报告" date:@"2014-08-09"];
+    ReservationListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    [c refreshWithCellData:cd];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    
     //容错
-    [self navTo:@"ReservationDetailVc"];
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    ReservationListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    
+    [self navTo:@"ReservationDetailVc" params:[NSDictionary dictionaryWithObject:cd.peMasterId forKey:@"peMasterId"]];
 }
 
 

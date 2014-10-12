@@ -9,6 +9,8 @@
 
 @interface ReservationDetailVc : BaseLayoutVc
 
+//体检号
+@property (nonatomic, strong) UILabel *ctrlPeMasterId;
 //体检中心名称
 @property (nonatomic, strong) UILabel *ctrlPeisName;
 //地址
@@ -27,6 +29,9 @@
 //pick
 @property (nonatomic, strong) UIView *ctrlPickBg;
 @property (nonatomic, strong) UIDatePicker *ctrlDatePicker;
+
+//id
+@property (nonatomic,strong) NSString *peMasterId;
 
 
 @end

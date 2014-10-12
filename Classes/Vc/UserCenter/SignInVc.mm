@@ -66,7 +66,7 @@ static int kLeftMargin = 15;
     line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
     [self.contentPanel addSubview:line];
     
-    //注册
+    //登录
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, line.bottom + 25, self.contentPanel.width - 20, 40)];
     [btn setTitle:@"登录" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(signInBtnClicked:)];
@@ -142,8 +142,14 @@ static int kLeftMargin = 15;
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-    UserInfoDto *user = [[UserInfoDto alloc] initWithObj:obj];
+    //TODO:
+    NSMutableDictionary *dic = [obj mutableCopy];
+    [dic setValue:@"37" forKey:@"userLoginId"];
+    [Cache.instance storeWithDir:kGlobalDir key:kGlobalKeyUser dic:dic];
+    //存储用户信息
+    UserInfoDto *user = [[UserInfoDto alloc] initWithObj:dic];
     Global.instance.userInfo = user;
+    
     [self navBackWithParams:[NSDictionary dictionaryWithObject:@"SignInVc" forKey:@"fromPage"]];
 }
 

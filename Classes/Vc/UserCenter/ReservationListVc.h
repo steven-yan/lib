@@ -9,6 +9,8 @@
 
 @interface ReservationListVc : BaseSingleListVc
 
+//cd
+@property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 
 
 @end

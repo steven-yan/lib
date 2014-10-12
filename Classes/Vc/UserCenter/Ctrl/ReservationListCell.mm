@@ -9,7 +9,7 @@
 #import "ReservationListCell.h"
 
 @implementation ReservationListCell
-static int kCellHeight = 100;
+static int kCellHeight = 120;
 static int kLeftMargin = 20;
 
 
@@ -27,8 +27,12 @@ static int kLeftMargin = 20;
         //-
         
         //控件-------------------
+        //体检号
+        UILabel *peId = [UILabel labelWithLeft:kLeftMargin Top:12 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        [self addSubview:peId];
+        self.ctrlPeMasterId = peId;
         //套餐名称
-        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:12 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:peId.bottom+2 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
         [self addSubview:name];
         self.ctrlPackageName = name;
         //体检中心名称
@@ -69,15 +73,17 @@ static int kLeftMargin = 20;
     return kCellHeight;
 }
 
-- (void)refreshWithPackageName:(NSString *)packageName peisName:(NSString *)peisName status:(NSString *)status date:(NSString *)date {
+- (void)refreshWithCellData:(ReservationListCellData *)d {
+    //peId
+    self.ctrlPeMasterId.text = [@"体检号:  " stringByAppendingString:d.peMasterId];
     //package
-    self.ctrlPackageName.text = [@"套餐:  " stringByAppendingString:packageName];
+    self.ctrlPackageName.text = [@"套餐:  " stringByAppendingString:d.packageName];
     //peisname
-    self.ctrlPeisName.text = [@"体检中心:  " stringByAppendingString:peisName];
+    self.ctrlPeisName.text = [@"体检中心:  " stringByAppendingString:d.peisName];
     //status
-    self.ctrlStatus.text = [@"预约状态:  " stringByAppendingString:status];
+    self.ctrlStatus.text = [@"预约状态:  " stringByAppendingString:d.statusText];
     //预约状态和预约时间
-    self.ctrlDate.text = [@"预约日期:  " stringByAppendingString:date];
+    self.ctrlDate.text = [@"预约日期:  " stringByAppendingString:d.peDate];
 }
 
 

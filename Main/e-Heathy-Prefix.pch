@@ -29,6 +29,7 @@
     #import "ChkUtil.h"
     #import "StringUtil.h"
     #import "HttpUtil.h"
+    #import "TimeUtil.h"
     #import "AppUtil.h"
 
     //vc

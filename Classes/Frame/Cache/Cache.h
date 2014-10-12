@@ -5,20 +5,25 @@
  *
  */
 
-//#import "FMDB.h"
-//#import "DateTimeUtil.h"
-//#import "ChkUtil.h"
+#import "FMDB.h"
+#import "ChkUtil.h"
 
 @interface Cache : NSObject
-//
-////db
-//@property (nonatomic, strong) FMDatabase *db;
-//
-//
-//+ (instancetype)instance;
-//
-//- (void)storeWithUserJid:(NSString *)user_jid devJid:(NSString *)dev_jid value:(NSString *)value pushTimeStamp:(NSString *)push_time_stamp;
-//- (NSArray *)readWithUserJid:(NSString *)user_jid offset:(int)offset number:(int)number;
+
+//db
+@property (nonatomic, strong) FMDatabase *db;
+
++ (instancetype)instance;
+
+//generaltb
+- (void)storeWithDir:(NSString *)cdir key:(NSString *)ckey dic:(NSDictionary *)dic;
+- (void)storeWithDir:(NSString *)cdir key:(NSString *)ckey list:(NSArray *)list;
+- (void)storeWithDir:(NSString *)cdir key:(NSString *)ckey value:(NSString *)cvalue;
+- (void)storeWithDir:(NSString *)cdir key:(NSString *)ckey value:(NSString *)cvalue forceTag:(BOOL)fTag;
+- (NSDictionary *)readDicWithDir:(NSString *)cdir key:(NSString *)ckey;
+- (NSArray *)readListWithDir:(NSString *)cdir key:(NSString *)ckey;
+- (NSString *)readWithDir:(NSString *)cdir key:(NSString *)ckey;
+- (BOOL)removeWithDir:(NSString *)cdir key:(NSString *)ckey;
 
 
 

@@ -15,6 +15,8 @@ typedef enum {
 
 @property (nonatomic) EN_LOGIN_STATE_T userState;
 
+//userLoginId
+@property (nonatomic, strong) NSString *userLoginId;
 //userName
 @property (nonatomic, strong) NSString *userName;
 //mobile

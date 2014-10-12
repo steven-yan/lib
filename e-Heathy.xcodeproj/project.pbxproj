@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1614BF79197114E9004402FA /* search_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1614BF78197114E9004402FA /* search_icon@2x.png */; };
+		1629B5DE19EA730D002D1329 /* Cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5DD19EA730D002D1329 /* Cache.mm */; };
+		1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5E319EA7645002D1329 /* TimeUtil.mm */; };
 		162AB3D419CED98300AEC119 /* HealthPackageListCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162AB3D319CED98300AEC119 /* HealthPackageListCellData.m */; };
 		162AB3D719CEDA9000AEC119 /* HealthPackageListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162AB3D619CEDA9000AEC119 /* HealthPackageListData.m */; };
 		16429EE5197189650035EBA4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16429EE4197189650035EBA4 /* MapKit.framework */; };
@@ -105,7 +107,6 @@
 		16A486C619C9E5EF00135A5D /* UIImage+Addition.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A4864B19C9E5EF00135A5D /* UIImage+Addition.mm */; };
 		16A486C719C9E5EF00135A5D /* UIView+Layout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A4864D19C9E5EF00135A5D /* UIView+Layout.mm */; };
 		16A486C819C9E5EF00135A5D /* UserInfoDto.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A4865019C9E5EF00135A5D /* UserInfoDto.m */; };
-		16A486C919C9E5EF00135A5D /* Cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A4865419C9E5EF00135A5D /* Cache.mm */; };
 		16A486CA19C9E5EF00135A5D /* const.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A4865619C9E5EF00135A5D /* const.mm */; };
 		16A486CE19C9E5EF00135A5D /* Global.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A4866019C9E5EF00135A5D /* Global.mm */; };
 		16A486CF19C9E5EF00135A5D /* SysInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16A4866219C9E5EF00135A5D /* SysInfo.mm */; };
@@ -161,6 +162,10 @@
 
 /* Begin PBXFileReference section */
 		1614BF78197114E9004402FA /* search_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_icon@2x.png"; sourceTree = "<group>"; };
+		1629B5DC19EA730D002D1329 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
+		1629B5DD19EA730D002D1329 /* Cache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cache.mm; sourceTree = "<group>"; };
+		1629B5E219EA7645002D1329 /* TimeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUtil.h; sourceTree = "<group>"; };
+		1629B5E319EA7645002D1329 /* TimeUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeUtil.mm; sourceTree = "<group>"; };
 		162AB3D219CED98300AEC119 /* HealthPackageListCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthPackageListCellData.h; sourceTree = "<group>"; };
 		162AB3D319CED98300AEC119 /* HealthPackageListCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthPackageListCellData.m; sourceTree = "<group>"; };
 		162AB3D519CEDA9000AEC119 /* HealthPackageListData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthPackageListData.h; sourceTree = "<group>"; };
@@ -322,8 +327,6 @@
 		16A4864D19C9E5EF00135A5D /* UIView+Layout.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIView+Layout.mm"; sourceTree = "<group>"; };
 		16A4864F19C9E5EF00135A5D /* UserInfoDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoDto.h; sourceTree = "<group>"; };
 		16A4865019C9E5EF00135A5D /* UserInfoDto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoDto.m; sourceTree = "<group>"; };
-		16A4865319C9E5EF00135A5D /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
-		16A4865419C9E5EF00135A5D /* Cache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cache.mm; sourceTree = "<group>"; };
 		16A4865519C9E5EF00135A5D /* const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = const.h; sourceTree = "<group>"; };
 		16A4865619C9E5EF00135A5D /* const.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = const.mm; sourceTree = "<group>"; };
 		16A4865F19C9E5EF00135A5D /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -435,6 +438,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1629B5DB19EA730D002D1329 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				1629B5DC19EA730D002D1329 /* Cache.h */,
+				1629B5DD19EA730D002D1329 /* Cache.mm */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		166A830D19CEBAB200860F29 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,23 +751,14 @@
 			isa = PBXGroup;
 			children = (
 				16A4868D19C9E5EF00135A5D /* Vc */,
+				1629B5DB19EA730D002D1329 /* Cache */,
 				16A4865E19C9E5EF00135A5D /* Global */,
 				16A4866319C9E5EF00135A5D /* Template */,
 				16A4866619C9E5EF00135A5D /* ThirdParty */,
-				16A4865219C9E5EF00135A5D /* Cache */,
 				16A4865519C9E5EF00135A5D /* const.h */,
 				16A4865619C9E5EF00135A5D /* const.mm */,
 			);
 			path = Frame;
-			sourceTree = "<group>";
-		};
-		16A4865219C9E5EF00135A5D /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-				16A4865319C9E5EF00135A5D /* Cache.h */,
-				16A4865419C9E5EF00135A5D /* Cache.mm */,
-			);
-			path = Cache;
 			sourceTree = "<group>";
 		};
 		16A4865E19C9E5EF00135A5D /* Global */ = {
@@ -885,6 +888,8 @@
 		16A486A119C9E5EF00135A5D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				1629B5E219EA7645002D1329 /* TimeUtil.h */,
+				1629B5E319EA7645002D1329 /* TimeUtil.mm */,
 				16CFB88719E8372F00162242 /* AppUtil.h */,
 				16CFB88819E8372F00162242 /* AppUtil.mm */,
 				16702E5619E591440072013E /* HttpUtil.h */,
@@ -1017,6 +1022,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1629B5DE19EA730D002D1329 /* Cache.mm in Sources */,
 				16A486D119C9E5EF00135A5D /* ASIAuthenticationDialog.m in Sources */,
 				166B431719EA2C8C005C1431 /* SignInVc.mm in Sources */,
 				166B434319EA2EE2005C1431 /* CounselInfoListVc.mm in Sources */,
@@ -1038,6 +1044,7 @@
 				166A833719CEBAB200860F29 /* SDWebImagePrefetcher.m in Sources */,
 				166A833119CEBAB200860F29 /* SDImageCache.m in Sources */,
 				16A486E419C9E5EF00135A5D /* BaseSingleListVc.mm in Sources */,
+				1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */,
 				166B432819EA2DA9005C1431 /* ExpertDetailVc.mm in Sources */,
 				16A486E019C9E5EF00135A5D /* BaseHttpVc.mm in Sources */,
 				16A486DF19C9E5EF00135A5D /* MBProgressHUD.m in Sources */,
@@ -1053,7 +1060,6 @@
 				16A486C619C9E5EF00135A5D /* UIImage+Addition.mm in Sources */,
 				166B434219EA2EE2005C1431 /* CounselInfoDetailVc.mm in Sources */,
 				166B430919EA2B6C005C1431 /* RootExpertRmdCell.mm in Sources */,
-				16A486C919C9E5EF00135A5D /* Cache.mm in Sources */,
 				16A486D919C9E5EF00135A5D /* Reachability.m in Sources */,
 				16A486E819C9E5EF00135A5D /* TopPanel.mm in Sources */,
 				166A833A19CEBAB200860F29 /* UIImage+MultiFormat.m in Sources */,

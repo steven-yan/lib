@@ -45,7 +45,7 @@
 //窗体将要显示------
 - (void)onWillShow {
     //获取历史咨询信息
-//    地址：inquiryList.jsp?userLoginId=xx
+    [self loadData];
 }
 
 //窗体显示
@@ -75,13 +75,25 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    
+    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getInquiryList.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    UserInfoDto *user = [[UserInfoDto alloc] initWithObj:obj];
+    Global.instance.userInfo = user;
+    [self navBackWithParams:[NSDictionary dictionaryWithObject:@"SignInVc" forKey:@"fromPage"]];
+}
+
+//完善参数
+- (void)completeQueryParams {
+// http://180.166.93.195:8888/userlogin.UserLoginPRC.getInquiryList.submit?userLoginId=405786
+    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
 }
 
 
 
 #pragma mark -
-#pragma mark ------------------------------tableView----------------------------------
+#pragma mark ---------------------------tableView-------------------------------
 /*------------------------------------------------------------------------------
  |  tableView
  |

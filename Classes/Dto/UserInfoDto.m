@@ -22,6 +22,8 @@
     if (self = [super init]) {
         //转换------------------------------
         if (obj!=nil) {
+            //userLoginId
+            self.userLoginId = [obj valueForKey:@"userLoginId"];
             //userName
             self.userName = [obj valueForKey:@"userName"];
             //mobile
@@ -41,6 +43,8 @@
         }
         
         //容错------------------------------
+        //userLoginId
+        self.userLoginId = [ChkUtil handleNil:self.userLoginId];
         //userName
         self.userName = [ChkUtil handleNil:self.userName];
         //mobile

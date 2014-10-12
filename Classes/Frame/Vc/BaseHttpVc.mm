@@ -27,18 +27,18 @@
     self.closeHttpReqOnHideTag = YES;
 }
 
-//隐藏
-- (void)_onDidHide {
-//    if (self.closeHttpReqOnHideTag) {
-//        if (self.httpGetReq) {
-//            [self.httpGetReq clearDelegatesAndCancel];
-//            self.httpGetReq = nil;
-//        }
-//        if (self.httpPostReq) {
-//            [self.httpPostReq clearDelegatesAndCancel];
-//            self.httpPostReq = nil;
-//        }
-//    }
+- (void)onClose {
+    if (self.closeHttpReqOnHideTag) {
+        if (self.httpGetReq) {
+            [self.httpGetReq clearDelegatesAndCancel];
+            self.httpGetReq = nil;
+        }
+        if (self.httpPostReq) {
+            [self.httpPostReq clearDelegatesAndCancel];
+            self.httpPostReq = nil;
+        }
+    }
+    [super onClose];
 }
 
 

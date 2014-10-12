@@ -97,6 +97,13 @@
     self._navBackTag = NO;
 }
 
+//释放
+- (void)dealloc {
+    [self onClose];
+}
+- (void)onClose {
+}
+
 
 
 #pragma mark -
@@ -198,7 +205,6 @@
     
     //设置导航标识
     rvc._navBackTag = YES;
-    
     //设置导航参数
     rvc._tmpNavBackParams = params;
     

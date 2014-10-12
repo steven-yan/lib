@@ -64,6 +64,16 @@
  |  获取和提交数据
  |
  -----------------------------------------------------------------------------*/
+- (void)loadData {
+    [self httpGet:[AppUtil healthUrl:@""]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)dic {
+}
+
+//完善参数
+- (void)completeQueryParams {
+}
 
 
 

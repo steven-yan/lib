@@ -7,6 +7,7 @@
  **/
 
 #import "TabBarContentPanel.h"
+#import "RootExpertRmdCellData.h"
 #import "RootExpertRmdCell.H"
 
 @protocol RootExpertRmdDelegate <NSObject>
@@ -14,6 +15,12 @@
 @end
 
 @interface RootExpertRmd : TabBarContentPanel <UITableViewDataSource, UITableViewDelegate>
+
+//tv
+@property (nonatomic, strong) UITableView *ctrlTableView;
+
+//array
+@property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 
 - (id)initWithVc:(BaseLayoutVc *)vc;
 

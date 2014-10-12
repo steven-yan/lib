@@ -29,7 +29,10 @@
         tv.separatorStyle = UITableViewCellSeparatorStyleNone;
         tv.backgroundColor = [UIColor whiteColor];
         [self addSubview:tv];
+        self.ctrlTableView = tv;
+        
         //数据------
+        self.arrayOfCellData = [[NSMutableArray alloc] init];
         //其他------
     }
     
@@ -38,9 +41,39 @@
 
 - (void)onWillShow {
     [self.nrVc changeTopTitle:@"专家推荐"];
+    //加载数据
+    [self loadData];
 }
 
 - (void)onWillHide {
+}
+
+
+
+#pragma mark --------------------------获取和提交数据-----------------------------
+/*------------------------------------------------------------------------------
+ |  获取和提交数据
+ |
+ -----------------------------------------------------------------------------*/
+- (void)loadData {
+    [self httpGet:[AppUtil healthUrl:@"news.NewsPRC.getDoctorList.submit"]];
+}
+
+- (void)onHttpRequestSuccess:(NSString *)response {
+    NSError *error;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[response dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:&error];
+    if (![dic objectForKey:@"error"]) {
+    } else {
+        [self.arrayOfCellData removeAllObjects];
+        NSArray *arr = [dic valueForKey:@"list"];
+        for (NSDictionary *dic in arr) {
+            RootExpertRmdCellData *cd = [[RootExpertRmdCellData alloc] initWithObj:dic];
+            [self.arrayOfCellData addObject:cd];
+        }
+        
+        //刷新
+        [self.ctrlTableView reloadData];
+    }
 }
 
 
@@ -61,7 +94,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.arrayOfCellData.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,12 +126,29 @@
 }
 
 - (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
     RootExpertRmdCell *c = (RootExpertRmdCell *)[cell viewWithTag:100];
-    [c refreshWithCellData:[[RootExpertRmdCellData alloc] initWithObj:nil]];
+    RootExpertRmdCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    [c refreshWithCellData:cd];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.nrVc navTo:@"ExpertDetailVc"];
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    RootExpertRmdCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    
+    [self.nrVc navTo:@"ExpertDetailVc" params:[NSDictionary dictionaryWithObject:cd.expertId forKey:@"expertId"]];
 }
 
 

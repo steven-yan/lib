@@ -36,7 +36,7 @@
         [req appendPostData:data];
     }
     //TODO:
-    [req setShouldAttemptPersistentConnection:NO];
+//    [req setShouldAttemptPersistentConnection:NO];
     //设置选择器
     if (didFinishSelector) {
         req.didFinishSelector = didFinishSelector;

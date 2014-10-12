@@ -74,6 +74,15 @@
 }
 
 - (void)topRightBtnClicked {
+    EN_LOGIN_STATE_T state = Global.instance.userInfo.userState;
+    if (state == LOGIN_STATE_NONE) {
+        [self navTo:@"SignInVc"];
+    } else if (state == LOGIN_STATE_NORMAL) {
+        [self navTo:@"FillUserInfoVc"];
+    } else {
+        //tag
+        
+    }
 }
 
 
@@ -137,6 +146,9 @@
 }
 
 - (void) createCell:(UITableViewCell *)cell {
+    //cell
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
     HealthPackageDetailCell *cd = [[HealthPackageDetailCell alloc] initWithVc:self];
     cd.tag = 100;
     [cell addSubview:cd];

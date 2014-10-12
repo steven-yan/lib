@@ -149,7 +149,29 @@ static int kLeftMargin = 15;
 
 
 #pragma mark -
-#pragma mark ------textField delegate------
+#pragma mark --------------------------获取和提交数据-----------------------------
+/*------------------------------------------------------------------------------
+ |  获取和提交数据
+ |
+ -----------------------------------------------------------------------------*/
+- (void)loadData {
+    [self httpGet:[AppUtil healthUrl:@"userlogin.userloginprc.register.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)dic {
+}
+
+//完善参数
+- (void)completeQueryParams {
+    [self.queryParams setValue:self.ctrlTfUserName.text forKey:@"loginID"];
+    [self.queryParams setValue:self.ctrlTfMail.text forKey:@"email"];
+    [self.queryParams setValue:self.ctrlTfPasswd.text forKey:@"loginPwd"];
+}
+
+
+
+#pragma mark -
+#pragma mark ------------------------textField delegate-------------------------
 /*------------------------------------------------------------------------------
  |  textField
  |
@@ -177,12 +199,11 @@ static int kLeftMargin = 15;
  |  其他
  |
  -----------------------------------------------------------------------------*/
-
 - (void)signUpBtnClicked:(UIButton *) btn {
     //reset
 	[self reset];
     if ([self chkUsrInfo] == YES) {
-//        [self usrRegister];
+        [self usrRegister];
     }
 }
 
@@ -237,6 +258,10 @@ static int kLeftMargin = 15;
     }
     
     return YES;
+}
+
+- (void)usrRegister {
+    [self loadData];
 }
 
 - (void)hideKeyBoard {

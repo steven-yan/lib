@@ -8,13 +8,12 @@
 
 @interface ChkUtil : NSObject
 
-
-
 + (BOOL)isEmptyStr:(NSString *)str;
 + (BOOL)isIntStr:(NSString *)str;
 + (BOOL)isDoubleStr:(NSString *)str;
++ (BOOL)isValidateEmail:(NSString *)email;
 
-+(BOOL)isValidateEmail:(NSString *)email;
++ (NSString *)handleNil:(NSString *)str;
 
 
 @end

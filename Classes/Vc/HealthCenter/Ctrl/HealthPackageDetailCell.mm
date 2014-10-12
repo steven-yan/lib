@@ -11,7 +11,7 @@
 @implementation HealthPackageDetailCell
 static int kCellHeight = 60;
 static int kLeftMargin = 15;
-static int kWidth;
+static int kLabelWidth = Global.instance.sysInfo.fullWidth - 2*kLeftMargin;
 
 
 #pragma mark -
@@ -28,7 +28,7 @@ static int kWidth;
         
         //控件-------------------
         //组合名称
-        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:10 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:10 Width:kLabelWidth Height:20 FontSize:14];
         [self addSubview:name];
         self.ctrlGroupName = name;
         //详情
@@ -44,7 +44,6 @@ static int kWidth;
         self.ctrlLine = line;
         
         //数据-------------------
-        kWidth = detail.width;
     }
     
     return self;
@@ -59,7 +58,7 @@ static int kWidth;
  |
  -----------------------------------------------------------------------------*/
 + (float)CellHeight:(NSString *)detail {
-    CGSize size = [UILabel dynamicHeightWithStr:detail width:kWidth fontSize:14];
+    CGSize size = [UILabel dynamicHeightWithStr:detail width:kLabelWidth fontSize:14];
     return kCellHeight + size.height - 20;
 }
 

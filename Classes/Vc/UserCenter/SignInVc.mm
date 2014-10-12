@@ -84,6 +84,17 @@ static int kLeftMargin = 15;
     btn.right = self.contentPanel.width - 8;
     [self.contentPanel addSubview:btn];
     
+    //忘记密码
+    btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    [btn addTarget:self action:@selector(registerPwdBtn:)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btn setTitle:@"注册?"];
+    [btn setTitleColor:[UIColor colorWithHexStr:@"#b3b3b3"]];
+    btn.top = 165;
+    btn.left = 15;
+    [self.contentPanel addSubview:btn];
+    
     //底部面板-----------
     //其他--------------
 }
@@ -98,6 +109,8 @@ static int kLeftMargin = 15;
 
 //窗体将要显示
 - (void)onWillShow {
+    self.ctrlTfAcc.text = @"admin";
+    self.ctrlTfPasswd.text = @"1";
 }
 
 //窗体显示
@@ -180,6 +193,10 @@ static int kLeftMargin = 15;
     }
     
     return YES;
+}
+
+- (void)registerPwdBtn:(UIButton *)btn {
+    [self navTo:@"SignUpVc"];
 }
 
 - (void)forgetPwdBtn:(UIButton *)btn {

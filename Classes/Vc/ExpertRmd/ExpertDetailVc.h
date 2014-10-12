@@ -19,6 +19,9 @@
 //介绍
 @property (nonatomic, strong) UILabel *ctrlIntro;
 
+//id
+@property (nonatomic, strong) NSString *expertId;
+
 
 
 @end

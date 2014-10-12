@@ -44,5 +44,14 @@
     return [emailTest evaluateWithObject:email];
 }
 
++ (NSString *)handleNil:(NSString *)str {
+    if (str == nil) {
+        str = kEmptyStr;
+    }
+    
+    return str;
+}
+
+
 
 @end

@@ -71,6 +71,7 @@
 
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
+    self.expertId = [params valueForKey:@"expertId"];
 }
 
 //解析导航返回
@@ -79,7 +80,7 @@
 
 //窗体将要显示------
 - (void)onWillShow {
-    [self refreshWithimgUrl:@"http://www.news.cn/politics/static/ldrtp/001.jpg" name:@"王二" summary:@"我同普京总统5月在上海成功会晤之后，又在金砖国家领导人福塔莱萨峰会和不久前举行的上海合作组织杜尚别峰会期间成功。" intro:@"会晤，推动中俄全面战略协作伙伴关系进入新的历史阶段。明年两国将共同举办庆祝第二次世界大战胜利70周年活动。两国立法机构也可以积极参与，并在多边议会组织中密切配合，共同发声发力，扩大宣传，维护好第二次世界大战成果和。"];
+    [self loadData];
 }
 
 //窗体显示
@@ -96,6 +97,35 @@
 }
 
 - (void)topRightBtnClicked {
+}
+
+
+#pragma mark --------------------------获取和提交数据-----------------------------
+/*------------------------------------------------------------------------------
+ |  获取和提交数据
+ |
+ -----------------------------------------------------------------------------*/
+- (void)loadData {
+    [self httpGet:[AppUtil healthUrl:@"news.NewsPRC.getDoctorDetail.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    NSString *doctorName = [obj valueForKey:@"doctorName"];
+    NSString *introduction = [obj valueForKey:@"introduction"];
+    NSString *photoPath = [obj valueForKey:@"photoPath"];
+    NSString *summary = [obj valueForKey:@"summary"];
+    
+    //handle nil
+    doctorName = [ChkUtil handleNil:doctorName];//[doctorName handleNil];
+    introduction = [ChkUtil handleNil:introduction];
+    photoPath = [ChkUtil handleNil:photoPath];
+    summary = [ChkUtil handleNil:summary];
+    
+    [self refreshWithimgUrl:photoPath name:doctorName summary:summary intro:introduction];
+}
+
+- (void)completeQueryParams {
+    [self.queryParams setValue:self.expertId forKey:@"doctorId"];
 }
 
 
@@ -118,6 +148,9 @@
     //intro
     [self.ctrlIntro setDynamicWithStr:[@"详细介绍:  " stringByAppendingString:intro] fontSize:14];
     self.ctrlIntro.top = self.ctrlLine.bottom + 15;
+    if (self.ctrlIntro.bottom > self.contentPanel.height) {
+        self.contentPanel.contentSize = CGSizeMake(self.contentPanel.width, self.ctrlIntro.bottom);
+    }
 }
 
 

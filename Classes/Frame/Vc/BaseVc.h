@@ -23,6 +23,7 @@ typedef enum {
 @property BOOL _navToTag;
 //导航返回标识
 @property BOOL _navBackTag;
+
 //导航前进参数
 @property (nonatomic, strong)  NSDictionary *_tmpNavToParams;
 //导航返回参数
@@ -38,6 +39,7 @@ typedef enum {
 - (void)onShow;
 - (void)onWillHide;
 - (void)onDidHide;
+- (void)onClose;
 
 //导航--------
 - (void)navTo:(NSString *)vcKey;

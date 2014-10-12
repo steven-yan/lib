@@ -12,22 +12,32 @@
 
 - (id)initWithObj:(NSDictionary *)obj {
     if (self = [super init]) {
-        //默认------------------------------
-        //图片地址
-        self.imgUrl = kEmptyStr;
-        //专家名字
-        self.name = kEmptyStr;
-        //专家简介
-        self.desp = kEmptyStr;
-        
         //转换------------------------------
         if (obj!=nil) {
-            
+            //专家id
+            self.expertId = [obj valueForKey:@"doctorId"];
+            //图片地址
+            self.imgUrl = [obj valueForKey:@"photoPath"];
+            //专家名字
+            self.name = [obj valueForKey:@"doctorName"];
+            //专家简介
+            self.desp = [obj valueForKey:@"summary"];
+        }
+        
+        //容错------------------------------
+        //图片地址
+        if ([ChkUtil isEmptyStr:self.imgUrl]) {
+            self.imgUrl = kEmptyStr;
+        }
+        //专家名字
+        if ([ChkUtil isEmptyStr:self.name]) {
+            self.name = kEmptyStr;
+        }
+        //专家简介
+        if ([ChkUtil isEmptyStr:self.desp]) {
+            self.desp = kEmptyStr;
         }
     }
-    
-    //测试
-    [self unitTest];
     
 	return self;
 }

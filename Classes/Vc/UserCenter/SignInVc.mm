@@ -69,9 +69,20 @@ static int kLeftMargin = 15;
     //注册
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, line.bottom + 25, self.contentPanel.width - 20, 40)];
     [btn setTitle:@"登录" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(signUpBtnClicked:)];
+    [btn addTarget:self action:@selector(signInBtnClicked:)];
     btn.layer.cornerRadius = 6;
     btn.backgroundColor = self.topPanel.backgroundColor;
+    [self.contentPanel addSubview:btn];
+    
+    //注册
+    btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
+    [btn addTarget:self action:@selector(signUpPwdBtn:)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [btn setTitle:@"注册?"];
+    [btn setTitleColor:[UIColor colorWithHexStr:@"#b3b3b3"]];
+    btn.top = 165;
+    btn.left = 15;
     [self.contentPanel addSubview:btn];
     
     //忘记密码
@@ -82,17 +93,6 @@ static int kLeftMargin = 15;
     [btn setTitleColor:[UIColor colorWithHexStr:@"#b3b3b3"]];
     btn.top = 165;
     btn.right = self.contentPanel.width - 8;
-    [self.contentPanel addSubview:btn];
-    
-    //忘记密码
-    btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 20)];
-    [btn addTarget:self action:@selector(registerPwdBtn:)];
-    btn.titleLabel.font = [UIFont systemFontOfSize:14];
-    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [btn setTitle:@"注册?"];
-    [btn setTitleColor:[UIColor colorWithHexStr:@"#b3b3b3"]];
-    btn.top = 165;
-    btn.left = 15;
     [self.contentPanel addSubview:btn];
     
     //底部面板-----------
@@ -129,7 +129,28 @@ static int kLeftMargin = 15;
 - (void)onWillHide {
 }
 
-- (void)dealloc {
+
+
+#pragma mark -
+#pragma mark --------------------------获取和提交数据-----------------------------
+/*------------------------------------------------------------------------------
+ |  获取和提交数据
+ |
+ -----------------------------------------------------------------------------*/
+- (void)loadData {
+    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.loginForApp.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    UserInfoDto *user = [[UserInfoDto alloc] initWithObj:obj];
+    Global.instance.userInfo = user;
+    [self navBackWithParams:[NSDictionary dictionaryWithObject:@"SignInVc" forKey:@"fromPage"]];
+}
+
+//完善参数
+- (void)completeQueryParams {
+    [self.queryParams setValue:self.ctrlTfAcc.text forKey:@"loginID"];
+    [self.queryParams setValue:self.ctrlTfPasswd.text forKey:@"loginPwd"];
 }
 
 
@@ -160,13 +181,16 @@ static int kLeftMargin = 15;
  |  其他
  |
  -----------------------------------------------------------------------------*/
-
-- (void)signUpBtnClicked:(UIButton *) btn {
+- (void)signInBtnClicked:(UIButton *) btn {
     //reset
 	[self reset];
     if ([self chkUsrInfo] == YES) {
-//        [self usrRegister];
+        [self usrSignIn];
     }
+}
+
+- (void)usrSignIn {
+    [self loadData];
 }
 
 - (void)reset {
@@ -195,7 +219,7 @@ static int kLeftMargin = 15;
     return YES;
 }
 
-- (void)registerPwdBtn:(UIButton *)btn {
+- (void)signUpPwdBtn:(UIButton *)btn {
     [self navTo:@"SignUpVc"];
 }
 

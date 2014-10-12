@@ -6,7 +6,10 @@
 
 @interface UIView (Layout)
 
--(void)setTestColor;
+-(void)setTestColorRed;
+-(void)setTestColorGreen;
+-(void)setTestColorBlue;
+- (void)setTestBottomLine;
 
 -(void)setStyleForSection;
 

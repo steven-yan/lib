@@ -42,6 +42,8 @@
          titleList:(NSArray *)titleList;
 //设置 内容面板
 - (void)setContentPanel:(NSArray *)tabBarContentPanelList;
+- (void)reloadPanel:(NSInteger)index;
+
 
 
 @end

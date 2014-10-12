@@ -6,8 +6,20 @@
 
 @implementation UIView (Layout)
 
--(void)setTestColor {
+-(void)setTestColorRed {
     self.backgroundColor = [UIColor redColor];
+}
+-(void)setTestColorGreen {
+    self.backgroundColor = [UIColor greenColor];
+}
+-(void)setTestColorBlue {
+    self.backgroundColor = [UIColor blueColor];
+}
+- (void)setTestBottomLine {
+    UIView *l = [UIView lineWithWidth:self.width];
+    [l setTestColorRed];
+    l.bottom = self.height;
+    [self addSubview:l];
 }
 
 -(void)setStyleForSection{

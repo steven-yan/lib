@@ -44,6 +44,11 @@
 
 //解析导航返回
 - (void)onPraseNavBackParams:(NSDictionary *)params {
+    NSString *fromPage = [params valueForKey:@"fromPage"];
+    if ([fromPage isEqualToString:@"SignInVc"]) {
+        //刷新状态
+        [self.ctrlTabBar reloadPanel:2];
+    }
 }
 
 //窗体将要显示

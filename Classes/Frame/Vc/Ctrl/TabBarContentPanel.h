@@ -21,6 +21,7 @@
 - (id)initWithVc:(BaseLayoutVc *)vc frame:(CGRect)frame;
 - (void)onWillShow;
 - (void)onWillHide;
+- (void)reloadPanel;
 
 
 

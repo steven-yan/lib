@@ -21,12 +21,8 @@
         }
         
         //容错------------------------------
-        if ([ChkUtil isEmptyStr:self.groupName]) {
-            self.groupName = kEmptyStr;
-        }
-        if ([ChkUtil isEmptyStr:self.detail]) {
-            self.detail = kEmptyStr;
-        }
+        self.groupName = [ChkUtil handleNil:self.groupName];
+        self.detail = [ChkUtil handleNil:self.detail];
     }
     
 	return self;

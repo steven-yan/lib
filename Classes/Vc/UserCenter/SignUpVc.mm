@@ -79,8 +79,9 @@ static int kLeftMargin = 15;
     [self.contentPanel addSubview:tf];
     self.ctrlTfPasswd = tf;
     //分隔线
-    line = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, tf.bottom + 10, tf.width, 1)];
-    line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
+    line = [UIView lineWithWidth:tf.width];
+    line.left = kLeftMargin;
+    line.top = tf.bottom + 10;
     [self.contentPanel addSubview:line];
     
     //确认密码----------
@@ -98,8 +99,9 @@ static int kLeftMargin = 15;
     [self.contentPanel addSubview:tf];
     self.ctrlTfCmfPasswd = tf;
     //分隔线
-    line = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, tf.bottom + 10, tf.width, 1)];
-    line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
+    line = [UIView lineWithWidth:tf.width];
+    line.left = kLeftMargin;
+    line.top = tf.bottom + 10;
     [self.contentPanel addSubview:line];
     
     //注册
@@ -203,7 +205,7 @@ static int kLeftMargin = 15;
     //reset
 	[self reset];
     if ([self chkUsrInfo] == YES) {
-        [self usrRegister];
+        [self usrSignUp];
     }
 }
 
@@ -260,7 +262,7 @@ static int kLeftMargin = 15;
     return YES;
 }
 
-- (void)usrRegister {
+- (void)usrSignUp {
     [self loadData];
 }
 

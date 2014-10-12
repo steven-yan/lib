@@ -62,6 +62,13 @@ enum {
 - (void)onWillHide {
 }
 
+- (void)reloadPanel {
+    //登录状态
+    self.userState = Global.instance.userInfo.userState;
+    //刷新
+    [self.ctrlTableView reloadData];
+}
+
 
 
 #pragma mark -
@@ -83,11 +90,12 @@ enum {
     if (self.userState == LOGIN_STATE_NONE) {
         return 2;
     } else if (self.userState == LOGIN_STATE_NORMAL) {
-        return 3;
+        return 4;
     } else {
-        return 3;
+        return 4;
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row;
     CGFloat height = 0;
@@ -103,16 +111,20 @@ enum {
             height = 120;
         } else if (row == 1) {
             height = 100;
-        } else {
+        } else if (row == 2) {
             height = 120;
+        } else if (row == 3) {
+            height = 80;
         }
     } else {
         if (row == 0) {
             height = 120;
         } else if (row == 1) {
             height = 140;
-        } else {
-            height = 120;
+        } else if (row == 2){
+            height = 160;
+        } else if (row == 3) {
+            height = 80;
         }
     }
     
@@ -168,8 +180,17 @@ enum {
             btn.tag = kBtnFillUserInfoTag;
             btn.top = btn.height;
             [bg addSubview:btn];
-        } else {
+        } else if (row == 2) {
             [self createAdditonCell:cell];
+        } else if (row == 3) {
+            //退出登录
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, cell.width - 20, 40)];
+            [btn setTitle:@"退出" forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(logOutBtnClicked:)];
+            btn.layer.cornerRadius = 6;
+            btn.backgroundColor = [UIColor colorWithHexStr:@"#f1271a"];
+            btn.centerY = cell.height / 2;
+            [cell addSubview:btn];
         }
     } else {
         if (row == 0) {
@@ -209,12 +230,35 @@ enum {
             [bg addSubview:btn];
             
             [bg addSubview:btn];
-        } else {
+        } else if (row == 2) {
             [self createAdditonCell:cell];
+        } else if (row == 3) {
+            //退出登录
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, cell.width - 20, 40)];
+            [btn setTitle:@"退出" forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(logOutBtnClicked:)];
+            btn.layer.cornerRadius = 6;
+            btn.backgroundColor = [UIColor colorWithHexStr:@"#f1271a"];
+            btn.centerY = cell.height / 2;
+            [cell addSubview:btn];
         }
     }
     
     return cell;
+}
+
+
+
+#pragma mark -
+#pragma mark -----------------------------alert----------------------------------
+/*------------------------------------------------------------------------------
+ |  alert
+ |
+ -----------------------------------------------------------------------------*/
+- (void)confirmAlert:(UIAlertView *)alertView {
+    [Global.instance.userInfo clear];
+    self.userState = Global.instance.userInfo.userState;
+    [self.ctrlTableView reloadData];
 }
 
 
@@ -313,6 +357,10 @@ enum {
         default:
             break;
     }
+}
+
+- (void)logOutBtnClicked:(UIButton *)btn {
+    [self alert:@"确认退出登录?"];
 }
 
 

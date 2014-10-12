@@ -15,8 +15,26 @@ typedef enum {
 
 @property (nonatomic) EN_LOGIN_STATE_T userState;
 
+//userName
+@property (nonatomic, strong) NSString *userName;
+//mobile
+@property (nonatomic, strong) NSString *mobile;
+//email
+@property (nonatomic, strong) NSString *email;
+//sex
+@property (nonatomic, strong) NSString *sex;
+//marryStatus
+@property (nonatomic, strong) NSString *marryStatus;
+//cardType
+@property (nonatomic, strong) NSString *cardType;
+//cardNumber
+@property (nonatomic, strong) NSString *cardNumber;
+//photoPath
+@property (nonatomic, strong) NSString *photoPath;
+
 //init
 - (id)initWithObj:(NSDictionary *)obj;
+- (void)clear;
 
 
 

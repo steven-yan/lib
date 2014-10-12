@@ -176,6 +176,11 @@ static int kInitNum = -1;
     self.selectedIndex = index;
 }
 
+- (void)reloadPanel:(NSInteger)index {
+    TabBarContentPanel *p = [self.arrayOfTabBarContent objectAtIndex:index];
+    [p reloadPanel];
+}
+
 
 
 @end

@@ -59,7 +59,7 @@
     [self httpGet:url params:[self makeQueryParams] tag:tag];
 }
 - (void)httpGet:(NSString *)url params:(NSDictionary *)params tag:(NSInteger)tag {
-    [self httpGet:url params:params postData:nil timeOut:10 tag:tag];
+    [self httpGet:url params:params postData:nil timeOut:5 tag:tag];
 }
 - (void)httpGet:(NSString *)url  timeOut:(NSTimeInterval)timeOut tag:(NSInteger)tag {
     [self httpGet:url params:[self makeQueryParamsWithTag:tag] postData:nil timeOut:timeOut tag:tag];
@@ -118,6 +118,53 @@
 - (void)onHttpRequestFailed:(EnHttpRequestFailed)err {
 }
 - (void)onHttpRequestFailed:(EnHttpRequestFailed)err tag:(NSInteger)tag {
+}
+
+
+
+#pragma mark -
+#pragma mark ------------------------------alert----------------------------------
+/*------------------------------------------------------------------------------
+ |  alert
+ |
+ -----------------------------------------------------------------------------*/
+- (void)alert:(NSString *)msg {
+    [self alert:msg tag:0];
+}
+- (void)alert:(NSString *)msg tag:(NSInteger)tag {
+    [self alertWithTitle:@"提示" msg:msg tag:tag];
+}
+- (void)alertWithTitle:(NSString *)title msg:(NSString *)msg {
+    [self alertWithTitle:title msg:msg tag:0];
+}
+- (void)alertWithTitle:(NSString *)title msg:(NSString *)msg tag:(NSInteger)tag {
+    [self alertWithTitle:title cancel:@"取消" msg:msg tag:tag];
+}
+- (void)alertWithTitle:(NSString *)title cancel:(NSString *)cancel msg:(NSString *)msg tag:(NSInteger)tag {
+    [self alertWithTitle:title cancel:cancel msg:msg cmfTitle:@"确认" tag:tag];
+}
+- (void)alertWithTitle:(NSString *)title cancel:(NSString *)cancel msg:(NSString *)msg cmfTitle:(NSString *)cmfTitle tag:(NSInteger)tag {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:cancel otherButtonTitles:cmfTitle, nil];
+    alert.tag = tag;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self alertView:alertView dismissWithBtnIndex:buttonIndex tag:alertView.tag];
+    [self alertView:alertView dismissWithBtnIndex:buttonIndex];
+    if (buttonIndex == 1) {
+        [self confirmAlert:alertView tag:alertView.tag];
+        [self confirmAlert:alertView];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView dismissWithBtnIndex:(NSInteger)index tag:(NSInteger)tag {
+}
+- (void)alertView:(UIAlertView *)alertView dismissWithBtnIndex:(NSInteger)index {
+}
+- (void)confirmAlert:(UIAlertView *)alertView tag:(NSInteger)tag {
+}
+- (void)confirmAlert:(UIAlertView *)alertView {
 }
 
 

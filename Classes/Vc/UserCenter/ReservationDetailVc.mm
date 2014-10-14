@@ -11,10 +11,15 @@
 @implementation ReservationDetailVc
 static int kLeftMargin = 15;
 enum {
+    //http
+    kHttpLoadDataTag = 10,
+    kHttpModifyDateTag,
+    kHttpCancelReservationTag,
+    
+    //btn
     kBtnModifyDateTag = 100,
     kBtnModifyPackageTag,
     kBtnDelReservatinTag,
-    kBtnPickerCancelTag,
     kBtnPickerCmfTag,
 };
 
@@ -35,30 +40,37 @@ enum {
     //内容面板-----------
     //体检号
     UILabel *peisId = [UILabel labelWithLeft:kLeftMargin Top:10 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+    peisId.text = @"体检号:  ";
     [self.contentPanel addSubview:peisId];
     self.ctrlPeMasterId = peisId;
     //预约时间
     UILabel *date = [UILabel labelWithLeft:kLeftMargin Top:peisId.bottom + 5 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+    date.text = @"预约时间:  ";
     [self.contentPanel addSubview:date];
     self.ctrlDate = date;
     //体检中心名称
     UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:date.bottom + 5 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+    name.text = @"体检中心:  ";
     [self.contentPanel addSubview:name];
     self.ctrlPeisName = name;
     //地址
     UILabel *addr = [UILabel labelWithLeft:kLeftMargin Top:name.bottom + 5 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+    addr.text = @"地址:  ";
     [self.contentPanel addSubview:addr];
     self.ctrlAddr = addr;
     //电话
     UILabel *phone = [UILabel labelWithLeft:kLeftMargin Top:addr.bottom + 5 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+    phone.text = @"电话:  ";
     [self.contentPanel addSubview:phone];
     self.ctrlPhone = phone;
     //套餐名称
     UILabel *packageName = [UILabel labelWithLeft:kLeftMargin Top:phone.bottom + 5 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+    packageName.text = @"套餐:  ";
     [self.contentPanel addSubview:packageName];
     self.ctrlPackageName = packageName;
     //预约状态
     UILabel *status = [UILabel labelWithLeft:kLeftMargin Top:packageName.bottom + 5 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+    status.text = @"状态:  ";
     [self.contentPanel addSubview:status];
     self.ctrlStatus = status;
     
@@ -93,40 +105,14 @@ enum {
     btn2.top = btn1.top;
     btn2.left = btn.centerX + 5;
     [self.contentPanel addSubview:btn2];
-    //修改日期弹出层----
-    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 5, self.contentPanel.width - 20, 300)];
-    bg.hidden = YES;
-    bg.backgroundColor = [UIColor whiteColor];
-    [bg setStyleForSection];
-    [self.contentPanel addSubview:bg];
-    self.ctrlPickBg = bg;
-    //hint
-    UILabel *l = [UILabel labelWithLeft:0 Top:5 Width:bg.width Height:20 FontSize:16];
-    l.text = @"更改预约时间";
-    l.textAlignment = NSTextAlignmentCenter;
-    [bg addSubview:l];
-    //picker--
-    UIDatePicker *dp = [[UIDatePicker alloc] init];
-    dp.top = l.bottom + 5;
-    dp.centerX = bg.width / 2;
-    [bg addSubview:dp];
+    
+    //CSDatePicker----
+    CSDatePicker *dp = [[CSDatePicker alloc] initWithTitle:@"设置预约时间"];
+    dp.delegate = self;
+    dp.top = 40;
+    dp.centerX = self.contentPanel.width / 2;
+    [self.contentPanel addSubview:dp];
     self.ctrlDatePicker = dp;
-    //取消--
-    btn = [[UIButton alloc] initWithFrame:CGRectMake(0, dp.bottom + 10, 80, 30)];
-    btn.tag = kBtnPickerCancelTag;
-    [btn addTarget:self action:@selector(btnClicked:)];
-    [btn setTitle:@"取消"];
-    btn.right = bg.width / 2 - 10;
-    [btn setStyleGray];
-    [bg addSubview:btn];
-    //确认--
-    btn = [[UIButton alloc] initWithFrame:CGRectMake(0, dp.bottom + 10, 80, 30)];
-    btn.tag = kBtnPickerCmfTag;
-    [btn addTarget:self action:@selector(btnClicked:)];
-    [btn setTitle:@"确认"];
-    btn.left = bg.width / 2 + 10;
-    [btn setStyleGreen];
-    [bg addSubview:btn];
     
     //底部面板-----------
     //其他--------------
@@ -139,11 +125,12 @@ enum {
 
 //解析导航返回
 - (void)onPraseNavBackParams:(NSDictionary *)params {
+    [self loadData:kHttpLoadDataTag];
 }
 
 //窗体将要显示------
 - (void)onWillShow {
-    [self loadData];
+    [self loadData:kHttpLoadDataTag];
 }
 
 //窗体显示
@@ -170,18 +157,52 @@ enum {
  |  获取和提交数据
  |
  -----------------------------------------------------------------------------*/
-- (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationDetail.submit"]];
+- (void)loadData:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationDetail.submit"] tag:tag];
+    } else if (tag == kHttpModifyDateTag) {
+        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.modifyReservation.submit"] tag:tag];
+    } else if (tag == kHttpCancelReservationTag) {
+        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.cancelReservation.submit"] tag:tag];
+    }
 }
 
-- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-    ReservationDetailData *d = [[ReservationDetailData alloc] initWithObj:obj];
-    [self refreshWithData:d];
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        ReservationDetailData *d = [[ReservationDetailData alloc] initWithObj:obj];
+        self.data = d;
+        [self refreshWithData:d];
+    } else if (tag == kHttpModifyDateTag) {
+        [self loadData:kHttpLoadDataTag];
+        self.ctrlDatePicker.hidden = YES;
+    } else if (tag == kHttpCancelReservationTag) {
+        [self navBack];
+    }
 }
 
 //完善参数
-- (void)completeQueryParams {
-    [self.queryParams setValue:self.peMasterId forKey:@"peMasterId"];
+- (void)completeQueryParams:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self.queryParams setValue:self.peMasterId forKey:@"peMasterId"];
+    } else if (tag == kHttpModifyDateTag) {
+        [self.queryParams setValue:self.data.peMasterId forKey:@"peMasterId"];
+        [self.queryParams setValue:[self.ctrlDatePicker getDateStr] forKey:@"reservationDate"];
+    } else if (tag == kHttpCancelReservationTag) {
+        [self.queryParams setValue:self.peMasterId forKey:@"peMasterId"];
+    }
+}
+
+
+
+#pragma mark -
+#pragma mark --------------------CSDatePickerDelegate---------------------------
+/*------------------------------------------------------------------------------
+ |  CSDatePickerDelegate
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onCSDatePickerDelegate:(CSDatePicker *)picker {
+    //请求
+    [self loadData:kHttpModifyDateTag];
 }
 
 
@@ -193,7 +214,7 @@ enum {
  |
  -----------------------------------------------------------------------------*/
 - (void)confirmAlert:(UIAlertView *)alertView {
-    
+    [self loadData:kHttpCancelReservationTag];
 }
 
 
@@ -218,18 +239,28 @@ enum {
     switch (btn.tag) {
         case kBtnModifyDateTag:
         {
-            //修改日期
-            self.ctrlPickBg.hidden = NO;
-            self.ctrlPickBg.alpha = 0;
-            [UIView animateWithDuration:0.5 animations:^{
-                self.ctrlPickBg.alpha = 1;
-            }];
+            //检测预约状态
+            if ([self.data.status intValue] == 0) {
+                //修改日期
+                self.ctrlDatePicker.hidden = NO;
+                self.ctrlDatePicker.alpha = 0;
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.ctrlDatePicker.alpha = 1;
+                }];
+            } else {
+                [self showToast:@"已不能修改"];
+            }
         }
             break;
             
         case kBtnModifyPackageTag:
         {
-            
+            //检测预约状态
+            if ([self.data.status intValue] == 0) {
+                [self navTo:@"HealthPackageListVc" params:[NSDictionary dictionaryWithObjects:@[self.data.peisCenterId, @"ReservationDetailVc", self.data.peMasterId] forKeys:@[@"centerId", @"fromePage", @"peMasterId"]]];
+            } else {
+                [self showToast:@"不能修改套餐"];
+            }
         }
             break;
             
@@ -239,17 +270,9 @@ enum {
         }
             break;
             
-        case kBtnPickerCancelTag:
-        {
-            self.ctrlPickBg.hidden = YES;
-            //恢复
-            [self.ctrlDatePicker setDate:[NSDate date]];
-        }
-            break;
-            
         case kBtnPickerCmfTag:
         {
-            
+            [self loadData:kHttpModifyDateTag];
         }
             break;
             

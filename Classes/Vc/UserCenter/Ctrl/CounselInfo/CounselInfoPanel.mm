@@ -45,6 +45,7 @@
         [btn addTarget:self action:@selector(cancelBtnClicked:)];
         [btn setTitle:@"取消"];
         [btn setStyleGray];
+        [btn setTitleColor:[UIColor whiteColor]];
         btn.top = tv.bottom + 15;
         btn.right = self.centerX - 20;
         [self addSubview:btn];
@@ -72,9 +73,15 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)show {
-    [self bringToFont];
-    [self.ctrlTv becomeFirstResponder];
+    self.ctrlTv.text = nil;
     self.hidden = NO;
+    [self.ctrlTv becomeFirstResponder];
+    [self bringToFont];
+}
+
+- (void)hide {
+    [self.ctrlTv resignFirstResponder];
+    self.hidden = YES;
 }
 
 
@@ -86,16 +93,13 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)cmtBtnClicked:(UIButton *)btn {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onCounselInfoPanelCmf:text:)]) {
+        [self.delegate onCounselInfoPanelCmf:self text:self.ctrlTv.text];
+    }
 }
 
 - (void)cancelBtnClicked:(UIButton *)btn {
     [self hide];
-}
-
-- (void)hide {
-    [self.ctrlTv resignFirstResponder];
-    self.hidden = YES;
 }
 
 

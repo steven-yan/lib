@@ -37,6 +37,7 @@
 
 //解析导航返回
 - (void)onPraseNavBackParams:(NSDictionary *)params {
+    [self loadData];
 }
 
 //窗体将要显示------

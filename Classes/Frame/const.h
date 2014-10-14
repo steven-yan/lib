@@ -18,6 +18,7 @@ extern NSString * const kEmptyStr;
 extern NSString * const kGeneralColor;
 //hostUrl
 extern NSString * const kHealthHostName;
+extern NSString * const kTestHealthHostName;
 
 #pragma mark -----------------------------Cache---------------------------------
 extern NSString * const kGlobalDir;

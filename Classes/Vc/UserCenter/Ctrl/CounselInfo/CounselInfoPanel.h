@@ -6,7 +6,10 @@
  *
  **/
 
+@class CounselInfoPanel;
+
 @protocol CounselInfoPanelDelegate <NSObject>
+- (void)onCounselInfoPanelCmf:(CounselInfoPanel *)p text:(NSString *)text;
 @optional
 @end
 
@@ -24,6 +27,8 @@
 - (id)initWithVc:(BaseLayoutVc *)vc;
 //显示
 - (void)show;
+//影藏
+- (void)hide;
 
 
 

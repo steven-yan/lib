@@ -22,6 +22,8 @@
     if (self = [super init]) {
         //转换------------------------------
         if (obj!=nil) {
+            //体检中心
+            self.peisCenterId = [obj valueForKey:@"peisCenterId"];
             //体检号
             self.peMasterId = [obj valueForKey:@"peMasterId"];
             //体检中心名称
@@ -43,6 +45,8 @@
         }
         
         //容错------------------------------
+        //体检中心
+        self.peisCenterId = [ChkUtil handleNil:self.peisCenterId];
         //体检号
         self.peMasterId = [ChkUtil handleNil:self.peMasterId];
         //体检中心名称

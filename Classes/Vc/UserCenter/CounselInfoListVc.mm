@@ -9,6 +9,10 @@
 #import "CounselInfoListVc.h"
 
 @implementation CounselInfoListVc
+enum {
+    kHttpLoadDataTag = 100,
+    kHttpPostCounselTag,
+};
 
 
 
@@ -26,9 +30,10 @@
     //内容面板-----------
     
     //咨询面板
-    CounselInfoPanel *ci = [[CounselInfoPanel alloc] initWithVc:self];
-    [self.contentPanel addSubview:ci];
-    self.ctrlCounselPanel = ci;
+    CounselInfoPanel *p = [[CounselInfoPanel alloc] initWithVc:self];
+    p.delegate = self;
+    [self.contentPanel addSubview:p];
+    self.ctrlCounselPanel = p;
     
     //底部面板-----------
     //数据--------------
@@ -47,7 +52,7 @@
 //窗体将要显示------
 - (void)onWillShow {
     //获取历史咨询信息
-    [self loadData];
+    [self loadData:kHttpLoadDataTag];
 }
 
 //窗体显示
@@ -76,21 +81,51 @@
  |  获取和提交数据
  |
  -----------------------------------------------------------------------------*/
-- (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getInquiryList.submit"]];
+- (void)loadData:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getInquiryList.submit"] tag:tag];
+    } else if (tag == kHttpPostCounselTag) {
+        [self httpGet:[AppUtil healthUrl:@"message.MessagePRC.inquirySubmit.submit"] tag:tag];
+    }
 }
 
-- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-    [self.arrayOfCellData removeAllObjects];
-    NSArray *list = [obj valueForKey:@"list"];
-    [self.arrayOfCellData addObjectsFromArray:list];
-    
-    [self.tableView reloadData];
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self.arrayOfCellData removeAllObjects];
+        NSArray *list = [obj valueForKey:@"list"];
+        [self.arrayOfCellData addObjectsFromArray:list];
+        
+        [self.tableView reloadData];
+    } else if (tag == kHttpPostCounselTag) {
+        [self loadData:kHttpLoadDataTag];
+        [self.ctrlCounselPanel.ctrlTv resignFirstResponder];
+        self.ctrlCounselPanel.hidden = YES;
+    }
 }
 
 //完善参数
-- (void)completeQueryParams {
-    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+- (void)completeQueryParams:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+    } else if (tag == kHttpPostCounselTag) {
+        [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"sendFrom"];
+        [self.queryParams setValue:self.text forKey:@"content"];
+    }
+}
+
+
+
+#pragma mark -
+#pragma mark ----------------------CounselInfoPanel-----------------------------
+/*------------------------------------------------------------------------------
+ |  CounselInfoPanel
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onCounselInfoPanelCmf:(CounselInfoPanel *)p text:(NSString *)text {
+    if ([ChkUtil isEmptyStr:text] == NO) {
+        self.text = text;
+        [self loadData:kHttpPostCounselTag];
+    }
 }
 
 
@@ -103,6 +138,10 @@
  -----------------------------------------------------------------------------*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.arrayOfCellData.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [CounselInfoCell CellHeight];
 }
 
 - (void) createCell:(UITableViewCell *)cell {
@@ -125,8 +164,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    
     //容错
-    [self navTo:@"CounselInfoDetailVc"];
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    //
+    NSDictionary *dic = [self.arrayOfCellData objectAtIndex:row];
+    [self navTo:@"CounselInfoDetailVc" params:dic];
 }
 
 

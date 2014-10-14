@@ -153,7 +153,7 @@
     
     //容错
     if ([ChkUtil isEmptyStr:cleanDir] || [ChkUtil isEmptyStr:cleanKey]) {
-        return nil;
+        return NO;
     }
     
     return [self.db executeUpdate:@"delete from generaltb where cdir=? and ckey=?", cleanDir, cleanKey];

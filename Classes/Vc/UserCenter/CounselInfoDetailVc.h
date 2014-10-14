@@ -8,6 +8,12 @@
 
 @interface CounselInfoDetailVc : BaseLayoutVc
 
+//label
+@property (nonatomic,strong) UILabel *ctrlLabel;
+
+//messageId
+@property (nonatomic, strong) NSString *messageId;
+
 
 
 @end

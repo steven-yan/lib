@@ -6,8 +6,9 @@
  *
  **/
 #import "ReservationDetailData.h"
+#import "CSDatePicker.h"
 
-@interface ReservationDetailVc : BaseLayoutVc
+@interface ReservationDetailVc : BaseLayoutVc <CSDatePickerDelegate>
 
 //体检号
 @property (nonatomic, strong) UILabel *ctrlPeMasterId;
@@ -26,12 +27,13 @@
 //预约状态
 @property (nonatomic, strong) UILabel *ctrlStatus;
 
-//pick
-@property (nonatomic, strong) UIView *ctrlPickBg;
-@property (nonatomic, strong) UIDatePicker *ctrlDatePicker;
+//picker
+@property (nonatomic, strong) CSDatePicker *ctrlDatePicker;
 
-//id
-@property (nonatomic,strong) NSString *peMasterId;
+//peMasterId
+@property (nonatomic, strong) NSString *peMasterId;
+//data
+@property (nonatomic, strong) ReservationDetailData *data;
 
 
 @end

@@ -25,13 +25,18 @@
     [self hideTopRightBtn];
     
     //内容面板-----------
+    UILabel *l = [UILabel labelWithLeft:10 Top:10 Width:self.contentPanel.width Height:20 FontSize:14];
+    l.numberOfLines = 0;
+    [self.contentPanel addSubview:l];
+    self.ctrlLabel = l;
+    
     //底部面板-----------
     //其他--------------
 }
 
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
-    
+    self.messageId = [params valueForKey:@"messageId"];
 }
 
 //解析导航返回
@@ -40,6 +45,7 @@
 
 //窗体将要显示------
 - (void)onWillShow {
+    [self loadData];
 }
 
 //窗体显示
@@ -67,15 +73,18 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
+    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getInquiryDetail.submit"]];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    NSArray *list = [obj valueForKey:@"list"];
+    NSDictionary *dic = [list objectAtIndex:0];
+    [self.ctrlLabel setDynamicWithStr:[NSString stringWithFormat:@"时间:  %@\n\n%@", [dic valueForKey:@"sendTime"], [dic valueForKey:@"content"]] fontSize:14];
 }
 
 //完善参数
 - (void)completeQueryParams {
-    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+    [self.queryParams setValue:self.messageId forKey:@"messageId"];
 }
 
 

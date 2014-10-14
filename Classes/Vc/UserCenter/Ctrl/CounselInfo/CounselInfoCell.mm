@@ -58,7 +58,7 @@ static int kCellHeight = 50;
 
 - (void)refreshWithContent:(NSString *)content msgId:(NSString *)msgId {
     self.msgId = msgId;
-    self.ctrlContent.text = [@"内容:" stringByAppendingString:content];
+    self.ctrlContent.text = [@"内容:  " stringByAppendingString:content];
 }
 
 

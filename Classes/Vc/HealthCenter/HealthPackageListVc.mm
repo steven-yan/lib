@@ -9,6 +9,11 @@
 #import "HealthPackageListVc.h"
 
 @implementation HealthPackageListVc
+enum {
+    kHttpLoadDataTag = 100,
+    kHttpSetReservationTag,
+    kHttpModifyReservationTag,
+};
 
 
 
@@ -48,6 +53,14 @@
     [v addSubview:line];
     self.ctrlLine = line;
     
+    //CSDatePicker
+    CSDatePicker *dp = [[CSDatePicker alloc] initWithTitle:@"设置预约时间"];
+    dp.delegate = self;
+    dp.top = 40;
+    dp.centerX = self.contentPanel.width / 2;
+    [self.contentPanel addSubview:dp];
+    self.ctrlDatePicker = dp;
+    
     //底部面板-----------
     //数据------
     self.arrayOfCellData = [[NSMutableArray alloc] init];
@@ -56,7 +69,17 @@
 
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
+    //centerId
     self.centerId = [params valueForKey:@"centerId"];
+    //fromePage
+    NSString *fromePage = [params valueForKey:@"fromePage"];
+    if ([fromePage isEqualToString:@"ReservationDetailVc"]) {
+        self.modifyReservationTag = YES;
+    } else {
+        self.modifyReservationTag = NO;
+    }
+    //peMaster
+    self.peMasterId = [params valueForKey:@"peMasterId"];
 }
 
 //解析导航返回
@@ -65,7 +88,7 @@
 
 //窗体将要显示------
 - (void)onWillShow {
-    [self loadData];
+    [self loadData:kHttpLoadDataTag];
 }
 
 //窗体显示
@@ -92,51 +115,77 @@
  |  获取和提交数据
  |
  -----------------------------------------------------------------------------*/
-- (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"peiscenter.PeisCenterPRC.getPeisCenterDetail.submit"]];
+- (void)loadData:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self httpGet:[AppUtil healthUrl:@"peiscenter.PeisCenterPRC.getPeisCenterDetail.submit"] tag:tag];
+    } else if (tag == kHttpSetReservationTag){
+        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.reservation.submit"] tag:tag];
+    } else if (tag == kHttpModifyReservationTag){
+        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.modifyReservation.submit"] tag:tag];
+    }
 }
 
-- (void)onHttpRequestSuccessObj:(NSDictionary *)dic {
-    [self.arrayOfCellData removeAllObjects];
-    
-    NSString *peisName = [dic valueForKey:@"peisName"];
-    if ([ChkUtil isEmptyStr:peisName] == NO) {
-        [self changeTopTitle:peisName];
+- (void)onHttpRequestSuccessObj:(NSDictionary *)dic tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self.arrayOfCellData removeAllObjects];
+        
+        NSString *peisName = [dic valueForKey:@"peisName"];
+        if ([ChkUtil isEmptyStr:peisName] == NO) {
+            [self changeTopTitle:peisName];
+        }
+        
+        //设置数据
+        NSString *addr = kEmptyStr;
+        if ([dic valueForKey:@"address"]) {
+            addr = [dic valueForKey:@"address"];
+        }
+        NSString *tel = kEmptyStr;
+        if ([dic valueForKey:@"tel"]) {
+            tel = [dic valueForKey:@"tel"];
+        }
+        NSString *fax = kEmptyStr;
+        if ([dic valueForKey:@"fax"]) {
+            fax = [dic valueForKey:@"fax"];
+        }
+        NSString *intro = kEmptyStr;
+        if ([dic valueForKey:@"introduction"]) {
+            intro = [dic valueForKey:@"introduction"];
+        }
+        //刷新
+        [self refreshWithAddr:addr phone:tel fax:fax intro:intro];
+        
+        NSArray *arr = [dic valueForKey:@"itemPackageList"];
+        for (NSDictionary *dic in arr) {
+            HealthPackageListCellData *cd = [[HealthPackageListCellData alloc] initWithObj:dic];
+            [self.arrayOfCellData addObject:cd];
+        }
+        
+        //刷新
+        [self.tableView reloadData];
+    } else if (tag == kHttpSetReservationTag) {
+        self.ctrlDatePicker.hidden = YES;
+        [self showToast:@"预约套餐成功"];
+    } else if (tag == kHttpModifyReservationTag) {
+        self.ctrlDatePicker.hidden = YES;
+        [self showToast:@"修改套餐成功"];
     }
-    
-    //设置数据
-    NSString *addr = kEmptyStr;
-    if ([dic valueForKey:@"address"]) {
-        addr = [dic valueForKey:@"address"];
-    }
-    NSString *tel = kEmptyStr;
-    if ([dic valueForKey:@"tel"]) {
-        tel = [dic valueForKey:@"tel"];
-    }
-    NSString *fax = kEmptyStr;
-    if ([dic valueForKey:@"fax"]) {
-        fax = [dic valueForKey:@"fax"];
-    }
-    NSString *intro = kEmptyStr;
-    if ([dic valueForKey:@"introduction"]) {
-        intro = [dic valueForKey:@"introduction"];
-    }
-    //刷新
-    [self refreshWithAddr:addr phone:tel fax:fax intro:intro];
-    
-    NSArray *arr = [dic valueForKey:@"itemPackageList"];
-    for (NSDictionary *dic in arr) {
-        HealthPackageListCellData *cd = [[HealthPackageListCellData alloc] initWithObj:dic];
-        [self.arrayOfCellData addObject:cd];
-    }
-    
-    //刷新
-    [self.tableView reloadData];
 }
 
 //完善参数
-- (void)completeQueryParams {
-    [self.queryParams setObject:self.centerId forKey:@"peisCenterId"];
+- (void)completeQueryParams:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self.queryParams setObject:self.centerId forKey:@"peisCenterId"];
+    } else if (tag == kHttpSetReservationTag || tag == kHttpModifyReservationTag) {
+        HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:self.selectedIndex];
+        [self.queryParams setObject:self.centerId forKey:@"peisCenterId"];
+        [self.queryParams setObject:cd.packageId forKey:@"itemPackageId"];
+        [self.queryParams setObject:[self.ctrlDatePicker getDateStr] forKey:@"reservationDate"];
+        if (tag == kHttpSetReservationTag) {
+            [self.queryParams setObject:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+        } else {
+            [self.queryParams setObject:self.peMasterId forKey:@"peMasterId"];
+        }
+    }
 }
 
 
@@ -187,8 +236,10 @@
     }
     
     HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
-    [self navTo:@"HealthPackageDetailVc" params:[NSDictionary dictionaryWithObject:cd.packageId forKey:@"packageId"]];
+    [self navTo:@"HealthPackageDetailVc" params:[NSDictionary dictionaryWithObjectsAndKeys:cd.packageId, @"packageId", self.centerId, @"centerId", nil]];
 }
+
+
 
 #pragma mark -
 #pragma mark --------------------HealthPackageListCellDelegate------------------
@@ -202,7 +253,33 @@
         return;
     }
     
-    
+    EN_LOGIN_STATE_T state = Global.instance.userInfo.userState;
+    if (state == LOGIN_STATE_NONE) {
+        [self navTo:@"SignInVc"];
+    } else if (state == LOGIN_STATE_NORMAL) {
+        [self navTo:@"FillUserInfoVc"];
+    } else {
+        //index
+        self.selectedIndex = idx;
+        [self.ctrlDatePicker show];
+    }
+}
+
+
+
+#pragma mark -
+#pragma mark --------------------CSDatePickerDelegate---------------------------
+/*------------------------------------------------------------------------------
+ |  CSDatePickerDelegate
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onCSDatePickerDelegate:(CSDatePicker *)picker {
+    //请求
+    if (self.modifyReservationTag) {
+        [self loadData:kHttpModifyReservationTag];
+    } else {
+        [self loadData:kHttpSetReservationTag];
+    }
 }
 
 

@@ -28,9 +28,10 @@ NSString * const kEmptyStr = @"";
  -----------------------------------------------------------------------------*/
 //general color
 NSString * const kGeneralColor = @"#43ce50";
-
 //host and port
 NSString *const kHealthHostName = @"http://180.166.93.195:8888/";
+NSString *const kTestHealthHostName = @"http://114.80.79.37/peis/";
+
 
 
 #pragma mark -

@@ -9,6 +9,10 @@
 #import "HealthPackageDetailVc.h"
 
 @implementation HealthPackageDetailVc
+enum {
+    kHttpLoadDataTag = 100,
+    kHttpSetReservationTag,
+};
 
 
 
@@ -41,6 +45,14 @@
     [v addSubview:line];
     self.ctrlLine = line;
     
+    //CSDatePicker
+    CSDatePicker *dp = [[CSDatePicker alloc] initWithTitle:@"设置预约时间"];
+    dp.delegate = self;
+    dp.top = 40;
+    dp.centerX = self.contentPanel.width / 2;
+    [self.contentPanel addSubview:dp];
+    self.ctrlDatePicker = dp;
+    
     //底部面板-----------
     //其他--------------
     self.arrayOfItemGroup = [[NSMutableArray alloc] init];
@@ -48,6 +60,7 @@
 
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
+    self.centerId = [params valueForKey:@"centerId"];
     self.packageId = [params valueForKey:@"packageId"];
 }
 
@@ -57,7 +70,7 @@
 
 //窗体将要显示------
 - (void)onWillShow {
-    [self loadData];
+    [self loadData:kHttpLoadDataTag];
 }
 
 //窗体显示
@@ -81,7 +94,7 @@
         [self navTo:@"FillUserInfoVc"];
     } else {
         //tag
-        
+        [self.ctrlDatePicker show];
     }
 }
 
@@ -93,39 +106,55 @@
  |  获取和提交数据
  |
  -----------------------------------------------------------------------------*/
-- (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"itempackage.ItemPackagePRC.getItemPackageDetail.submit"]];
+- (void)loadData:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self httpGet:[AppUtil healthUrl:@"itempackage.ItemPackagePRC.getItemPackageDetail.submit"] tag:tag];
+    } else if (tag == kHttpSetReservationTag) {
+        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.reservation.submit"] tag:tag];
+    }
 }
 
-- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-    NSString *title = [obj valueForKey:@"itemPackageName"];
-    if ([ChkUtil isEmptyStr:title] == NO) {
-        [self changeTopTitle:title];
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        NSString *title = [obj valueForKey:@"itemPackageName"];
+        if ([ChkUtil isEmptyStr:title] == NO) {
+            [self changeTopTitle:title];
+        }
+        NSString *price = [obj valueForKey:@"price"];
+        if ([ChkUtil isEmptyStr:price]) {
+            price = kEmptyStr;
+        }
+        NSString *des = [obj valueForKey:@"description"];
+        if ([ChkUtil isEmptyStr:des]) {
+            des = kEmptyStr;
+        }
+        //刷新
+        [self refreshWithPrice:price detail:des];
+        
+        //数据
+        NSArray *arr = [obj valueForKey:@"itemGroupList"];
+        for (NSDictionary *obj in arr) {
+            HealthPackageDetailCellData *cd = [[HealthPackageDetailCellData alloc] initWithObj:obj];
+            [self.arrayOfItemGroup addObject:cd];
+        }
+        
+        //刷新
+        [self.tableView reloadData];
+    } else if (tag == kHttpSetReservationTag) {
+        self.ctrlDatePicker.hidden = YES;
+        [self showToast:@"预约成功"];
     }
-    NSString *price = [obj valueForKey:@"price"];
-    if ([ChkUtil isEmptyStr:price]) {
-        price = kEmptyStr;
-    }
-    NSString *des = [obj valueForKey:@"description"];
-    if ([ChkUtil isEmptyStr:des]) {
-        des = kEmptyStr;
-    }
-    //刷新
-    [self refreshWithPrice:price detail:des];
-    
-    //数据
-    NSArray *arr = [obj valueForKey:@"itemGroupList"];
-    for (NSDictionary *obj in arr) {
-        HealthPackageDetailCellData *cd = [[HealthPackageDetailCellData alloc] initWithObj:obj];
-        [self.arrayOfItemGroup addObject:cd];
-    }
-    
-    //刷新
-    [self.tableView reloadData];
 }
 
-- (void)completeQueryParams {
-    [self.queryParams setValue:self.packageId forKey:@"itemPackageId"];
+- (void)completeQueryParams:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self.queryParams setValue:self.packageId forKey:@"itemPackageId"];
+    } else if (tag == kHttpSetReservationTag) {
+        [self.queryParams setObject:self.centerId forKey:@"peisCenterId"];
+        [self.queryParams setObject:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+        [self.queryParams setObject:self.packageId forKey:@"itemPackageId"];
+        [self.queryParams setObject:[self.ctrlDatePicker getDateStr] forKey:@"reservationDate"];
+    }
 }
 
 
@@ -165,6 +194,19 @@
     HealthPackageDetailCell *c = (HealthPackageDetailCell *)[cell viewWithTag:100];
     HealthPackageDetailCellData *cd = [self.arrayOfItemGroup objectAtIndex:row];
     [c refreshWithItemData:cd];
+}
+
+
+
+#pragma mark -
+#pragma mark --------------------CSDatePickerDelegate---------------------------
+/*------------------------------------------------------------------------------
+ |  CSDatePickerDelegate
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onCSDatePickerDelegate:(CSDatePicker *)picker {
+    //请求
+    [self loadData:kHttpSetReservationTag];
 }
 
 

@@ -8,8 +8,9 @@
 
 #import "HealthPackageListData.h"
 #import "HealthPackageListCell.h"
+#import "CSDatePicker.h"
 
-@interface HealthPackageListVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate, HealthPackageListCellDelegate>
+@interface HealthPackageListVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate, HealthPackageListCellDelegate, CSDatePickerDelegate>
 
 @property (nonatomic, strong) UIView *ctrlHeader;
 //体检中心地址
@@ -22,11 +23,20 @@
 @property (nonatomic, strong) UILabel *ctrlPeisIntro;
 //分隔线
 @property (nonatomic, strong) UIView *ctrlLine;
+//dp
+@property (nonatomic, strong) CSDatePicker *ctrlDatePicker;
 
+//centerId
 @property (nonatomic, strong) NSString *centerId;
-
 //array
 @property (nonatomic, strong) NSMutableArray *arrayOfCellData;
+//selected index
+@property (nonatomic) NSInteger selectedIndex;
+
+//modifyTag
+@property (nonatomic) bool modifyReservationTag;
+//peMasterId
+@property (nonatomic, strong) NSString *peMasterId;
 
 
 

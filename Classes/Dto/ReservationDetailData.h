@@ -8,6 +8,8 @@
 
 @interface ReservationDetailData : NSObject
 
+//体检中心
+@property (nonatomic, strong) NSString *peisCenterId;
 //体检号
 @property (nonatomic, strong) NSString *peMasterId;
 //体检中心名称

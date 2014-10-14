@@ -11,9 +11,10 @@
 
 + (NSString *)healthUrl:(NSString *)res {
     if (kAppDebugTag) {
+        return [kTestHealthHostName stringByAppendingString:res];
     } else {
+        return [kHealthHostName stringByAppendingString:res];
     }
-    return [kHealthHostName stringByAppendingString:res];
 }
 
 

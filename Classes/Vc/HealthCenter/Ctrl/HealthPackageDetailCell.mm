@@ -9,8 +9,10 @@
 #import "HealthPackageDetailCell.h"
 
 @implementation HealthPackageDetailCell
-static int kCellHeight = 60;
+//TODO: kCellHeight 分隔线消失
+static int kCellHeight = 50;
 static int kLeftMargin = 15;
+static int kFontSize = 12;
 static int kLabelWidth = Global.instance.sysInfo.fullWidth - 2*kLeftMargin;
 
 
@@ -32,7 +34,7 @@ static int kLabelWidth = Global.instance.sysInfo.fullWidth - 2*kLeftMargin;
         [self addSubview:name];
         self.ctrlGroupName = name;
         //详情
-        UILabel *detail = [UILabel labelWithLeft:kLeftMargin Top:name.bottom+5 Width:name.width Height:20 FontSize:12];
+        UILabel *detail = [UILabel labelWithLeft:kLeftMargin Top:name.bottom+5 Width:kLabelWidth Height:20 FontSize:kFontSize];
         detail.textColor = [UIColor grayColor];
         detail.numberOfLines = 0;
         [self addSubview:detail];
@@ -58,13 +60,14 @@ static int kLabelWidth = Global.instance.sysInfo.fullWidth - 2*kLeftMargin;
  |
  -----------------------------------------------------------------------------*/
 + (float)CellHeight:(NSString *)detail {
-    CGSize size = [UILabel dynamicHeightWithStr:detail width:kLabelWidth fontSize:12];
-    return kCellHeight + size.height - 20;
+    CGSize size = [UILabel dynamicHeightWithStr:detail width:kLabelWidth fontSize:kFontSize];
+    return kCellHeight + size.height;
 }
 
 - (void)refreshWithItemData:(HealthPackageDetailCellData *)d {
+    
     self.ctrlGroupName.text = [@"组合: " stringByAppendingString:d.groupName];
-    [self.ctrlDetail setDynamicWithStr:d.detail fontSize:12];
+    [self.ctrlDetail setDynamicWithStr:d.detail fontSize:kFontSize];
     self.ctrlLine.bottom = self.ctrlDetail.bottom + 10;
     self.height = self.ctrlDetail.bottom + 10;
 }

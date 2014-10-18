@@ -99,9 +99,9 @@
 
 //释放
 - (void)dealloc {
-    [self _onClose];
+    [self onClose];
 }
-- (void)_onClose {
+- (void)onClose {
 }
 
 

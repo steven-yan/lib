@@ -6,13 +6,14 @@
  *
  **/
 
-@interface BaseHttpVc : BaseVc <TopPanelDelegate>
 typedef enum {
     EnHttpConnectErrorTag = 100,
     EnHttpConnectTimeOutTag,
     EnHttpResponseContentErrorTag,  //内容格式错误 (非json格式)
     EnHttpResponseErrorHintTag,     //有出错信息
 } EnHttpRequestFailed;
+
+@interface BaseHttpVc : BaseVc <TopPanelDelegate>
 
 //get 请求
 @property (nonatomic, strong) ASIHTTPRequest *httpGetReq;

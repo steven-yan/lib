@@ -25,7 +25,7 @@
     self.queryParams = [[NSMutableDictionary alloc] init];
 }
 
-- (void)_onClose {
+- (void)onClose {
     if (self.httpGetReq) {
         [self.httpGetReq clearDelegatesAndCancel];
         self.httpGetReq = nil;
@@ -35,7 +35,7 @@
         self.httpPostReq = nil;
     }
     
-    [super _onClose];
+    [super onClose];
 }
 
 

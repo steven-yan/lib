@@ -41,7 +41,6 @@
     #import "BaseSingleListVc.h"
     #import "BaseSectionListVc.h"
     //view
-    #import "BaseView.h"
     #import "BaseHttpView.h"
 
     //other

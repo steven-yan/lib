@@ -6,12 +6,7 @@
  *
  **/
 
-@interface BaseHttpView : BaseView
-
-//加载提示
-@property (nonatomic, strong) UIActivityIndicatorView *ctrlIndicator;
-//失败提示
-@property (nonatomic, strong) UIButton *ctrlFailedHint;
+@interface BaseHttpView : UIView
 
 //get 请求
 @property (nonatomic, strong) ASIHTTPRequest *httpGetReq;
@@ -22,6 +17,9 @@
 @property (nonatomic, strong) NSMutableDictionary *getQueryParams;
 //post请求参数
 @property (nonatomic, strong) NSMutableDictionary *postQueryParams;
+
+//页面隐藏是否取消请求
+@property (nonatomic) BOOL closeHttpReqOnHideTag;
 
 //get ------
 - (void)httpGet:(NSString *)url;
@@ -46,6 +44,10 @@
 - (void)alertView:(UIAlertView *)alertView dismissWithBtnIndex:(NSInteger)index;
 - (void)confirmAlert:(UIAlertView *)alertView tag:(NSInteger)tag;
 - (void)confirmAlert:(UIAlertView *)alertView;
+
+//init
+- (UIView *)initWithFrame:(CGRect)rect;
+
 
 
 @end

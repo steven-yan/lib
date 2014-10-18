@@ -8,6 +8,7 @@
 
 @interface HttpUtil : NSObject
 
+
 + (ASIHTTPRequest *)httpGet:(NSString *)url
                      params:(NSDictionary *)params
                    postData:(NSData *)data
@@ -16,7 +17,6 @@
               didFaillector:(SEL)didFailSelector
                    delegate:(id)delegate
                         tag:(NSInteger)tag;
-
 
 
 @end

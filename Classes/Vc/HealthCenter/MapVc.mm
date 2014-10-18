@@ -43,9 +43,13 @@
     [ge geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error){
         if (placemarks.count > 0) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-            self.placemark = placemark;
             //定位
             [self.ctrlMapView setRegion:MKCoordinateRegionMake(placemark.location.coordinate, MKCoordinateSpanMake(0.01, 0.01)) animated:YES];
+            //anno----
+            CSMapAnno *anno = [[CSMapAnno alloc] initWithCoordinate:CLLocationCoordinate2DMake(placemark.location.coordinate.latitude, placemark.location.coordinate.longitude)];
+            anno.title = placemark.locality;
+            anno.subtitle = placemark.subLocality;
+            [self.ctrlMapView addAnnotation:anno];
         }
     }];
 }
@@ -102,30 +106,12 @@
  |  MKMapViewDelegate
  |
  -----------------------------------------------------------------------------*/
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-    
-}
-
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-    if (self.placemark) {
-        //anno----
-        CSMapAnno *anno = [[CSMapAnno alloc] initWithCoordinate:CLLocationCoordinate2DMake(self.placemark.location.coordinate.latitude, self.placemark.location.coordinate.longitude)];
-        anno.title = self.placemark.locality;
-        anno.subtitle = self.placemark.subLocality;
-        [self.ctrlMapView addAnnotation:anno];
-    }
-}
-
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     MKPinAnnotationView *annoView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MKPinAnnotationView"];
     annoView.pinColor = MKPinAnnotationColorRed;
     annoView.animatesDrop = YES;
     
     return annoView;
-}
-
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    
 }
 
 

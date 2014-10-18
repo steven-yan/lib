@@ -12,8 +12,6 @@
 
 //map
 @property (nonatomic, strong) MKMapView *ctrlMapView;
-//mark
-@property (nonatomic, strong) CLPlacemark *placemark;
 
 
 

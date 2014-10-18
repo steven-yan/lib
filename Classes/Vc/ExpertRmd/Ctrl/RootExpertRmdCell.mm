@@ -31,7 +31,6 @@ static int kCellHeight = 60;
         v.layer.cornerRadius = 3;
         v.layer.masksToBounds = YES;
         v.backgroundColor = [UIColor clearColor];
-        [v setImage:[UIImage imageNamed:@"rr_rmd"]];
         v.centerY = self.height / 2;
         [self addSubview:v];
         self.ctrlImg = v;
@@ -71,7 +70,7 @@ static int kCellHeight = 60;
 //刷新
 - (void)refreshWithCellData:(RootExpertRmdCellData *)data {
     //TODO: 图片
-    [self.ctrlImg sd_setImageWithURL:[NSURL URLWithString:data.imgUrl] placeholderImage:[UIImage imageNamed:@"rr_rmd"]];
+    [self.ctrlImg sd_setImageWithURL:[NSURL URLWithString:data.imgUrl] placeholderImage:[UIImage imageNamed:@"portrait_default"]];
     //名称
     self.ctrlLabelName.text = [@"" stringByAppendingString:data.name];
     //地址

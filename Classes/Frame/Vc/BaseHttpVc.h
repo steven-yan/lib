@@ -23,9 +23,6 @@ typedef enum {
 //get请求参数
 @property (nonatomic, strong) NSMutableDictionary *queryParams;
 
-//页面隐藏是否取消请求
-@property (nonatomic) BOOL closeHttpReqOnHideTag;
-
 //get ------
 - (void)httpGet:(NSString *)url;
 - (void)httpGet:(NSString *)url tag:(NSInteger)tag;

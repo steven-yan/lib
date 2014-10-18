@@ -135,6 +135,7 @@ enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = indexPath.row;
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell.width = self.nrVc.contentPanel.width;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (self.userState == LOGIN_STATE_NONE) {

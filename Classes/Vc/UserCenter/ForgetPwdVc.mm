@@ -62,8 +62,9 @@ static int kLeftMargin = 15;
     [self.contentPanel addSubview:tf];
     self.ctrlTfPasswd = tf;
     //分隔线
-    line = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, tf.bottom + 10, tf.width, 1)];
-    line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
+    line = [UIView lineWithWidth:tf.width];
+    line.left = kLeftMargin;
+    line.top = tf.bottom + 10;
     [self.contentPanel addSubview:line];
     
     //确认密码----------
@@ -81,8 +82,9 @@ static int kLeftMargin = 15;
     [self.contentPanel addSubview:tf];
     self.ctrlTfCmfPasswd = tf;
     //分隔线
-    line = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, tf.bottom + 10, tf.width, 1)];
-    line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
+    line = [UIView lineWithWidth:tf.width];
+    line.left = kLeftMargin;
+    line.top = tf.bottom + 10;
     [self.contentPanel addSubview:line];
 
     //重置密码

@@ -23,21 +23,18 @@
     
     //参数
     self.queryParams = [[NSMutableDictionary alloc] init];
-    //页面隐藏是否取消请求
-    self.closeHttpReqOnHideTag = YES;
 }
 
 - (void)onClose {
-    if (self.closeHttpReqOnHideTag) {
-        if (self.httpGetReq) {
-            [self.httpGetReq clearDelegatesAndCancel];
-            self.httpGetReq = nil;
-        }
-        if (self.httpPostReq) {
-            [self.httpPostReq clearDelegatesAndCancel];
-            self.httpPostReq = nil;
-        }
+    if (self.httpGetReq) {
+        [self.httpGetReq clearDelegatesAndCancel];
+        self.httpGetReq = nil;
     }
+    if (self.httpPostReq) {
+        [self.httpPostReq clearDelegatesAndCancel];
+        self.httpPostReq = nil;
+    }
+    
     [super onClose];
 }
 

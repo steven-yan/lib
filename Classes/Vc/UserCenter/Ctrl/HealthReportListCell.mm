@@ -9,8 +9,8 @@
 #import "HealthReportListCell.h"
 
 @implementation HealthReportListCell
-static int kCellHeight = 60;
-static int kLeftMargin = 15;
+static int kCellHeight = 100;
+static int kLeftMargin = 20;
 
 
 
@@ -27,15 +27,22 @@ static int kLeftMargin = 15;
         //-
         
         //控件-------------------
-        //组合名称
-        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:10 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        //用户名
+        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:12 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
         [self addSubview:name];
         self.ctrlName = name;
-        //日期
-        UILabel *date = [UILabel labelWithLeft:kLeftMargin Top:0 Width:200 Height:20 FontSize:10];
+        //体检号
+        name = [UILabel labelWithLeft:kLeftMargin Top:name.bottom + 2 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        [self addSubview:name];
+        self.ctrlPeMasterId = name;
+        //体检中心名称
+        name = [UILabel labelWithLeft:kLeftMargin Top:name.bottom+2 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        [self addSubview:name];
+        self.ctrlPeisName = name;
+        //预约时间
+        UILabel *date = [UILabel labelWithLeft:0 Top:name.bottom+2 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:10];
         date.textAlignment = NSTextAlignmentRight;
-        date.right = self.width - 40;
-        date.bottom = self.bottom;
+        date.right = self.width - 30;
         [self addSubview:date];
         self.ctrlDate = date;
         
@@ -62,10 +69,17 @@ static int kLeftMargin = 15;
     return kCellHeight;
 }
 
-- (void)refreshWith:(NSString *)name date:(NSString *)date {
-    self.ctrlName.text = name;
-    self.ctrlDate.text = [@"日期:  " stringByAppendingString:date];
+- (void)refreshWithCellData:(HealthReportListCellData *)d {
+    //用户名
+    self.ctrlName.text = [@"用户名:  " stringByAppendingString:d.userName];
+    //peId
+    self.ctrlPeMasterId.text = [@"体检号:  " stringByAppendingString:d.peMasterId];
+    //peisname
+    self.ctrlPeisName.text = [@"体检中心:  " stringByAppendingString:d.peisName];
+    //预约状态和预约时间
+    self.ctrlDate.text = [@"预约日期:  " stringByAppendingString:d.peDate];
 }
+
 
 
 #pragma mark -

@@ -8,6 +8,11 @@
 
 @interface HealthReportWebVc : BaseLayoutVc
 
+//webView
+@property (nonatomic, strong) UIWebView *ctrlWebView;
+//peMasterId
+@property (nonatomic, strong) NSString *peMasterId;
+
 
 
 @end

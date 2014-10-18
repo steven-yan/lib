@@ -27,8 +27,7 @@
 @property (nonatomic, strong) UILabel *ctrlPeisName;
 //预约状态
 @property (nonatomic, strong) UILabel *ctrlStatus;
-
-//和预约时间
+//预约时间
 @property (nonatomic, strong) UILabel *ctrlDate;
 
 //初始化

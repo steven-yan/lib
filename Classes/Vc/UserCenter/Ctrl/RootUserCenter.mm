@@ -12,6 +12,7 @@
 enum {
     kBtnSignUpTag = 100,
     kBtnSignInTag,
+    kBtnSettingTag,
     kBtnMarkAppTag,
     kBtnUpdateTag,
     kBtnDeclareTag,
@@ -108,7 +109,7 @@ enum {
         }
     } else if (self.userState == LOGIN_STATE_NORMAL) {
         if (row == 0) {
-            height = 120;
+            height = 100;
         } else if (row == 1) {
             height = 100;
         } else if (row == 2) {
@@ -118,7 +119,7 @@ enum {
         }
     } else {
         if (row == 0) {
-            height = 120;
+            height = 100;
         } else if (row == 1) {
             height = 140;
         } else if (row == 2){
@@ -157,7 +158,7 @@ enum {
         }
     } else if (self.userState == LOGIN_STATE_NORMAL) {
         if (row == 0) {
-            [self createUserImgCell:cell];
+            [self createUserImgCell:cell title:Global.instance.userInfo.userName];
         } else if (row == 1) {
             //背景----
             UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 20, cell.width - 20, 80)];
@@ -194,7 +195,7 @@ enum {
         }
     } else {
         if (row == 0) {
-            [self createUserImgCell:cell];
+            [self createUserImgCell:cell title:Global.instance.userInfo.userName];
         } else if (row == 1) {
             //背景----
             UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 20, cell.width - 20, 120)];
@@ -271,15 +272,14 @@ enum {
  |  其他
  |
  -----------------------------------------------------------------------------*/
-- (void)createUserImgCell:(UITableViewCell *)cell {
+- (void)createUserImgCell:(UITableViewCell *)cell title:(NSString *)title {
     //背景----
-    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 40, cell.width - 20, 80)];
+    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 25, cell.width - 20, 75)];
     [bg setStyleForSection];
     [cell addSubview:bg];
     //------
-    UIButton *btn = [UIButton btnCellWithTitle:@"头像" height:bg.height];
+    UIButton *btn = [[UIButton alloc] initWithFrame:bg.bounds];
     [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnUserImgTag;
     [bg addSubview:btn];
     //图片
     UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, 45, 45)];
@@ -287,9 +287,17 @@ enum {
     iv.layer.masksToBounds = YES;
     iv.backgroundColor = [UIColor lightGrayColor];
     [iv setImage:[UIImage imageNamed:@"man_small"]];
-    iv.right = bg.right - 48;
+    iv.left = 10;
     iv.centerY = bg.height / 2;
     [bg addSubview:iv];
+    //title
+    UILabel *l = [UILabel labelWithLeft:iv.right + 19 Top:0 Width:200 Height:20 FontSize:16];
+    l.text = title;
+    l.centerY = bg.height/2;
+    [bg addSubview:l];
+    //img
+    [btn setImage:[UIImage imageNamed:@"ic_list"] forState:UIControlStateNormal];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.width - btn.imageView.width - 20, 0, 0)];
 }
 
 - (void)createAdditonCell:(UITableViewCell *)cell {
@@ -297,36 +305,46 @@ enum {
     [bg setStyleForSection];
     [cell addSubview:bg];
     
-    //评分----
-    UIButton *btn = [UIButton btnCellWithTitle:@"给东方云健康评分"];
+    //设置----
+    UIButton *btn = [UIButton btnCellWithTitle:@"设置"];
     [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnMarkAppTag;
+    btn.tag = kBtnSettingTag;
     [bg addSubview:btn];
     //分隔线
     UIView *line = [UIView lineWithWidth:btn.width];
     line.bottom = btn.height;
     [btn addSubview:line];
-    //检查更新----
-    btn = [UIButton btnCellWithTitle:@"检查更新"];
+    //评分----
+    btn = [UIButton btnCellWithTitle:@"给东方云健康评分"];
     [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnUpdateTag;
+    btn.tag = kBtnMarkAppTag;
     btn.top = btn.height;
     [bg addSubview:btn];
     //分隔线
     line = [UIView lineWithWidth:btn.width];
     line.bottom = btn.height;
     [btn addSubview:line];
-    //声明----
-    btn = [UIButton btnCellWithTitle:@"声明"];
+    //检查更新----
+    btn = [UIButton btnCellWithTitle:@"检查更新"];
     [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnDeclareTag;
-    btn.top = btn.height * 2;
+    btn.tag = kBtnUpdateTag;
+    btn.top = btn.height*2;
     [bg addSubview:btn];
+//    //分隔线
+//    line = [UIView lineWithWidth:btn.width];
+//    line.bottom = btn.height;
+//    [btn addSubview:line];
+//    //声明----
+//    btn = [UIButton btnCellWithTitle:@"声明"];
+//    [btn addTarget:self action:@selector(btnClicked:)];
+//    btn.tag = kBtnDeclareTag;
+//    btn.top = btn.height * 3;
+//    [bg addSubview:btn];
     
     bg.height = btn.bottom;
 }
 
-- (void)btnClicked:(UIButton *)btn{
+- (void)btnClicked:(UIButton *)btn {
     NSInteger tag = btn.tag;
     
     switch (tag) {
@@ -335,6 +353,8 @@ enum {
             break;
         case kBtnSignInTag:
             [self.nrVc navTo:@"SignInVc"];
+            break;
+        case kBtnSettingTag:
             break;
         case kBtnMarkAppTag:
             break;

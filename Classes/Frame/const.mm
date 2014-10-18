@@ -13,7 +13,7 @@
  |
  -----------------------------------------------------------------------------*/
 //debug状态
-BOOL kAppDebugTag = YES;
+#define kAppDebugTag 1
 
 //空字符串
 NSString * const kEmptyStr = @"";
@@ -29,8 +29,11 @@ NSString * const kEmptyStr = @"";
 //general color
 NSString * const kGeneralColor = @"#43ce50";
 //host and port
+#if kAppDebugTag
+NSString *const kHealthHostName = @"http://114.80.79.37/peis/";
+#else
 NSString *const kHealthHostName = @"http://180.166.93.195:8888/";
-NSString *const kTestHealthHostName = @"http://114.80.79.37/peis/";
+#endif
 
 
 

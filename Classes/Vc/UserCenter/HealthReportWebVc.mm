@@ -25,12 +25,17 @@
     [self hideTopRightBtn];
     
     //内容面板-----------
+    UIWebView *v = [[UIWebView alloc] initWithFrame:self.contentPanel.bounds];
+    [self.contentPanel addSubview:v];
+    self.ctrlWebView = v;
+    
     //底部面板-----------
     //其他--------------
 }
 
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
+    self.peMasterId = [params valueForKey:@"peMasterId"];
 }
 
 //解析导航返回
@@ -67,15 +72,8 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
-}
-
-- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-}
-
-//完善参数
-- (void)completeQueryParams {
-    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?peMasterId=%@", kHealthHostName, @"jsp/pemaster/MyReportDetail.jsp", self.peMasterId]]];
+    [self.ctrlWebView loadRequest:request];
 }
 
 

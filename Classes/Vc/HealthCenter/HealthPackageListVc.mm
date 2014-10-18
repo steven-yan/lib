@@ -27,7 +27,7 @@ enum {
 - (void)onCreate {
     //顶部面板-----------
     [self changeTopTitle:@"套餐列表"];
-    [self hideTopRightBtn];
+    [self changeTopRightBtnTitle:@"地图"];
     //内容面板-----------
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentPanel.width, 80)];
     self.ctrlHeader = v;
@@ -105,6 +105,7 @@ enum {
 }
 
 - (void)topRightBtnClicked {
+    [self navTo:@"MapVc" params:self.params];
 }
 
 
@@ -127,8 +128,10 @@ enum {
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)dic tag:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
-        [self.arrayOfCellData removeAllObjects];
+        //params
+        self.params = dic;
         
+        [self.arrayOfCellData removeAllObjects];
         NSString *peisName = [dic valueForKey:@"peisName"];
         if ([ChkUtil isEmptyStr:peisName] == NO) {
             [self changeTopTitle:peisName];

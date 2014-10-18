@@ -26,6 +26,9 @@
 //dp
 @property (nonatomic, strong) CSDatePicker *ctrlDatePicker;
 
+//params
+@property (nonatomic, strong) NSDictionary *params;
+
 //centerId
 @property (nonatomic, strong) NSString *centerId;
 //array

@@ -27,6 +27,7 @@
     
     //底部面板-----------
     //其他--------------
+    self.arrayOfCellData = [[NSMutableArray alloc] init];
 }
 
 //解析导航进
@@ -67,10 +68,19 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
+    [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.myReportList.submit"]];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    [self.arrayOfCellData removeAllObjects];
+    
+    NSArray *list = [obj valueForKey:@"list"];
+    for (NSDictionary *obj in list) {
+        HealthReportListCellData *cd = [[HealthReportListCellData alloc] initWithObj:obj];
+        [self.arrayOfCellData addObject:cd];
+    }
+    
+    [self.tableView reloadData];
 }
 
 //完善参数
@@ -87,7 +97,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.arrayOfCellData.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -101,17 +111,31 @@
 }
 
 - (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    
     //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
     
     HealthReportListCell *c = (HealthReportListCell *)[cell viewWithTag:100];
-    [c refreshWith:@"阿斯顿发大水" date:@"2014-10-6"];
+    HealthReportListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    //刷新
+    [c refreshWithCellData:cd];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //容错
+    NSInteger row = indexPath.row;
     
-    [self navTo:@"HealthReportWebVc"];
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    HealthReportListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    [self navTo:@"HealthReportWebVc" params:[NSDictionary dictionaryWithObject:cd.peMasterId forKey:@"peMasterId"]];
 }
+
 
 
 #pragma mark -

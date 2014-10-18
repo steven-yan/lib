@@ -9,6 +9,9 @@
 
 @interface HealthReportListVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate>
 
+//array
+@property (nonatomic, strong) NSMutableArray *arrayOfCellData;
+
 
 
 @end

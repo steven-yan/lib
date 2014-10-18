@@ -11,7 +11,8 @@
 + (BOOL)isEmptyStr:(NSString *)str;
 + (BOOL)isIntStr:(NSString *)str;
 + (BOOL)isDoubleStr:(NSString *)str;
-+ (BOOL)isValidateEmail:(NSString *)email;
++ (BOOL)isValidEmail:(NSString *)email;
++ (BOOL)isValidPhoneNum:(NSString *)phoneNum;
 
 + (NSString *)handleNil:(NSString *)str;
 

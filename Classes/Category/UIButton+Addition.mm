@@ -54,16 +54,21 @@
 
 @implementation UIButton (Style)
 
-+ (UIButton *)btnCellWithTitle:(NSString *)title {
-    return [UIButton btnCellWithTitle:title height:40];
++ (UIButton *)btnCellWithTitle:(NSString *)title image:(NSString *)image {
+    return [UIButton btnCellWithTitle:title image:image height:40];
 }
 
-+ (UIButton *)btnCellWithTitle:(NSString *)title height:(CGFloat)height {
++ (UIButton *)btnCellWithTitle:(NSString *)title image:(NSString *)image height:(CGFloat)height {
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, Global.instance.sysInfo.fullWidth - 20, height)];
+    //image
+    UIImageView *v = [[UIImageView alloc] initWithFrame:CGRectMake(8, 0, 20, 20)];
+    [v setImage:[UIImage imageNamed:image]];
+    v.centerY = height/2;
+    [btn addSubview:v];
     //title
-    UILabel *l = [UILabel labelWithLeft:30 Top:0 Width:btn.width Height:btn.height FontSize:16];
-    l.centerY = height / 2;
+    UILabel *l = [UILabel labelWithLeft:35 Top:0 Width:btn.width Height:btn.height FontSize:16];
     l.text = title;
+    l.centerY = height/2;
     [btn addSubview:l];
     //img
     [btn setImage:[UIImage imageNamed:@"ic_list"] forState:UIControlStateNormal];

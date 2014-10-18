@@ -25,7 +25,7 @@ enum {
 //窗体创建
 - (void)onCreate {
     //顶部面板-----------
-    [self changeTopTitle:@"信息咨询"];
+    [self changeTopTitle:@"我的咨询"];
     [self changeTopRightBtnTitle:@"咨询"];
     //内容面板-----------
     

@@ -13,6 +13,8 @@
 @interface HealthPackageListVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate, HealthPackageListCellDelegate, CSDatePickerDelegate>
 
 @property (nonatomic, strong) UIView *ctrlHeader;
+//体检中心名字
+@property (nonatomic, strong) UILabel *ctrlPeisName;
 //体检中心地址
 @property (nonatomic, strong) UILabel *ctrlPeisAddr;
 //体检中心电话

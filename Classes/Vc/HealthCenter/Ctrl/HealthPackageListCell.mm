@@ -27,16 +27,17 @@ static int kLeftMargin = 15;
         
         //控件-------------------
         //名字
-        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:10 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        UILabel *name = [UILabel labelWithLeft:kLeftMargin Top:8 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
         [self addSubview:name];
         self.ctrlName = name;
         //价格
-        UILabel *price = [UILabel labelWithLeft:kLeftMargin Top:name.bottom Width:100 Height:20 FontSize:14];
+        UILabel *price = [UILabel labelWithLeft:kLeftMargin Top:name.bottom+5 Width:100 Height:20 FontSize:14];
+        price.textColor = [UIColor grayColor];
         [self addSubview:price];
         self.ctrlPrice = price;
         //预定
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-        [btn setTitle:@"预定"];
+        [btn setTitle:@"预约"];
         [btn addTarget:self action:@selector(btnClicked:)];
         [btn setStyleGreen];
         btn.right = self.width - 30;

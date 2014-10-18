@@ -38,10 +38,16 @@
     return NO;
 }
 
-+(BOOL)isValidateEmail:(NSString *)email {
++ (BOOL)isValidPhoneNum:(NSString *)phoneNum {
+    NSString* mobileRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", mobileRegex];
+    return [predicate evaluateWithObject:phoneNum];
+}
+
++ (BOOL)isValidEmail:(NSString *)email {
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:email];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [predicate evaluateWithObject:email];
 }
 
 + (NSString *)handleNil:(NSString *)str {

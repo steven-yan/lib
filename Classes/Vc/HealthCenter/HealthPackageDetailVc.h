@@ -13,6 +13,8 @@
 @interface HealthPackageDetailVc : BaseSingleListVc <UITableViewDataSource, UITableViewDelegate, CSDatePickerDelegate>
 
 @property (nonatomic, strong) UIView *ctrlHeader;
+//名字
+@property (nonatomic, strong) UILabel *ctrlName;
 //价格
 @property (nonatomic, strong) UILabel *ctrlPrice;
 //描述

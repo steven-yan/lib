@@ -22,8 +22,8 @@
 @interface UIButton (Style)
 
 //cell btn
-+ (UIButton *)btnCellWithTitle:(NSString *)title;
-+ (UIButton *)btnCellWithTitle:(NSString *)title height:(CGFloat)height;
++ (UIButton *)btnCellWithTitle:(NSString *)title image:(NSString *)image;
+    + (UIButton *)btnCellWithTitle:(NSString *)title image:(NSString *)image height:(CGFloat)height;
 
 - (void)setStyleGray;
 - (void)setStyleGreen;

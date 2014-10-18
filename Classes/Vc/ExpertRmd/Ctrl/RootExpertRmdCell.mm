@@ -35,11 +35,12 @@ static int kCellHeight = 60;
         [self addSubview:v];
         self.ctrlImg = v;
         //名称
-        UILabel *name = [UILabel labelWithLeft:v.right + 12 Top:v.top Width:SysInfo.instance.fullWidth - v.right - 5 - 60  Height:14 FontSize:14];
+        UILabel *name = [UILabel labelWithLeft:v.right + 12 Top:v.top+3 Width:SysInfo.instance.fullWidth - v.right - 5 - 60  Height:14 FontSize:15];
         [self addSubview:name];
         self.ctrlLabelName = name;
         //描述
         UILabel *dsp = [UILabel labelWithLeft:name.left  Top:name.bottom + 5 Width:SysInfo.instance.fullWidth - v.right - 5 - 40  Height:24 FontSize:10];
+        dsp.textColor = [UIColor grayColor];
         dsp.numberOfLines = 2;
         [self addSubview:dsp];
         self.ctrlLabelDsp = dsp;
@@ -73,8 +74,8 @@ static int kCellHeight = 60;
     [self.ctrlImg sd_setImageWithURL:[NSURL URLWithString:data.imgUrl] placeholderImage:[UIImage imageNamed:@"portrait_default"]];
     //名称
     self.ctrlLabelName.text = [@"" stringByAppendingString:data.name];
-    //地址
-    self.ctrlLabelDsp.text = [@"" stringByAppendingString:data.desp];
+    //简介
+    self.ctrlLabelDsp.text = [@"简介: " stringByAppendingString:data.desp];
 }
 
 

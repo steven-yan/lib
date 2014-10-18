@@ -14,9 +14,7 @@
 //用户名
 @property (nonatomic, strong) UITextField *ctrlTfAcc;
 //密码
-@property (nonatomic, strong) UITextField *ctrlTfPasswd;
-//确认密码
-@property (nonatomic, strong) UITextField *ctrlTfCmfPasswd;
+@property (nonatomic, strong) UITextField *ctrlTfAuth;
 
 
 

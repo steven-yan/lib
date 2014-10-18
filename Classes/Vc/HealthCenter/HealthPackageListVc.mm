@@ -31,20 +31,29 @@ enum {
     //内容面板-----------
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentPanel.width, 80)];
     self.ctrlHeader = v;
+    //体检中心名字
+    UILabel *l = [UILabel labelWithLeft:10 Top:10 Width:self.contentPanel.width - 20 Height:16 FontSize:16];
+    [v addSubview:l];
+    self.ctrlPeisName = l;
+    
     //体检中心地址
-    UILabel *l = [UILabel labelWithLeft:10 Top:10 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l = [UILabel labelWithLeft:10 Top:l.bottom + 10 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l.textColor = [UIColor grayColor];
     [v addSubview:l];
     self.ctrlPeisAddr = l;
     //体检中心电话
     l = [UILabel labelWithLeft:10 Top:l.bottom + 2 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l.textColor = [UIColor grayColor];
     [v addSubview:l];
     self.ctrlPeisPhone = l;
     //体检中心传真
     l = [UILabel labelWithLeft:10 Top:l.bottom + 2 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l.textColor = [UIColor grayColor];
     [v addSubview:l];
     self.ctrlPeisFax = l;
     //体检中心简介
     l = [UILabel labelWithLeft:10 Top:l.bottom + 2 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l.textColor = [UIColor grayColor];
     l.numberOfLines = 0;
     [v addSubview:l];
     self.ctrlPeisIntro = l;
@@ -132,12 +141,13 @@ enum {
         self.params = dic;
         
         [self.arrayOfCellData removeAllObjects];
-        NSString *peisName = [dic valueForKey:@"peisName"];
-        if ([ChkUtil isEmptyStr:peisName] == NO) {
-            [self changeTopTitle:peisName];
-        }
         
         //设置数据
+        NSString *peisName = kEmptyStr;
+        if ([dic valueForKey:@"peisName"]) {
+            peisName = [dic valueForKey:@"peisName"];
+        }
+        
         NSString *addr = kEmptyStr;
         if ([dic valueForKey:@"address"]) {
             addr = [dic valueForKey:@"address"];
@@ -155,7 +165,7 @@ enum {
             intro = [dic valueForKey:@"introduction"];
         }
         //刷新
-        [self refreshWithAddr:addr phone:tel fax:fax intro:intro];
+        [self refreshWithName:peisName addr:addr phone:tel fax:fax intro:intro];
         
         NSArray *arr = [dic valueForKey:@"itemPackageList"];
         for (NSDictionary *dic in arr) {
@@ -293,12 +303,15 @@ enum {
  |  其他
  |
  -----------------------------------------------------------------------------*/
-- (void)refreshWithAddr:(NSString *)addr phone:(NSString *)phone fax:(NSString *)fax intro:(NSString *)intro {
+- (void)refreshWithName:(NSString *)name addr:(NSString *)addr phone:(NSString *)phone fax:(NSString *)fax intro:(NSString *)intro {
+    
+    self.ctrlPeisName.text = name;
+    
     self.ctrlPeisAddr.text = [@"地址: " stringByAppendingString:addr];
     self.ctrlPeisPhone.text = [@"电话: " stringByAppendingString:phone];
     self.ctrlPeisFax.text = [@"传真: " stringByAppendingString:fax];
     CGSize size = [self.ctrlPeisIntro setDynamicWithStr:[@"简介: " stringByAppendingString:intro]  fontSize:12];
-    self.ctrlHeader.height = self.ctrlPeisIntro.top + size.height + 10;
+    self.ctrlHeader.height = self.ctrlPeisIntro.top + size.height + 30;
     self.ctrlLine.bottom = self.ctrlHeader.height;
     self.ctrlHeader.height = self.ctrlLine.bottom;
     self.tableView.tableHeaderView = self.ctrlHeader;

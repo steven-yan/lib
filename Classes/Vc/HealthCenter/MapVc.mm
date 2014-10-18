@@ -44,7 +44,7 @@
         if (placemarks.count > 0) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
             //定位
-            [self.ctrlMapView setRegion:MKCoordinateRegionMake(placemark.location.coordinate, MKCoordinateSpanMake(0.01, 0.01)) animated:YES];
+            [self.ctrlMapView setRegion:MKCoordinateRegionMake(placemark.location.coordinate, MKCoordinateSpanMake(0.005, 0.005)) animated:YES];
             //anno----
             CSMapAnno *anno = [[CSMapAnno alloc] initWithCoordinate:CLLocationCoordinate2DMake(placemark.location.coordinate.latitude, placemark.location.coordinate.longitude)];
             anno.title = placemark.locality;

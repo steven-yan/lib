@@ -19,15 +19,17 @@ typedef enum {
 @property (nonatomic, strong) NSString *userLoginId;
 //userName
 @property (nonatomic, strong) NSString *userName;
+//userPwd
+@property (nonatomic, strong) NSString *userPwd;
 //mobile
 @property (nonatomic, strong) NSString *mobile;
 //email
 @property (nonatomic, strong) NSString *email;
-//sex
+//sex 0 男， 1 女
 @property (nonatomic, strong) NSString *sex;
-//marryStatus
+//marryStatus  0 已婚， 1未婚
 @property (nonatomic, strong) NSString *marryStatus;
-//cardType
+//cardType   0 身份证 1 军官证
 @property (nonatomic, strong) NSString *cardType;
 //cardNumber
 @property (nonatomic, strong) NSString *cardNumber;
@@ -36,6 +38,8 @@ typedef enum {
 
 //init
 - (id)initWithObj:(NSDictionary *)obj;
+- (NSDictionary *)transToObj;
+- (void)save;
 - (void)clear;
 
 

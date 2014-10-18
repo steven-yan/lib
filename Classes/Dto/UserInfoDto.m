@@ -26,6 +26,10 @@
             self.userLoginId = [obj valueForKey:@"userLoginId"];
             //userName
             self.userName = [obj valueForKey:@"userName"];
+            
+            //userPwd
+            self.userPwd = [obj valueForKey:@"userPwd"];
+            
             //mobile
             self.mobile = [obj valueForKey:@"mobile"];
             //email
@@ -47,6 +51,10 @@
         self.userLoginId = [ChkUtil handleNil:self.userLoginId];
         //userName
         self.userName = [ChkUtil handleNil:self.userName];
+        
+        //userPwd
+        self.userPwd = [ChkUtil handleNil:self.userPwd];
+        
         //mobile
         self.mobile = [ChkUtil handleNil:self.mobile];
         //email
@@ -62,7 +70,7 @@
         //photoPath
         self.photoPath = [ChkUtil handleNil:self.photoPath];
         
-        if ([ChkUtil isEmptyStr:self.userName]) {
+        if ([ChkUtil isEmptyStr:self.userLoginId]) {
             self.userState = LOGIN_STATE_NONE;
         } else if ([ChkUtil isEmptyStr:self.cardNumber]) {
             self.userState = LOGIN_STATE_NORMAL;
@@ -82,6 +90,28 @@
  |  方法
  |
  -----------------------------------------------------------------------------*/
+- (NSDictionary *)transToObj {
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    
+    [dic setValue:self.userLoginId forKey:@"userLoginId"];
+    [dic setValue:self.userName forKey:@"userName"];
+    [dic setValue:self.userPwd forKey:@"userPwd"];
+    [dic setValue:self.mobile forKey:@"mobile"];
+    [dic setValue:self.email forKey:@"email"];
+    [dic setValue:self.sex forKey:@"sex"];
+    [dic setValue:self.marryStatus forKey:@"marryStatus"];
+    [dic setValue:self.cardType forKey:@"cardType"];
+    [dic setValue:self.cardNumber forKey:@"cardNumber"];
+    
+    return dic;
+}
+
+- (void)save {
+    NSDictionary *obj = [self transToObj];
+    //存储用户信息
+    [Cache.instance storeWithDir:kGlobalDir key:kGlobalKeyUser dic:obj];
+}
+
 - (void)clear {
     //userName
     self.userName = kEmptyStr;

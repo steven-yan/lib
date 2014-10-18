@@ -32,14 +32,14 @@ static int kLabelWidth = Global.instance.sysInfo.fullWidth - 2*kLeftMargin;
         [self addSubview:name];
         self.ctrlGroupName = name;
         //详情
-        UILabel *detail = [UILabel labelWithLeft:kLeftMargin Top:name.bottom Width:name.width Height:20 FontSize:14];
+        UILabel *detail = [UILabel labelWithLeft:kLeftMargin Top:name.bottom+5 Width:name.width Height:20 FontSize:12];
+        detail.textColor = [UIColor grayColor];
         detail.numberOfLines = 0;
         [self addSubview:detail];
         self.ctrlDetail = detail;
         
         //分割线
         UIView *line = [UIView lineWithWidth:self.width];
-        line.bottom = self.height;
         [self addSubview:line];
         self.ctrlLine = line;
         
@@ -58,15 +58,15 @@ static int kLabelWidth = Global.instance.sysInfo.fullWidth - 2*kLeftMargin;
  |
  -----------------------------------------------------------------------------*/
 + (float)CellHeight:(NSString *)detail {
-    CGSize size = [UILabel dynamicHeightWithStr:detail width:kLabelWidth fontSize:14];
+    CGSize size = [UILabel dynamicHeightWithStr:detail width:kLabelWidth fontSize:12];
     return kCellHeight + size.height - 20;
 }
 
 - (void)refreshWithItemData:(HealthPackageDetailCellData *)d {
     self.ctrlGroupName.text = [@"组合: " stringByAppendingString:d.groupName];
-    [self.ctrlDetail setDynamicWithStr:d.detail fontSize:14];
+    [self.ctrlDetail setDynamicWithStr:d.detail fontSize:12];
     self.ctrlLine.bottom = self.ctrlDetail.bottom + 10;
-    self.height = self.ctrlLine.bottom;
+    self.height = self.ctrlDetail.bottom + 10;
 }
 
 

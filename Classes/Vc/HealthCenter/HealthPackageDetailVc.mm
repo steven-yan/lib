@@ -26,17 +26,23 @@ enum {
 - (void)onCreate {
     //顶部面板-----------
     [self changeTopTitle:@"套餐详情"];
-    [self changeTopRightBtnTitle:@"预定"];
+    [self changeTopRightBtnTitle:@"预约"];
     //内容面板-----------
     UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentPanel.width, 20)];
     [self.contentPanel addSubview:v];
     self.ctrlHeader = v;
+    //名字
+    UILabel *l = [UILabel labelWithLeft:15 Top:10 Width:self.contentPanel.width - 20 Height:16 FontSize:16];
+    [v addSubview:l];
+    self.ctrlName = l;
     //价格
-    UILabel *l = [UILabel labelWithLeft:15 Top:10 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l = [UILabel labelWithLeft:15 Top:l.bottom + 10 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l.textColor = [UIColor grayColor];
     [v addSubview:l];
     self.ctrlPrice = l;
     //描述
     l = [UILabel labelWithLeft:15 Top:l.bottom + 2 Width:self.contentPanel.width - 20 Height:14 FontSize:12];
+    l.textColor = [UIColor grayColor];
     l.numberOfLines = 0;
     [v addSubview:l];
     self.ctrlDesp = l;
@@ -117,8 +123,8 @@ enum {
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
         NSString *title = [obj valueForKey:@"itemPackageName"];
-        if ([ChkUtil isEmptyStr:title] == NO) {
-            [self changeTopTitle:title];
+        if ([ChkUtil isEmptyStr:title]) {
+            title = kEmptyStr;
         }
         NSString *price = [obj valueForKey:@"price"];
         if ([ChkUtil isEmptyStr:price]) {
@@ -129,7 +135,7 @@ enum {
             des = kEmptyStr;
         }
         //刷新
-        [self refreshWithPrice:price detail:des];
+        [self refreshWithName:title price:price detail:des];
         
         //数据
         NSArray *arr = [obj valueForKey:@"itemGroupList"];
@@ -170,7 +176,14 @@ enum {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HealthPackageDetailCellData *cd = [self.arrayOfItemGroup objectAtIndex:indexPath.row];
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfItemGroup.count) {
+        return 0;
+    }
+    
+    HealthPackageDetailCellData *cd = [self.arrayOfItemGroup objectAtIndex:row];
     return [HealthPackageDetailCell CellHeight:cd.detail];
 }
 
@@ -217,10 +230,12 @@ enum {
  |  其他
  |
  -----------------------------------------------------------------------------*/
-- (void)refreshWithPrice:(NSString *)price detail:(NSString *)detail {
+- (void)refreshWithName:(NSString *)name price:(NSString *)price detail:(NSString *)detail {
+    self.ctrlName.text = name;
+    
     self.ctrlPrice.text = [@"价格: " stringByAppendingString:price];
     CGSize size = [self.ctrlDesp setDynamicWithStr:[@"描述: " stringByAppendingString:detail] fontSize:12];
-    self.ctrlHeader.height = self.ctrlDesp.top + size.height + 10;
+    self.ctrlHeader.height = self.ctrlDesp.top + size.height + 20;
     self.ctrlLine.bottom = self.ctrlHeader.height;
     self.ctrlHeader.height = self.ctrlLine.bottom;
     // tableView.tableHeaderView  高度不会随着ctrlHeader变化 所以要重新赋值

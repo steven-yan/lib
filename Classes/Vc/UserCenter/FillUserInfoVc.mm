@@ -33,6 +33,7 @@ static int kFontSize = 15;
     //hint----
     UILabel *l = [UILabel labelWithLeft:kLeftMargin Top:20 Width:80 Height:20 FontSize:kFontSize];
     l.text = @"姓名:";
+    l.textColor = [UIColor grayColor];
     [self.contentPanel addSubview:l];
     //tf----
     UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(l.right, 0, self.contentPanel.width - l.right - 20, 20)];
@@ -55,6 +56,7 @@ static int kFontSize = 15;
     //hint----
     l = [UILabel labelWithLeft:kLeftMargin Top:line.bottom + 20 Width:80 Height:20 FontSize:kFontSize];
     l.text = @"手机:";
+    l.textColor = [UIColor grayColor];
     [self.contentPanel addSubview:l];
     //tf----
     tf = [[UITextField alloc] initWithFrame:CGRectMake(l.right, 0, self.contentPanel.width - l.right - 20, 20)];
@@ -77,6 +79,7 @@ static int kFontSize = 15;
     //hint----
     l = [UILabel labelWithLeft:kLeftMargin Top:line.bottom + 20 Width:80 Height:20 FontSize:kFontSize];
     l.text = @"邮箱:";
+    l.textColor = [UIColor grayColor];
     [self.contentPanel addSubview:l];
     //tf----
     tf = [[UITextField alloc] initWithFrame:CGRectMake(l.right, 0, self.contentPanel.width - l.right - 20, 20)];
@@ -100,6 +103,7 @@ static int kFontSize = 15;
     //hint----
     l = [UILabel labelWithLeft:kLeftMargin Top:line.bottom + 20 Width:80 Height:20 FontSize:kFontSize];
     l.text = @"性别:";
+    l.textColor = [UIColor grayColor];
     [self.contentPanel addSubview:l];
     //证件----
     UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"男", @"女", nil]];
@@ -114,6 +118,7 @@ static int kFontSize = 15;
     //hint----
     l = [UILabel labelWithLeft:kLeftMargin Top:segment.bottom + 20 Width:80 Height:20 FontSize:kFontSize];
     l.text = @"婚姻:";
+    l.textColor = [UIColor grayColor];
     [self.contentPanel addSubview:l];
     //证件----
     segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"已婚", @"未婚", nil]];
@@ -128,6 +133,7 @@ static int kFontSize = 15;
     //hint----
     l = [UILabel labelWithLeft:kLeftMargin Top:segment.bottom + 20 Width:80 Height:20 FontSize:kFontSize];
     l.text = @"证件类型:";
+    l.textColor = [UIColor grayColor];
     [self.contentPanel addSubview:l];
     //证件----
     segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"身份证", @"军官证", nil]];
@@ -141,6 +147,7 @@ static int kFontSize = 15;
     //hint----
     l = [UILabel labelWithLeft:kLeftMargin Top:segment.bottom + 20 Width:80 Height:20 FontSize:kFontSize];
     l.text = @"证件号:";
+    l.textColor = [UIColor grayColor];
     [self.contentPanel addSubview:l];
     //tf----
     tf = [[UITextField alloc] initWithFrame:CGRectMake(l.right, 0, self.contentPanel.width - l.right - 20, 20)];
@@ -160,8 +167,13 @@ static int kFontSize = 15;
     line.top = tf.bottom;
     [self.contentPanel addSubview:line];
     
-    //TODO: hint
-//    头像非必填，手机邮箱二选一，其他都必填
+    //登录
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, line.bottom + 25, self.contentPanel.width - 20, 40)];
+    [btn setTitle:@"提交" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(cmfBtnClicked:)];
+    btn.layer.cornerRadius = 6;
+    btn.backgroundColor = self.topPanel.backgroundColor;
+    [self.contentPanel addSubview:btn];
     
     //底部面板-----------
     //其他--------------
@@ -177,6 +189,7 @@ static int kFontSize = 15;
 
 //窗体将要显示------
 - (void)onWillShow {
+    self.ctrlTfMail.text = Global.instance.userInfo.email;
 }
 
 //窗体显示
@@ -206,15 +219,60 @@ static int kFontSize = 15;
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
+    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.filledPersonInfo.submit"]];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    UserInfoDto *user = [[UserInfoDto alloc] initWithObj:nil];
+    //设置值
+    user.userLoginId = Global.instance.userInfo.userLoginId;
+    //userName
+    user.userName = self.ctrlTfName.text;
+    //userPwd
+    user.userPwd = Global.instance.userInfo.userPwd;
+    //mobile
+    if ([ChkUtil isEmptyStr:self.ctrlTfPhone.text] == NO) {
+        user.mobile = self.ctrlTfPhone.text;
+    } else {
+        user.mobile = Global.instance.userInfo.mobile;
+    }
+    
+    //email
+    if ([ChkUtil isEmptyStr:self.ctrlTfPhone.text] == NO) {
+        user.email = self.ctrlTfMail.text;
+    } else {
+        user.email = Global.instance.userInfo.email;
+    }
+    //sex 0 男， 1 女
+    user.sex = [NSString stringWithFormat:@"%d", self.ctrlSegSex.selectedSegmentIndex];
+    //marryStatus  0 已婚， 1未婚
+    user.marryStatus = [NSString stringWithFormat:@"%d", self.ctrlSegMarrage.selectedSegmentIndex];
+    //cardType   0 身份证 1 军官证
+    user.cardType = [NSString stringWithFormat:@"%d", self.ctrlSegIdType.selectedSegmentIndex];
+    //cardNumber
+    user.cardNumber = self.ctrlTfId.text;
+    
+    user.userState = LOGIN_STATE_AUTH;
+    
+    obj = [user transToObj];
+    
+    //存储用户信息
+    [Cache.instance storeWithDir:kGlobalDir key:kGlobalKeyUser dic:obj];
+    Global.instance.userInfo = user;
+    
+    [self navBack];
 }
 
 //完善参数
 - (void)completeQueryParams {
     [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+    [self.queryParams setValue:self.ctrlTfName.text forKey:@"userName"];
+    [self.queryParams setValue:self.ctrlTfPhone.text forKey:@"mobile"];
+    [self.queryParams setValue:self.ctrlTfMail.text forKey:@"email"];
+    [self.queryParams setValue:[NSString stringWithFormat:@"%d", self.ctrlSegIdType.selectedSegmentIndex] forKey:@"sex"];
+    [self.queryParams setValue:[NSString stringWithFormat:@"%d", self.ctrlSegMarrage.selectedSegmentIndex] forKey:@"marryStatus"];
+    [self.queryParams setValue:[NSString stringWithFormat:@"%d", self.ctrlSegIdType.selectedSegmentIndex] forKey:@"cardType"];
+    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"cardNumber"];
 }
 
 
@@ -243,6 +301,45 @@ static int kFontSize = 15;
  |  其他
  |
  -----------------------------------------------------------------------------*/
+- (void)cmfBtnClicked:(UIButton *)btn {
+    if ([self chkInfo]) {
+        [self loadData];
+    }
+}
+
+- (BOOL)chkInfo {
+    //用户名
+    if ([ChkUtil isEmptyStr:self.ctrlTfName.text]) {
+        [self showToast:@"请填写用户名"];
+        return NO;
+    }
+    
+    //手机邮箱可二选一
+    if ([ChkUtil isEmptyStr:self.ctrlTfPhone.text] && [ChkUtil isEmptyStr:self.ctrlTfMail.text]) {
+        [self showToast:@"手机邮箱可二选一"];
+        return NO;
+    }
+    if ([ChkUtil isEmptyStr:self.ctrlTfPhone.text] == NO) {
+        if ([ChkUtil isValidPhoneNum:self.ctrlTfPhone.text] == NO) {
+            [self showToast:@"手机号格式不正确"];
+            return NO;
+        }
+    }
+    if ([ChkUtil isEmptyStr:self.ctrlTfMail.text] == NO) {
+        if ([ChkUtil isValidEmail:self.ctrlTfMail.text] == NO) {
+            [self showToast:@"邮箱格式不正确"];
+            return NO;
+        }
+    }
+    
+    if ([ChkUtil isEmptyStr:self.ctrlTfId.text]) {
+        [self showToast:@"证件号不能为空"];
+        return NO;
+    }
+    
+    return YES;
+}
+
 - (void)panned:(UIPanGestureRecognizer *)pan {
     //reset
     [self reset];

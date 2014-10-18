@@ -62,8 +62,9 @@ static int kLeftMargin = 15;
     [self.contentPanel addSubview:tf];
     self.ctrlTfPasswd = tf;
     //分隔线
-    line = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, tf.bottom + 10, tf.width, 1)];
-    line.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
+    line = [UIView lineWithWidth:tf.width];
+    line.left = kLeftMargin;
+    line.top = tf.bottom + 10;
     [self.contentPanel addSubview:line];
     
     //登录
@@ -109,8 +110,6 @@ static int kLeftMargin = 15;
 
 //窗体将要显示
 - (void)onWillShow {
-    self.ctrlTfAcc.text = @"admin";
-    self.ctrlTfPasswd.text = @"1";
 }
 
 //窗体显示
@@ -127,6 +126,7 @@ static int kLeftMargin = 15;
 }
 
 - (void)onWillHide {
+    [self hideKeyBoard];
 }
 
 
@@ -142,9 +142,9 @@ static int kLeftMargin = 15;
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-    //TODO:
     NSMutableDictionary *dic = [obj mutableCopy];
-    [dic setValue:@"37" forKey:@"userLoginId"];
+    [dic setObject:self.ctrlTfPasswd.text forKey:@"userPwd"];
+    
     [Cache.instance storeWithDir:kGlobalDir key:kGlobalKeyUser dic:dic];
     //存储用户信息
     UserInfoDto *user = [[UserInfoDto alloc] initWithObj:dic];

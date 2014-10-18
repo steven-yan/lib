@@ -19,31 +19,37 @@
 |
  ------------------------------------------------------------------------------*/
 //创建--
-- (UIView *)initWithFrame:(CGRect)rect {
-    BaseHttpView *v  =[super initWithFrame:rect];
+- (void)_onCreateBegain {
+    [super _onCreateBegain];
+    
+    //加载提示
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.ctrlIndicator = indicator;
+    //失败提示
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
+    [btn addTarget:self action:@selector(btnClicked:)];
+    [btn setTitle:@"加载失败,点击重新加载"];
+    btn.hidden = YES;
+    [self.content addSubview:btn];
+    self.ctrlFailedHint = btn;
     
     //请求参数
     self.getQueryParams = [[NSMutableDictionary alloc] init];
     self.postQueryParams = [[NSMutableDictionary alloc] init];
-    //页面隐藏是否取消请求
-    self.closeHttpReqOnHideTag = YES;
-    
-    return v;
 }
 
 //隐藏
-- (void)_onDidHide {
-//    if (self.closeHttpReqOnHideTag) {
-//        if (self.httpGetReq) {
-//            [self.httpGetReq clearDelegatesAndCancel];
-//            self.httpGetReq = nil;
-//        }
-//        if (self.httpPostReq) {
-//            [self.httpPostReq clearDelegatesAndCancel];
-//            self.httpPostReq = nil;
-//        }
-//    }
+- (void)_onClose {
+    if (self.httpGetReq) {
+        [self.httpGetReq clearDelegatesAndCancel];
+        self.httpGetReq = nil;
+    }
+    if (self.httpPostReq) {
+        [self.httpPostReq clearDelegatesAndCancel];
+        self.httpPostReq = nil;
+    }
 }
+
 
 
 #pragma mark -
@@ -86,7 +92,11 @@
 - (void)requestFailed:(ASIHTTPRequest *)req {
     //TODO:
     NSInteger code = [[req error] code];
-    if (code == 1) {
+    if (code == ASIConnectionFailureErrorType) {
+        
+    } else if (code == ASIRequestTimedOutErrorType) {
+        
+    } else {
         
     }
 }
@@ -107,7 +117,6 @@
 }
 - (void)completeQueryParams:(NSInteger)tag {
 }
-
 
 //success
 - (void)onHttpRequestSuccess:(NSString *)response {
@@ -175,6 +184,9 @@
  |  其他
  |
  -----------------------------------------------------------------------------*/
+- (void)btnClicked:(UIButton *)btn {
+    
+}
 
 
 

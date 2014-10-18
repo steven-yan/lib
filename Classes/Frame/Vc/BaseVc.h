@@ -39,7 +39,7 @@ typedef enum {
 - (void)onShow;
 - (void)onWillHide;
 - (void)onDidHide;
-- (void)onClose;
+- (void)_onClose;
 
 //导航--------
 - (void)navTo:(NSString *)vcKey;

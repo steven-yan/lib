@@ -54,6 +54,7 @@
 		1660246419F23E1D009938AD /* ucenter_icon_update.png in Resources */ = {isa = PBXBuildFile; fileRef = 1660244F19F23E1D009938AD /* ucenter_icon_update.png */; };
 		1660246719F23E61009938AD /* portrait_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1660246519F23E61009938AD /* portrait_default.png */; };
 		1660246819F23E61009938AD /* portrait_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1660246619F23E61009938AD /* portrait_default@2x.png */; };
+		1660246B19F241D6009938AD /* BaseView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1660246A19F241D6009938AD /* BaseView.mm */; };
 		166A830B19CEB3C100860F29 /* RootHealthCenterCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 166A830A19CEB3C100860F29 /* RootHealthCenterCellData.m */; };
 		166A832F19CEBAB200860F29 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 166A830F19CEBAB200860F29 /* MKAnnotationView+WebCache.m */; };
 		166A833019CEBAB200860F29 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 166A831119CEBAB200860F29 /* NSData+ImageContentType.m */; };
@@ -246,6 +247,8 @@
 		1660244F19F23E1D009938AD /* ucenter_icon_update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ucenter_icon_update.png; sourceTree = "<group>"; };
 		1660246519F23E61009938AD /* portrait_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = portrait_default.png; sourceTree = "<group>"; };
 		1660246619F23E61009938AD /* portrait_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "portrait_default@2x.png"; sourceTree = "<group>"; };
+		1660246919F241D6009938AD /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		1660246A19F241D6009938AD /* BaseView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseView.mm; sourceTree = "<group>"; };
 		166A830919CEB3C100860F29 /* RootHealthCenterCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootHealthCenterCellData.h; sourceTree = "<group>"; };
 		166A830A19CEB3C100860F29 /* RootHealthCenterCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootHealthCenterCellData.m; sourceTree = "<group>"; };
 		166A830E19CEBAB200860F29 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -984,6 +987,8 @@
 		16A4869A19C9E5EF00135A5D /* Ctrl */ = {
 			isa = PBXGroup;
 			children = (
+				1660246919F241D6009938AD /* BaseView.h */,
+				1660246A19F241D6009938AD /* BaseView.mm */,
 				16CFB88A19E83A6000162242 /* BaseHttpView.h */,
 				16CFB88B19E83A6000162242 /* BaseHttpView.mm */,
 				16468B7E19CE63930095EC7D /* TabBarContentPanel.h */,
@@ -1181,6 +1186,7 @@
 				16CFB88619E8220A00162242 /* StringUtil.m in Sources */,
 				166A833719CEBAB200860F29 /* SDWebImagePrefetcher.m in Sources */,
 				166A833119CEBAB200860F29 /* SDImageCache.m in Sources */,
+				1660246B19F241D6009938AD /* BaseView.mm in Sources */,
 				16A486E419C9E5EF00135A5D /* BaseSingleListVc.mm in Sources */,
 				1629B5E719EA867E002D1329 /* ReservationListCellData.m in Sources */,
 				1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */,

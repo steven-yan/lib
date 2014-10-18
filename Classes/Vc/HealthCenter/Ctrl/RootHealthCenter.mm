@@ -28,7 +28,7 @@
         tv.showsVerticalScrollIndicator = NO;
         tv.separatorStyle = UITableViewCellSeparatorStyleNone;
         tv.backgroundColor = [UIColor whiteColor];
-        [self addSubview:tv];
+        [self.content addSubview:tv];
         self.ctrlTableView = tv;
         
         //数据------
@@ -76,8 +76,6 @@
         [self.ctrlTableView reloadData];
     }
 }
-
-
 
 
 

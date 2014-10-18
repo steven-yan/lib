@@ -86,7 +86,7 @@ static int kLeftMargin = 15;
     line.left = kLeftMargin;
     line.top = tf.bottom + 10;
     [self.contentPanel addSubview:line];
-
+    
     //重置密码
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, line.bottom + 25, self.contentPanel.width - 20, 40)];
     [btn setTitle:@"重置密码" forState:UIControlStateNormal];

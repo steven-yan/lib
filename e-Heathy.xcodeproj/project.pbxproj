@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16019AED19F3D66500E687EB /* CounselInfoDetailCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16019AEC19F3D66500E687EB /* CounselInfoDetailCell.mm */; };
+		16019AF019F3D7EF00E687EB /* doctor_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 16019AEE19F3D7EF00E687EB /* doctor_default.png */; };
+		16019AF119F3D7EF00E687EB /* doctor_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16019AEF19F3D7EF00E687EB /* doctor_default@2x.png */; };
 		1614BF79197114E9004402FA /* search_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1614BF78197114E9004402FA /* search_icon@2x.png */; };
 		1629B5DE19EA730D002D1329 /* Cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5DD19EA730D002D1329 /* Cache.mm */; };
 		1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5E319EA7645002D1329 /* TimeUtil.mm */; };
@@ -201,6 +204,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16019AEB19F3D66500E687EB /* CounselInfoDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounselInfoDetailCell.h; sourceTree = "<group>"; };
+		16019AEC19F3D66500E687EB /* CounselInfoDetailCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CounselInfoDetailCell.mm; sourceTree = "<group>"; };
+		16019AEE19F3D7EF00E687EB /* doctor_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doctor_default.png; sourceTree = "<group>"; };
+		16019AEF19F3D7EF00E687EB /* doctor_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doctor_default@2x.png"; sourceTree = "<group>"; };
 		1614BF78197114E9004402FA /* search_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_icon@2x.png"; sourceTree = "<group>"; };
 		1629B5DC19EA730D002D1329 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
 		1629B5DD19EA730D002D1329 /* Cache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cache.mm; sourceTree = "<group>"; };
@@ -676,6 +683,8 @@
 		166B431F19EA2D50005C1431 /* CounselInfo */ = {
 			isa = PBXGroup;
 			children = (
+				16019AEB19F3D66500E687EB /* CounselInfoDetailCell.h */,
+				16019AEC19F3D66500E687EB /* CounselInfoDetailCell.mm */,
 				166B432019EA2D50005C1431 /* CounselInfoCell.h */,
 				166B432119EA2D50005C1431 /* CounselInfoCell.mm */,
 				166B432219EA2D50005C1431 /* CounselInfoPanel.h */,
@@ -739,6 +748,8 @@
 		1682DA3E196EEC4F008EDEE6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				16019AEE19F3D7EF00E687EB /* doctor_default.png */,
+				16019AEF19F3D7EF00E687EB /* doctor_default@2x.png */,
 				16890E1B19F36C9F008EFADA /* icon-114.png */,
 				1698960E19F36BA50076F323 /* icon-1.png */,
 				1698960C19F3696C0076F323 /* icon.png */,
@@ -1126,9 +1137,11 @@
 				166A834D19CEC6B700860F29 /* yinlian_phone_call_icon.png in Resources */,
 				16468CD919CE8B7F0095EC7D /* btn_back_pressed@2x.png in Resources */,
 				16A16C2D1970D11C00374A9C /* 0_hl@2x.png in Resources */,
+				16019AF019F3D7EF00E687EB /* doctor_default.png in Resources */,
 				16B0450E19D667F000F5D441 /* signup_small_pressed.png in Resources */,
 				16B0452D19D67ABD00F5D441 /* ic_more.png in Resources */,
 				16468CD619CE8B7F0095EC7D /* btn_back_normal.png in Resources */,
+				16019AF119F3D7EF00E687EB /* doctor_default@2x.png in Resources */,
 				1660245D19F23E1D009938AD /* ucenter_icon_news.png in Resources */,
 				16B0451719D6689C00F5D441 /* btn_signin_normal.png in Resources */,
 				16B0451D19D6689C00F5D441 /* btn_signup_normal.png in Resources */,
@@ -1198,6 +1211,7 @@
 				1629B5DE19EA730D002D1329 /* Cache.mm in Sources */,
 				16A486D119C9E5EF00135A5D /* ASIAuthenticationDialog.m in Sources */,
 				166B431719EA2C8C005C1431 /* SignInVc.mm in Sources */,
+				16019AED19F3D66500E687EB /* CounselInfoDetailCell.mm in Sources */,
 				166B434319EA2EE2005C1431 /* CounselInfoListVc.mm in Sources */,
 				16840C6219F22959005DB243 /* CSMapAnno.mm in Sources */,
 				1682D906196EC2C6008EDEE6 /* main.m in Sources */,

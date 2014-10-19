@@ -221,8 +221,9 @@ static int kLeftMargin = 15;
         [self showToast:@"密码不能为空"];
         return NO;
     }
-    if (pwd.length <= 6) {
+    if (pwd.length < 6) {
         [self showToast:@"密码长度不能小于六位"];
+        return NO;
     }
     if ([ChkUtil isEmptyStr:cmfPwd]) {
         [self showToast:@"确认密码不能为空"];

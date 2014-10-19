@@ -138,7 +138,7 @@
  -----------------------------------------------------------------------------*/
 - (void)refreshWithimgUrl:(NSString *)imgUrl name:(NSString *)name summary:(NSString *)summary intro:(NSString *)intro {
     //iv
-    [self.ctrlIv sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"portrait_default"]];
+    [self.ctrlIv sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"doctor_default"]];
     //name
     self.ctrlName.text = name;
     //summary

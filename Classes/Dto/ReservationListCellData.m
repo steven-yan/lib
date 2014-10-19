@@ -22,8 +22,10 @@
             self.peisName = [obj valueForKey:@"peisName"];
             //套餐名称
             self.packageName = [obj valueForKey:@"packageName"];
-            //状态
+            //状态名称
             self.statusText = [obj valueForKey:@"statusText"];
+            //状态
+            self.status = [obj valueForKey:@"status"];
         }
         
         //容错------------------------------
@@ -32,6 +34,7 @@
         self.peisName = [ChkUtil handleNil:self.peisName];
         self.packageName = [ChkUtil handleNil:self.packageName];
         self.statusText = [ChkUtil handleNil:self.statusText];
+        self.status = [ChkUtil handleNil:self.status];
     }
     
 	return self;

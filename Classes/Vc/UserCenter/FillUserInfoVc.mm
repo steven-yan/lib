@@ -189,7 +189,20 @@ static int kFontSize = 15;
 
 //窗体将要显示------
 - (void)onWillShow {
-    self.ctrlTfMail.text = Global.instance.userInfo.email;
+    UserInfoDto *user = Global.instance.userInfo;
+    self.ctrlTfName.text = user.userName;
+    self.ctrlTfPhone.text = user.mobile;
+    self.ctrlTfMail.text = user.email;
+    if ([[user sex] boolValue]) {
+        self.ctrlSegSex.selectedSegmentIndex = 1;
+    }
+    if ([[user marryStatus] boolValue]) {
+        self.ctrlSegMarrage.selectedSegmentIndex = 1;
+    }
+    if ([[user cardType] boolValue]) {
+        self.ctrlSegIdType.selectedSegmentIndex = 1;
+    }
+    self.ctrlTfId.text = user.cardNumber;
 }
 
 //窗体显示
@@ -260,6 +273,8 @@ static int kFontSize = 15;
     [Cache.instance storeWithDir:kGlobalDir key:kGlobalKeyUser dic:obj];
     Global.instance.userInfo = user;
     
+    [self showToast:@"完善信息成功"];
+    
     [self navBack];
 }
 
@@ -310,7 +325,7 @@ static int kFontSize = 15;
 - (BOOL)chkInfo {
     //用户名
     if ([ChkUtil isEmptyStr:self.ctrlTfName.text]) {
-        [self showToast:@"请填写用户名"];
+        [self showToast:@"请填写姓名"];
         return NO;
     }
     

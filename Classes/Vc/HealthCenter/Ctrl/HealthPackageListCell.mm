@@ -19,7 +19,7 @@ static int kLeftMargin = 15;
  |  初始化 ,销毁
  |
  -----------------------------------------------------------------------------*/
-- (id)initWithVc:(BaseLayoutVc *)vc {
+- (id)initWithVc:(BaseLayoutVc *)vc modifyTag:(BOOL)modifyTag {
     if (self = [super initWithFrame:CGRectMake(0, 0, vc.view.width, kCellHeight)]) {
         //页面
         self.nrVc = vc;
@@ -37,7 +37,11 @@ static int kLeftMargin = 15;
         self.ctrlPrice = price;
         //预定
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-        [btn setTitle:@"预约"];
+        if (modifyTag) {
+            [btn setTitle:@"修改"];
+        } else {
+            [btn setTitle:@"预约"];
+        }
         [btn addTarget:self action:@selector(btnClicked:)];
         [btn setStyleGreen];
         btn.right = self.width - 30;

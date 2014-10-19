@@ -9,7 +9,7 @@
 #import "HealthPackageDetailCell.h"
 
 @implementation HealthPackageDetailCell
-//TODO: kCellHeight 分隔线消失  
+//TODO: kCellHeight 分隔线消失
 static int kCellHeight = 50;
 static int kLeftMargin = 15;
 static int kFontSize = 12;
@@ -65,8 +65,7 @@ static int kLabelWidth = Global.instance.sysInfo.fullWidth - 2*kLeftMargin;
 }
 
 - (void)refreshWithItemData:(HealthPackageDetailCellData *)d {
-    
-    self.ctrlGroupName.text = [@"组合: " stringByAppendingString:d.groupName];
+    self.ctrlGroupName.text = d.groupName;
     [self.ctrlDetail setDynamicWithStr:d.detail fontSize:kFontSize];
     self.ctrlLine.bottom = self.ctrlDetail.bottom + 10;
     self.height = self.ctrlDetail.bottom + 10;

@@ -28,7 +28,7 @@ static int kCellHeight = 60;
         //控件-------------------
         //图片
         UIImageView *v = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 45, 45)];
-        v.layer.cornerRadius = 3;
+        v.layer.cornerRadius = 6;
         v.layer.masksToBounds = YES;
         v.backgroundColor = [UIColor clearColor];
         v.centerY = self.height / 2;

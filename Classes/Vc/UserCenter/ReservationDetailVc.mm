@@ -74,26 +74,17 @@ enum {
     [self.contentPanel addSubview:status];
     self.ctrlStatus = status;
     
-    //取消预约------
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, status.bottom + 80, self.contentPanel.width - 20, 40)];
-    btn.tag = kBtnDelReservatinTag;
-    [btn addTarget:self action:@selector(btnClicked:)];
-    [btn setTitle:@"取消预约" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:16];
-    btn.layer.cornerRadius = 6;
-    btn.backgroundColor = self.topPanel.backgroundColor;
-    [self.contentPanel addSubview:btn];
     //修改日期
-    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, btn.width/2-5, 40)];
+    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(0, status.bottom + 25, (self.contentPanel.width - 20)/2-5, 40)];
     btn1.tag = kBtnModifyDateTag;
     [btn1 addTarget:self action:@selector(btnClicked:)];
     [btn1 setTitle:@"修改预约日期" forState:UIControlStateNormal];
     btn1.titleLabel.font = [UIFont systemFontOfSize:16];
     btn1.layer.cornerRadius = 6;
     btn1.backgroundColor = [UIColor colorWithHexStr:@"#f1271a"];
-    btn1.bottom = btn.top - 10;
-    btn1.right = btn.centerX - 5;
+    btn1.right = self.contentPanel.width/2 - 5;
     [self.contentPanel addSubview:btn1];
+    self.ctrlBtnModifyDate = btn1;
     //修改套餐
     UIButton *btn2 = [[UIButton alloc] initWithFrame:btn1.bounds];
     btn2.tag = kBtnModifyPackageTag;
@@ -103,8 +94,20 @@ enum {
     btn2.layer.cornerRadius = 6;
     btn2.backgroundColor = [UIColor colorWithHexStr:@"#f1271a"];
     btn2.top = btn1.top;
-    btn2.left = btn.centerX + 5;
+    btn2.left = self.contentPanel.width/2 + 5;
     [self.contentPanel addSubview:btn2];
+    self.ctrlBtnModifyPackage = btn2;
+    
+    //取消预约------
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, status.bottom + 80, self.contentPanel.width - 20, 40)];
+    btn.tag = kBtnDelReservatinTag;
+    [btn addTarget:self action:@selector(btnClicked:)];
+    [btn setTitle:@"取消预约" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16];
+    btn.layer.cornerRadius = 6;
+    btn.backgroundColor = self.topPanel.backgroundColor;
+    [self.contentPanel addSubview:btn];
+    self.ctrlBtnCancel = btn;
     
     //CSDatePicker----
     CSDatePicker *dp = [[CSDatePicker alloc] initWithTitle:@"设置预约时间"];
@@ -121,6 +124,7 @@ enum {
 //解析导航进
 - (void)onPraseNavToParams:(NSDictionary *)params {
     self.peMasterId = [params valueForKey:@"peMasterId"];
+    self.status = [params valueForKey:@"status"];
 }
 
 //解析导航返回
@@ -130,6 +134,8 @@ enum {
 
 //窗体将要显示------
 - (void)onWillShow {
+    [self handleStatus:self.status];
+    
     [self loadData:kHttpLoadDataTag];
 }
 
@@ -175,6 +181,8 @@ enum {
     } else if (tag == kHttpModifyDateTag) {
         [self loadData:kHttpLoadDataTag];
         self.ctrlDatePicker.hidden = YES;
+        
+        [self showToast:@"修改预约日期成功"];
     } else if (tag == kHttpCancelReservationTag) {
         [self navBack];
     }
@@ -225,6 +233,22 @@ enum {
  |  其他
  |
  -----------------------------------------------------------------------------*/
+- (void)handleStatus:(NSString *)status {
+    if ([status boolValue] == 0) {
+        self.ctrlBtnModifyDate.top = self.ctrlStatus.bottom + 25;
+        self.ctrlBtnModifyPackage.top = self.ctrlBtnModifyDate.top;
+        self.ctrlBtnCancel.top = self.ctrlStatus.bottom + 80;
+        
+        self.ctrlBtnModifyDate.hidden = NO;
+        self.ctrlBtnModifyPackage.hidden = NO;
+    } else {
+        self.ctrlBtnCancel.top = self.ctrlStatus.bottom + 25;
+        
+        self.ctrlBtnModifyDate.hidden = YES;
+        self.ctrlBtnModifyPackage.hidden = YES;
+    }
+}
+
 - (void)refreshWithData:(ReservationDetailData *)data {
     self.ctrlPeMasterId.text = [@"体检号:  " stringByAppendingString:data.peMasterId];
     self.ctrlPeisName.text = [@"体检中心:  " stringByAppendingString:data.peisName];

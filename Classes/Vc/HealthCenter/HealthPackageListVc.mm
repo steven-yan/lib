@@ -219,8 +219,9 @@ enum {
 
 - (void) createCell:(UITableViewCell *)cell {
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
     
-    HealthPackageListCell *cd = [[HealthPackageListCell alloc] initWithVc:self];
+    HealthPackageListCell *cd = [[HealthPackageListCell alloc] initWithVc:self modifyTag:self.modifyReservationTag];
     cd.delegate = self;
     cd.tag = 100;
     [cell addSubview:cd];
@@ -238,6 +239,7 @@ enum {
     HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:index];
     
     [c refreshWithItemData:cd index:index];
+    cell.backgroundView.frame = cell.frame;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -249,7 +251,10 @@ enum {
     }
     
     HealthPackageListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
-    [self navTo:@"HealthPackageDetailVc" params:[NSDictionary dictionaryWithObjectsAndKeys:cd.packageId, @"packageId", self.centerId, @"centerId", nil]];
+    [self navTo:@"HealthPackageDetailVc" params:[NSDictionary dictionaryWithObjectsAndKeys:cd.packageId, @"packageId", self.centerId, @"centerId", [NSString stringWithFormat:@"%d", self.modifyReservationTag], @"modifyTag", nil]];
+    
+    //取消选择
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

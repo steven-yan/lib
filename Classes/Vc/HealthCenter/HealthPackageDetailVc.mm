@@ -68,6 +68,7 @@ enum {
 - (void)onPraseNavToParams:(NSDictionary *)params {
     self.centerId = [params valueForKey:@"centerId"];
     self.packageId = [params valueForKey:@"packageId"];
+    self.modifyTag = [[params valueForKey:@"modifyTag"] boolValue];
 }
 
 //解析导航返回
@@ -76,6 +77,10 @@ enum {
 
 //窗体将要显示------
 - (void)onWillShow {
+    if (self.modifyTag) {
+        [self changeTopRightBtnTitle:@"修改"];
+    }
+    
     [self loadData:kHttpLoadDataTag];
 }
 

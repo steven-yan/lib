@@ -86,6 +86,8 @@ enum {
         [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getInquiryList.submit"] tag:tag];
     } else if (tag == kHttpPostCounselTag) {
         [self httpGet:[AppUtil healthUrl:@"message.MessagePRC.inquirySubmit.submit"] tag:tag];
+        
+        [self showToast:@"咨询提交成功"];
     }
 }
 
@@ -98,8 +100,6 @@ enum {
         [self.tableView reloadData];
     } else if (tag == kHttpPostCounselTag) {
         [self loadData:kHttpLoadDataTag];
-        [self.ctrlCounselPanel.ctrlTv resignFirstResponder];
-        self.ctrlCounselPanel.hidden = YES;
     }
 }
 
@@ -122,9 +122,13 @@ enum {
  |
  -----------------------------------------------------------------------------*/
 - (void)onCounselInfoPanelCmf:(CounselInfoPanel *)p text:(NSString *)text {
+    text = [StringUtil trimStr:text];
+    
     if ([ChkUtil isEmptyStr:text] == NO) {
         self.text = text;
         [self loadData:kHttpPostCounselTag];
+        [self.ctrlCounselPanel.ctrlTv resignFirstResponder];
+        self.ctrlCounselPanel.hidden = YES;
     }
 }
 
@@ -145,6 +149,7 @@ enum {
 }
 
 - (void) createCell:(UITableViewCell *)cell {
+    
     CounselInfoCell *c = [[CounselInfoCell alloc] initWithVc:self];
     c.tag = 100;
     [cell addSubview:c];
@@ -160,7 +165,7 @@ enum {
     
     CounselInfoCell *c = (CounselInfoCell *)[cell viewWithTag:100];
     NSDictionary *dic = [self.arrayOfCellData objectAtIndex:row];
-    [c refreshWithContent:[dic valueForKey:@"content"] msgId:[dic valueForKey:@"messageId"]];
+    [c refreshWithDic:dic];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

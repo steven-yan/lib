@@ -74,7 +74,7 @@
 
 - (void) createCell:(UITableViewCell *)cell {
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     HealthyCheckCenterCell *c = [[HealthyCheckCenterCell alloc] initWithVc:self];
     c.tag = 100;

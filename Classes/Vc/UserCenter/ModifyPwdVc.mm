@@ -144,13 +144,14 @@ static int kLeftMargin = 15;
     Global.instance.userInfo.userPwd = self.ctrlTfCmfPwd.text;
     [Global.instance.userInfo save];
     
+    [self showToast:@"密码修改成功"];
     [self navBack];
 }
 
 //完善参数
 - (void)completeQueryParams {
     //TODO: 服务的有bug (服务的不验证密码)
-    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userloginId"];
+    [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
     [self.queryParams setValue:self.ctrlTfCmfPwd.text forKey:@"newPwd"];
 }
 

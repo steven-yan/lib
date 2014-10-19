@@ -32,6 +32,7 @@
         [self addSubview:l];
         //picker--
         UIDatePicker *dp = [[UIDatePicker alloc] init];
+        dp.datePickerMode = UIDatePickerModeDate;
         dp.top = l.bottom + 5;
         dp.centerX = self.width / 2;
         [self addSubview:dp];

@@ -19,6 +19,11 @@
 
 //内容
 @property (nonatomic, strong) UILabel *ctrlContent;
+//时间
+@property (nonatomic, strong) UILabel *ctrlTime;
+//未读格式bg
+@property (nonatomic, strong) UIView *ctrlUnReadBg;
+@property (nonatomic, strong) UILabel *ctrlUnRead;
 
 //msgId
 @property (nonatomic, strong) NSString *msgId;
@@ -28,7 +33,7 @@
 //高度
 + (float)CellHeight;
 //refresh
-- (void)refreshWithContent:(NSString *)content msgId:(NSString *)msgId;
+- (void)refreshWithDic:(NSDictionary *)dic;
 
 
 

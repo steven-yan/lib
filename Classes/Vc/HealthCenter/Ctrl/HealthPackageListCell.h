@@ -31,7 +31,7 @@
 @property (nonatomic, strong) HealthPackageListCellData *data;
 
 //初始化
-- (id)initWithVc:(BaseLayoutVc *)vc;
+- (id)initWithVc:(BaseLayoutVc *)vc modifyTag:(BOOL)modifyTag;
 //高度
 + (float)CellHeight;
 //刷新

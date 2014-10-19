@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>东方健康云</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>steven-yan.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>steven-yan.e-healty</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>7.0</string>
 	<key>CFBundleName</key>

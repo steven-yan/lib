@@ -112,7 +112,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:uniqueIdentifyer];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         
         [self createCell:cell];
     }
@@ -151,6 +151,8 @@
     
     RootHealthCenterCellData *cd = [self.arrayOfCellData objectAtIndex:index];
     [self.nrVc navTo:@"HealthPackageListVc" params:[NSDictionary dictionaryWithObject:cd.centerId forKey:@"centerId"]];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

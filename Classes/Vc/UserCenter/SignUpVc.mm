@@ -145,9 +145,6 @@ static int kLeftMargin = 15;
 - (void)onWillHide {
 }
 
-- (void)dealloc {
-}
-
 
 
 #pragma mark -
@@ -161,7 +158,17 @@ static int kLeftMargin = 15;
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)dic {
-    [self navBack];
+    UserInfoDto *d = [[UserInfoDto alloc] initWithObj:nil];
+    d.userLoginId = [dic valueForKey:@"userLoginId"];
+    d.loginID = self.ctrlTfUserName.text;
+    d.email = self.ctrlTfMail.text;
+    d.userPwd = self.ctrlTfCmfPasswd.text;
+    d.userState = LOGIN_STATE_NORMAL;
+    [d save];
+    Global.instance.userInfo = d;
+    
+    [self showToast:@"注册成功"];
+    [self navBackTo:@"RootVc" params:@{@"needRefreshTag":@"1"}];
 }
 
 //完善参数

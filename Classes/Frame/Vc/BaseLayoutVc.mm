@@ -61,7 +61,9 @@ static int kToastFontSize = 14;
     toast.layer.borderWidth = 1.0f;
     toast.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
     toast.backgroundColor = [UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.75f];
-    [self.contentPanel addSubview:toast];
+    //add to key window
+    UIWindow *win = [UIApplication sharedApplication].keyWindow;
+    [win addSubview:toast];
     self.ctrlToastBg = toast;
     //l
     l = [UILabel labelWithLeft:0 Top:0 Width:self.contentPanel.width - 60 Height:0 FontSize:kToastFontSize];
@@ -176,7 +178,7 @@ static int kToastFontSize = 14;
     self.ctrlToastBg.width = size.width + 12;
     self.ctrlToastBg.height = size.height + 12;
     self.ctrlToastBg.centerX = self.contentPanel.width / 2;
-    self.ctrlToastBg.bottom = self.contentPanel.height - 60;
+    self.ctrlToastBg.bottom = SysInfo.instance.bounds.size.height - 60;
     
     self.ctrlToastHint.centerX = self.ctrlToastBg.width / 2;
     self.ctrlToastHint.centerY = self.ctrlToastBg.height / 2;

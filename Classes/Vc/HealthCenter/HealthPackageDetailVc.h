@@ -28,6 +28,9 @@
 @property (nonatomic, strong) NSString *centerId;
 //packageId
 @property (nonatomic, strong) NSString *packageId;
+//modifyTag
+@property (nonatomic) BOOL modifyTag;
+
 //array
 @property (nonatomic, strong) NSMutableArray *arrayOfItemGroup;
 

@@ -22,6 +22,8 @@
     if (self = [super init]) {
         //转换------------------------------
         if (obj!=nil) {
+            //loginID 用户昵称
+            self.loginID = [obj valueForKey:@"loginID"];
             //userLoginId
             self.userLoginId = [obj valueForKey:@"userLoginId"];
             //userName
@@ -47,6 +49,8 @@
         }
         
         //容错------------------------------
+        //loginID 用户昵称
+        self.loginID = [ChkUtil handleNil:self.loginID];
         //userLoginId
         self.userLoginId = [ChkUtil handleNil:self.userLoginId];
         //userName
@@ -93,6 +97,7 @@
 - (NSDictionary *)transToObj {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     
+    [dic setValue:self.loginID forKey:@"loginID"];
     [dic setValue:self.userLoginId forKey:@"userLoginId"];
     [dic setValue:self.userName forKey:@"userName"];
     [dic setValue:self.userPwd forKey:@"userPwd"];

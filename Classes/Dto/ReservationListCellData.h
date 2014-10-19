@@ -16,8 +16,10 @@
 @property (nonatomic, strong) NSString *peisName;
 //套餐名称
 @property (nonatomic, strong) NSString *packageName;
-//状态
+//状态名称
 @property (nonatomic, strong) NSString *statusText;
+//状态
+@property (nonatomic, strong) NSString *status;
 
 - (id)initWithObj:(NSDictionary *)obj;
 

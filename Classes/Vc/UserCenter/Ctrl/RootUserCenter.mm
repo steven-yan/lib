@@ -91,9 +91,11 @@ enum {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.userState == LOGIN_STATE_NONE) {
         return 2;
-    } else if (self.userState == LOGIN_STATE_NORMAL) {
-        return 4;
-    } else {
+    }
+//    else if (self.userState == LOGIN_STATE_NORMAL) {
+//        return 4;
+//    }
+    else {
         return 4;
     }
 }
@@ -108,21 +110,11 @@ enum {
         } else {
             height = 120;
         }
-    } else if (self.userState == LOGIN_STATE_NORMAL) {
-        if (row == 0) {
-            height = 100;
-        } else if (row == 1) {
-            height = 140;
-        } else if (row == 2) {
-            height = 160;
-        } else if (row == 3) {
-            height = 80;
-        }
     } else {
         if (row == 0) {
             height = 100;
         } else if (row == 1) {
-            height = 180;
+            height = 220;
         } else if (row == 2){
             height = 160;
         } else if (row == 3) {
@@ -158,29 +150,29 @@ enum {
         } else {
             [self createAdditonCell:cell];
         }
-    } else if (self.userState == LOGIN_STATE_NORMAL) {
+    } else {
         if (row == 0) {
-            [self createUserImgCell:cell title:Global.instance.userInfo.userName];
+            [self createUserImgCell:cell title:Global.instance.userInfo.loginID];
         } else if (row == 1) {
             //背景----
-            UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 20, cell.width - 20, 120)];
+            UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 20, cell.width - 20, 200)];
             [bg setStyleForSection];
             [cell addSubview:bg];
             
-            //信息咨询----
-            UIButton *btn = [UIButton btnCellWithTitle:@"我的咨询" image:@"ucenter_icon_mem_info"];
+            //完善信息----
+            UIButton *btn = [UIButton btnCellWithTitle:@"我的信息" image:@"ucenter_icon_member_card"];
             [btn addTarget:self action:@selector(btnClicked:)];
-            btn.tag = kBtnCounselInfoTag;
+            btn.tag = kBtnFillUserInfoTag;
             [bg addSubview:btn];
             //分隔线----
             UIView *line = [UIView lineWithWidth:btn.width];
             line.bottom = btn.height;
             [btn addSubview:line];
             
-            //完善信息----
-            btn = [UIButton btnCellWithTitle:@"完善信息" image:@"ucenter_icon_member_card"];
+            //我的咨询----
+            btn = [UIButton btnCellWithTitle:@"我的咨询" image:@"ucenter_icon_help"];
             [btn addTarget:self action:@selector(btnClicked:)];
-            btn.tag = kBtnFillUserInfoTag;
+            btn.tag = kBtnCounselInfoTag;
             btn.top = btn.height;
             [bg addSubview:btn];
             //分隔线----
@@ -188,48 +180,11 @@ enum {
             line.bottom = btn.height;
             [btn addSubview:line];
             
-            //修改密码----
-            btn = [UIButton btnCellWithTitle:@"修改密码" image:@"ucenter_icon_lock"];
-            [btn addTarget:self action:@selector(btnClicked:)];
-            btn.tag = kBtnModifyPwdTag;
-            btn.top = btn.height*2;
-            [bg addSubview:btn];
-        } else if (row == 2) {
-            [self createAdditonCell:cell];
-        } else if (row == 3) {
-            //退出登录
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, cell.width - 20, 40)];
-            [btn setTitle:@"退出" forState:UIControlStateNormal];
-            [btn addTarget:self action:@selector(logOutBtnClicked:)];
-            btn.layer.cornerRadius = 6;
-            btn.backgroundColor = [UIColor colorWithHexStr:@"#f1271a"];
-            btn.centerY = cell.height / 2;
-            [cell addSubview:btn];
-        }
-    } else {
-        if (row == 0) {
-            [self createUserImgCell:cell title:Global.instance.userInfo.userName];
-        } else if (row == 1) {
-            //背景----
-            UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(10, 20, cell.width - 20, 160)];
-            [bg setStyleForSection];
-            [cell addSubview:bg];
-            
-            //我的咨询----
-            UIButton *btn = [UIButton btnCellWithTitle:@"我的咨询" image:@"ucenter_icon_mem_info"];
-            [btn addTarget:self action:@selector(btnClicked:)];
-            btn.tag = kBtnCounselInfoTag;
-            [bg addSubview:btn];
-            //分隔线----
-            UIView *line = [UIView lineWithWidth:btn.width];
-            line.bottom = btn.height;
-            [btn addSubview:line];
-            
             //预约----
             btn = [UIButton btnCellWithTitle:@"我的预约" image:@"ucenter_icon_about_mem"];
             [btn addTarget:self action:@selector(btnClicked:)];
             btn.tag = kBtnMkOrderTag;
-            btn.top = btn.height;
+            btn.top = btn.height*2;
             [bg addSubview:btn];
             //分隔线----
             line = [UIView lineWithWidth:btn.width];
@@ -240,7 +195,7 @@ enum {
             btn = [UIButton btnCellWithTitle:@"体检报告" image:@"ucenter_icon_news"];
             [btn addTarget:self action:@selector(btnClicked:)];
             btn.tag = kBtnHealthReportTag;
-            btn.top = btn.height * 2;
+            btn.top = btn.height * 3;
             [bg addSubview:btn];
             //分隔线----
             line = [UIView lineWithWidth:btn.width];
@@ -251,7 +206,7 @@ enum {
             btn = [UIButton btnCellWithTitle:@"修改密码" image:@"ucenter_icon_lock"];
             [btn addTarget:self action:@selector(btnClicked:)];
             btn.tag = kBtnModifyPwdTag;
-            btn.top = btn.height*3;
+            btn.top = btn.height*4;
             [bg addSubview:btn];
             
             [bg addSubview:btn];
@@ -319,9 +274,6 @@ enum {
     l.text = title;
     l.centerY = bg.height/2;
     [bg addSubview:l];
-    //img
-    [btn setImage:[UIImage imageNamed:@"ic_list"] forState:UIControlStateNormal];
-    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.width - btn.imageView.width - 20, 0, 0)];
 }
 
 - (void)createAdditonCell:(UITableViewCell *)cell {
@@ -339,7 +291,7 @@ enum {
     line.bottom = btn.height;
     [btn addSubview:line];
     //评分----
-    btn = [UIButton btnCellWithTitle:@"给东方云健康评分" image:@"cell_favor_icon"];
+    btn = [UIButton btnCellWithTitle:@"给东方健康云评分" image:@"cell_favor_icon"];
     [btn addTarget:self action:@selector(btnClicked:)];
     btn.tag = kBtnMarkAppTag;
     btn.top = btn.height;

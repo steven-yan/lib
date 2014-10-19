@@ -133,8 +133,7 @@
     }
     
     ReservationListCellData *cd = [self.arrayOfCellData objectAtIndex:row];
-    
-    [self navTo:@"ReservationDetailVc" params:[NSDictionary dictionaryWithObject:cd.peMasterId forKey:@"peMasterId"]];
+    [self navTo:@"ReservationDetailVc" params:[NSDictionary dictionaryWithObjectsAndKeys:cd.peMasterId, @"peMasterId", cd.status, @"status", nil]];
 }
 
 

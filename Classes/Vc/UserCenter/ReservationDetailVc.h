@@ -27,13 +27,23 @@
 //预约状态
 @property (nonatomic, strong) UILabel *ctrlStatus;
 
+//取消
+@property (nonatomic, strong) UIButton *ctrlBtnCancel;
+//修改日期
+@property (nonatomic, strong) UIButton *ctrlBtnModifyDate;
+//修改套餐
+@property (nonatomic, strong) UIButton *ctrlBtnModifyPackage;
+
 //picker
 @property (nonatomic, strong) CSDatePicker *ctrlDatePicker;
 
 //peMasterId
 @property (nonatomic, strong) NSString *peMasterId;
+//status
+@property (nonatomic, strong) NSString *status;
 //data
 @property (nonatomic, strong) ReservationDetailData *data;
+
 
 
 @end

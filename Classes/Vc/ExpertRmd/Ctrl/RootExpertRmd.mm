@@ -109,8 +109,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:uniqueIdentifyer];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         [self createCell:cell];
     }
     
@@ -149,6 +148,7 @@
     RootExpertRmdCellData *cd = [self.arrayOfCellData objectAtIndex:row];
     
     [self.nrVc navTo:@"ExpertDetailVc" params:[NSDictionary dictionaryWithObject:cd.expertId forKey:@"expertId"]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

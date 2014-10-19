@@ -44,8 +44,8 @@
 
 //解析导航返回
 - (void)onPraseNavBackParams:(NSDictionary *)params {
-    NSString *fromPage = [params valueForKey:@"fromPage"];
-    if ([fromPage isEqualToString:@"SignInVc"]) {
+    NSString *needRefreshTag = [params valueForKey:@"needRefreshTag"];
+    if ([needRefreshTag boolValue]) {
         //刷新状态
         [self.ctrlTabBar reloadPanel:2];
     }

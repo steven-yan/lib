@@ -145,12 +145,13 @@ static int kLeftMargin = 15;
     NSMutableDictionary *dic = [obj mutableCopy];
     [dic setObject:self.ctrlTfPasswd.text forKey:@"userPwd"];
     
-    [Cache.instance storeWithDir:kGlobalDir key:kGlobalKeyUser dic:dic];
     //存储用户信息
     UserInfoDto *user = [[UserInfoDto alloc] initWithObj:dic];
+    [user save];
     Global.instance.userInfo = user;
     
-    [self navBackWithParams:[NSDictionary dictionaryWithObject:@"SignInVc" forKey:@"fromPage"]];
+    [self showToast:@"登录成功"];
+    [self navBackWithParams:@{@"needRefreshTag":@"1"}];
 }
 
 //完善参数

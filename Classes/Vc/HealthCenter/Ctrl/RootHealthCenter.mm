@@ -57,7 +57,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"peiscenter.PeisCenterPRC.getPeisCenterList.submit"]];
+    [self httpGet:[AppUtil fillUrl:@"peiscenter.PeisCenterPRC.getPeisCenterList.submit"]];
 }
 
 - (void)onHttpRequestSuccess:(NSString *)response {

@@ -25,7 +25,7 @@
     [self hideTopRightBtn];
     //内容面板-----------
     TabBarBottomPanel *tb = [[TabBarBottomPanel alloc] initWithVc:self];
-    [tb setImgList:@[@"btn_air_hospital_normal", @"btn_user_center_normal", @"btn_user_center_normal"] selectedImgList:@[@"btn_air_hospital_selected", @"btn_user_center_selected",  @"btn_user_center_selected"] titleList:@[@"体检中心", @"专家推荐", @"个人中心"]];
+    [tb setImgList:@[@"btn_air_hospital_normal", @"btn_news_normal", @"btn_user_center_normal"] selectedImgList:@[@"btn_air_hospital_selected", @"btn_news_selected",  @"btn_user_center_selected"] titleList:@[@"体检中心", @"专家推荐", @"个人中心"]];
     RootHealthCenter *hc = [[RootHealthCenter alloc] initWithVc:self];
     RootExpertRmd *rc = [[RootExpertRmd alloc] initWithVc:self];
     RootUserCenter *uc = [[RootUserCenter alloc] initWithVc:self];

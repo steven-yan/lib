@@ -75,7 +75,7 @@
 }
 
 - (NSString *)getDateStr {
-    return [TimeUtil timeWithFormat:@"YYYY-MM-dd" timeStamp:[TimeUtil timeStampFromLocalDate:self.ctrlDatePicker.date]];
+    return [TimeUtil timeWithFormat:@"YYYY-MM-dd" date:self.ctrlDatePicker.date];
 }
 
 

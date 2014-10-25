@@ -119,14 +119,21 @@ enum {
  -----------------------------------------------------------------------------*/
 - (void)loadData:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
-        [self httpGet:[AppUtil healthUrl:@"itempackage.ItemPackagePRC.getItemPackageDetail.submit"] tag:tag];
+        [self showLoading];
+        [self httpGet:[AppUtil fillUrl:@"itempackage.ItemPackagePRC.getItemPackageDetail.submit"] tag:tag];
     } else if (tag == kHttpSetReservationTag) {
-        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.reservation.submit"] tag:tag];
+        [self httpGet:[AppUtil fillUrl:@"pemaster.PEMasterPRC.reservation.submit"] tag:tag];
     }
+}
+
+- (void)reloadData {
+    [self loadData:kHttpLoadDataTag];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
+        
         NSString *title = [obj valueForKey:@"itemPackageName"];
         if ([ChkUtil isEmptyStr:title]) {
             title = kEmptyStr;
@@ -154,6 +161,13 @@ enum {
     } else if (tag == kHttpSetReservationTag) {
         self.ctrlDatePicker.hidden = YES;
         [self showToast:@"预约成功"];
+    }
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
+        [self showLoadError];
     }
 }
 

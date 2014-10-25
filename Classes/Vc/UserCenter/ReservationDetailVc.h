@@ -33,6 +33,8 @@
 @property (nonatomic, strong) UIButton *ctrlBtnModifyDate;
 //修改套餐
 @property (nonatomic, strong) UIButton *ctrlBtnModifyPackage;
+//查看报告
+@property (nonatomic, strong) UIButton *ctrlBtnCheckReport;
 
 //picker
 @property (nonatomic, strong) CSDatePicker *ctrlDatePicker;

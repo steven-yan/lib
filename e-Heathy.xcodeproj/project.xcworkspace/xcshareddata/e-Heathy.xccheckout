@@ -10,6 +10,8 @@
 	<string>e-Heathy</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>8688F82647B53CFB2F917F83DDE59D7897E126B6</key>
+		<string>https://github.com/siriusdely/GTMNSString-HTML</string>
 		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
 		<string>https://github.com/steven-yan/e-healthy.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>e-Heathy.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>8688F82647B53CFB2F917F83DDE59D7897E126B6</key>
+		<string>../../Classes/Frame/ThirdParty/GTMNSString-HTML</string>
 		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
 		<string>../..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>AEB73AE683B81A1A78354F55AD29ACCC959090EA</string>
 			<key>IDESourceControlWCCName</key>
 			<string>e-Heathy</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8688F82647B53CFB2F917F83DDE59D7897E126B6</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GTMNSString-HTML</string>
 		</dict>
 	</array>
 </dict>

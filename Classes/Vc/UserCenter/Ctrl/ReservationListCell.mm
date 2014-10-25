@@ -41,6 +41,7 @@ static int kLeftMargin = 20;
         self.ctrlPeisName = name;
         //预约状态
         name = [UILabel labelWithLeft:kLeftMargin Top:name.bottom+2 Width:vc.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
+        name.textColor = [UIColor colorWithHexStr:kGeneralColor];
         [self addSubview:name];
         self.ctrlStatus = name;
         //预约时间

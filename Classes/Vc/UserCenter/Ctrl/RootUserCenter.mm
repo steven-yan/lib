@@ -13,13 +13,12 @@ enum {
     kBtnSignUpTag = 100,
     kBtnSignInTag,
     kBtnSettingTag,
-    kBtnMarkAppTag,
+    kBtnEvaluateAppTag,
     kBtnUpdateTag,
     kBtnDeclareTag,
     kBtnCounselInfoTag,
     kBtnFillUserInfoTag,
     kBtnModifyPwdTag,
-    kBtnChkUpdateTag,
     kBtnUserImgTag,
     kBtnMkOrderTag,
     kBtnHealthReportTag,
@@ -291,9 +290,9 @@ enum {
     line.bottom = btn.height;
     [btn addSubview:line];
     //评分----
-    btn = [UIButton btnCellWithTitle:@"给东方健康云评分" image:@"cell_favor_icon"];
+    btn = [UIButton btnCellWithTitle:@"给东方健康云评分" image:@"btn_star_big_pressed"];
     [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnMarkAppTag;
+    btn.tag = kBtnEvaluateAppTag;
     btn.top = btn.height;
     [bg addSubview:btn];
     //分隔线
@@ -332,7 +331,8 @@ enum {
             break;
         case kBtnSettingTag:
             break;
-        case kBtnMarkAppTag:
+        case kBtnEvaluateAppTag:
+            [AppUtil appRate];
             break;
         case kBtnUpdateTag:
             break;
@@ -343,8 +343,6 @@ enum {
             break;
         case kBtnCounselInfoTag:
             [self.nrVc navTo:@"CounselInfoListVc"];
-            break;
-        case kBtnChkUpdateTag:
             break;
         case kBtnMkOrderTag:
             [self.nrVc navTo:@"ReservationListVc"];

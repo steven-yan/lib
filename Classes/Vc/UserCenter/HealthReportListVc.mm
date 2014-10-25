@@ -24,6 +24,14 @@
     [self changeTopTitle:@"体检报告"];
     [self hideTopRightBtn];
     //内容面板-----------
+    //无信息提示
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    [iv setImage:[UIImage imageNamed:@"depression_face"]];
+    iv.hidden = YES;
+    iv.centerX = self.contentPanel.width / 2;
+    iv.centerY = self.contentPanel.height / 2 - 60;
+    [self.contentPanel addSubview:iv];
+    self.ctrlIv = iv;
     
     //底部面板-----------
     //其他--------------
@@ -68,20 +76,41 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.myReportList.submit"]];
+    [self showLoading];
+    [self httpGet:[AppUtil fillUrl:@"pemaster.PEMasterPRC.myReportList.submit"]];
+}
+
+- (void)reloadData {
+    [self loadData];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    //hide
+    [self hideLoading];
+    
     [self.arrayOfCellData removeAllObjects];
     
     NSArray *list = [obj valueForKey:@"list"];
-    for (NSDictionary *obj in list) {
-        HealthReportListCellData *cd = [[HealthReportListCellData alloc] initWithObj:obj];
-        [self.arrayOfCellData addObject:cd];
+    if (list.count>0) {
+        for (NSDictionary *obj in list) {
+            HealthReportListCellData *cd = [[HealthReportListCellData alloc] initWithObj:obj];
+            [self.arrayOfCellData addObject:cd];
+        }
+        [self.tableView reloadData];
+        self.ctrlIv.hidden = YES;
+    } else {
+        [self showToast:@"暂时没有信息"];
+        self.ctrlIv.hidden = NO;
     }
     
     [self.tableView reloadData];
 }
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    [self hideLoading];
+    [self showLoadError];
+}
+
 
 //完善参数
 - (void)completeQueryParams {

@@ -106,10 +106,17 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"news.NewsPRC.getDoctorDetail.submit"]];
+    [self showLoading];
+    [self httpGet:[AppUtil fillUrl:@"news.NewsPRC.getDoctorDetail.submit"]];
+}
+
+- (void)reloadData {
+    [self loadData];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    [self hideLoading];
+    
     NSString *doctorName = [obj valueForKey:@"doctorName"];
     NSString *introduction = [obj valueForKey:@"introduction"];
     NSString *photoPath = [obj valueForKey:@"photoPath"];
@@ -122,6 +129,11 @@
     summary = [ChkUtil handleNil:summary];
     
     [self refreshWithimgUrl:photoPath name:doctorName summary:summary intro:introduction];
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    [self hideLoading];
+    [self showLoadError];
 }
 
 - (void)completeQueryParams {
@@ -146,7 +158,7 @@
     //line
     self.ctrlLine.top = self.ctrlSummary.bottom + 15;
     //intro
-    [self.ctrlIntro setDynamicWithStr:[@"详细介绍:  " stringByAppendingString:intro] fontSize:14];
+    [self.ctrlIntro setDynamicWithStr:[@"详细介绍:  " stringByAppendingString:[intro stringByConvertingHTMLToPlainText]] fontSize:14];
     self.ctrlIntro.top = self.ctrlLine.bottom + 15;
     if (self.ctrlIntro.bottom > self.contentPanel.height) {
         self.contentPanel.contentSize = CGSizeMake(self.contentPanel.width, self.ctrlIntro.bottom);

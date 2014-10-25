@@ -9,8 +9,20 @@
 
 @implementation AppUtil
 
-+ (NSString *)healthUrl:(NSString *)res {
-    return [kHealthHostName stringByAppendingString:res];
++ (NSString *)fillUrl:(NSString *)res {
+    return [kAppHost stringByAppendingString:res];
+}
+
++ (NSString *)appVersion {
+    return kAppVersion;
+}
+
++ (void)appRate {
+    if (SysInfo.instance.isIos6Tag) {
+        [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppRateUrl]];
+    } else {
+        [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppDetailUrl]];
+    }
 }
 
 

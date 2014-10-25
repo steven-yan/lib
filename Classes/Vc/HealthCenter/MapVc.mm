@@ -88,7 +88,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@""]];
+    [self httpGet:[AppUtil fillUrl:@""]];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)dic {

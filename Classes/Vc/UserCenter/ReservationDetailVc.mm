@@ -20,6 +20,7 @@ enum {
     kBtnModifyDateTag = 100,
     kBtnModifyPackageTag,
     kBtnDelReservatinTag,
+    kBtnCheckReportTag,
     kBtnPickerCmfTag,
 };
 
@@ -71,6 +72,7 @@ enum {
     //预约状态
     UILabel *status = [UILabel labelWithLeft:kLeftMargin Top:packageName.bottom + 5 Width:self.contentPanel.width - 2 *kLeftMargin Height:20 FontSize:14];
     status.text = @"状态:  ";
+    status.textColor = [UIColor colorWithHexStr:kGeneralColor];
     [self.contentPanel addSubview:status];
     self.ctrlStatus = status;
     
@@ -109,6 +111,19 @@ enum {
     [self.contentPanel addSubview:btn];
     self.ctrlBtnCancel = btn;
     
+    //查看报告------
+    btn = [[UIButton alloc] initWithFrame:btn.frame];
+    btn.tag = kBtnCheckReportTag;
+    [btn addTarget:self action:@selector(btnClicked:)];
+    [btn setTitle:@"查看报告"];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16];
+    btn.layer.cornerRadius = 6;
+    btn.backgroundColor = self.topPanel.backgroundColor;
+    btn.top = self.ctrlBtnModifyDate.top;
+    btn.hidden = YES;
+    [self.contentPanel addSubview:btn];
+    self.ctrlBtnCheckReport = btn;
+    
     //CSDatePicker----
     CSDatePicker *dp = [[CSDatePicker alloc] initWithTitle:@"设置预约时间"];
     dp.delegate = self;
@@ -135,7 +150,6 @@ enum {
 //窗体将要显示------
 - (void)onWillShow {
     [self handleStatus:self.status];
-    
     [self loadData:kHttpLoadDataTag];
 }
 
@@ -165,16 +179,22 @@ enum {
  -----------------------------------------------------------------------------*/
 - (void)loadData:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
-        [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationDetail.submit"] tag:tag];
+        [self showLoading];
+        [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.getReservationDetail.submit"] tag:tag];
     } else if (tag == kHttpModifyDateTag) {
-        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.modifyReservation.submit"] tag:tag];
+        [self httpGet:[AppUtil fillUrl:@"pemaster.PEMasterPRC.modifyReservation.submit"] tag:tag];
     } else if (tag == kHttpCancelReservationTag) {
-        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.cancelReservation.submit"] tag:tag];
+        [self httpGet:[AppUtil fillUrl:@"pemaster.PEMasterPRC.cancelReservation.submit"] tag:tag];
     }
+}
+
+- (void)reloadData {
+    [self loadData:kHttpLoadDataTag];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
         ReservationDetailData *d = [[ReservationDetailData alloc] initWithObj:obj];
         self.data = d;
         [self refreshWithData:d];
@@ -185,6 +205,13 @@ enum {
         [self showToast:@"修改预约日期成功"];
     } else if (tag == kHttpCancelReservationTag) {
         [self navBack];
+    }
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
+        [self showLoadError];
     }
 }
 
@@ -235,17 +262,17 @@ enum {
  -----------------------------------------------------------------------------*/
 - (void)handleStatus:(NSString *)status {
     if ([status boolValue] == 0) {
-        self.ctrlBtnModifyDate.top = self.ctrlStatus.bottom + 25;
-        self.ctrlBtnModifyPackage.top = self.ctrlBtnModifyDate.top;
-        self.ctrlBtnCancel.top = self.ctrlStatus.bottom + 80;
-        
         self.ctrlBtnModifyDate.hidden = NO;
         self.ctrlBtnModifyPackage.hidden = NO;
-    } else {
-        self.ctrlBtnCancel.top = self.ctrlStatus.bottom + 25;
+        self.ctrlBtnCancel.hidden = NO;
         
+        self.ctrlBtnCheckReport.hidden = YES;
+    } else {
         self.ctrlBtnModifyDate.hidden = YES;
         self.ctrlBtnModifyPackage.hidden = YES;
+        self.ctrlBtnCancel.hidden = YES;
+        
+        self.ctrlBtnCheckReport.hidden = NO;
     }
 }
 
@@ -297,6 +324,13 @@ enum {
         case kBtnPickerCmfTag:
         {
             [self loadData:kHttpModifyDateTag];
+        }
+            break;
+            
+        case kBtnCheckReportTag:
+        {
+            //导航到报告页
+            [self navTo:@"HealthReportWebVc" params:@{@"peMasterId":self.data.peMasterId}];
         }
             break;
             

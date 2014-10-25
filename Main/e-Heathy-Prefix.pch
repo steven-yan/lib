@@ -25,6 +25,8 @@
     //3rdParty
     #import "ASIFormDataRequest.h"
     #import "UIImageView+WebCache.h"
+    #import "GTMNSString+HTML.h"
+    #import "NSString+HTML.h"
 
     //Utility
     #import "ChkUtil.h"

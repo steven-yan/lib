@@ -127,16 +127,24 @@ enum {
  -----------------------------------------------------------------------------*/
 - (void)loadData:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
-        [self httpGet:[AppUtil healthUrl:@"peiscenter.PeisCenterPRC.getPeisCenterDetail.submit"] tag:tag];
+        [self showLoading];
+        [self httpGet:[AppUtil fillUrl:@"peiscenter.PeisCenterPRC.getPeisCenterDetail.submit"] tag:tag];
     } else if (tag == kHttpSetReservationTag){
-        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.reservation.submit"] tag:tag];
+        [self httpGet:[AppUtil fillUrl:@"pemaster.PEMasterPRC.reservation.submit"] tag:tag];
     } else if (tag == kHttpModifyReservationTag){
-        [self httpGet:[AppUtil healthUrl:@"pemaster.PEMasterPRC.modifyReservation.submit"] tag:tag];
+        [self httpGet:[AppUtil fillUrl:@"pemaster.PEMasterPRC.modifyReservation.submit"] tag:tag];
     }
+}
+
+- (void)reloadData {
+    [self loadData:kHttpLoadDataTag];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)dic tag:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
+        //hide
+        [self hideLoading];
+        
         //params
         self.params = dic;
         
@@ -181,6 +189,13 @@ enum {
     } else if (tag == kHttpModifyReservationTag) {
         self.ctrlDatePicker.hidden = YES;
         [self showToast:@"修改套餐成功"];
+    }
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
+        [self showLoadError];
     }
 }
 
@@ -315,7 +330,7 @@ enum {
     self.ctrlPeisAddr.text = [@"地址: " stringByAppendingString:addr];
     self.ctrlPeisPhone.text = [@"电话: " stringByAppendingString:phone];
     self.ctrlPeisFax.text = [@"传真: " stringByAppendingString:fax];
-    CGSize size = [self.ctrlPeisIntro setDynamicWithStr:[@"简介: " stringByAppendingString:intro]  fontSize:12];
+    CGSize size = [self.ctrlPeisIntro setDynamicWithStr:[@"简介: " stringByAppendingString:[intro stringByConvertingHTMLToPlainText]]  fontSize:12];
     self.ctrlHeader.height = self.ctrlPeisIntro.top + size.height + 30;
     self.ctrlLine.bottom = self.ctrlHeader.height;
     self.ctrlHeader.height = self.ctrlLine.bottom;

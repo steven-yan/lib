@@ -72,7 +72,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?peMasterId=%@", kHealthHostName, @"jsp/pemaster/MyReportDetail.jsp", self.peMasterId]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?peMasterId=%@", kAppHost, @"jsp/pemaster/MyReportDetail.jsp", self.peMasterId]]];
     [self.ctrlWebView loadRequest:request];
 }
 

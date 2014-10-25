@@ -9,6 +9,10 @@
 #import "CounselInfoDetailVc.h"
 
 @implementation CounselInfoDetailVc
+enum {
+    kHttpLoadDataTag = 100,
+    kHttpPostCounselTag,
+};
 
 
 
@@ -25,13 +29,31 @@
     [self hideTopRightBtn];
     
     //内容面板-----------
-    UILabel *l = [UILabel labelWithLeft:10 Top:10 Width:self.contentPanel.width Height:20 FontSize:14];
-    l.numberOfLines = 0;
-    [self.contentPanel addSubview:l];
-    self.ctrlLabel = l;
+    //背景------
+    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentPanel.width, 50)];
+    bg.bottom = self.contentPanel.height;
+    [self.contentPanel addSubview:bg];
+    self.ctrlBg = bg;
+    //登录
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, bg.width - 20, bg.height - 10)];
+    [btn setTitle:@"回复"];
+    [btn addTarget:self action:@selector(cmtBtnClicked:)];
+    btn.layer.cornerRadius = 6;
+    btn.backgroundColor = self.topPanel.backgroundColor;
+    btn.centerY = bg.height/2;
+    [bg addSubview:btn];
+    //tv
+    self.tableView.height = self.contentPanel.height - bg.height;
+    
+    //counsel
+    CounselInfoPanel *p = [[CounselInfoPanel alloc] initWithVc:self];
+    p.delegate = self;
+    [self.contentPanel addSubview:p];
+    self.ctrlCounsel = p;
     
     //底部面板-----------
     //其他--------------
+    self.arrayOfCellData = [[NSMutableArray alloc] init];
 }
 
 //解析导航进
@@ -45,7 +67,7 @@
 
 //窗体将要显示------
 - (void)onWillShow {
-    [self loadData];
+    [self loadData:kHttpLoadDataTag];
 }
 
 //窗体显示
@@ -72,19 +94,125 @@
  |  获取和提交数据
  |
  -----------------------------------------------------------------------------*/
-- (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getInquiryDetail.submit"]];
+- (void)loadData:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self showLoading];
+        [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.getInquiryDetail.submit"] tag:tag];
+    } else if (tag == kHttpPostCounselTag) {
+        [self httpGet:[AppUtil fillUrl:@"message.MessagePRC.inquirySubmit.submit"] tag:tag];
+    }
 }
 
-- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
-    NSArray *list = [obj valueForKey:@"list"];
-    NSDictionary *dic = [list objectAtIndex:0];
-    [self.ctrlLabel setDynamicWithStr:[NSString stringWithFormat:@"时间:  %@\n\n%@", [dic valueForKey:@"sendTime"], [dic valueForKey:@"content"]] fontSize:14];
+- (void)reloadData {
+    [self loadData:kHttpLoadDataTag];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
+    [self hideLoading];
+    
+    if (self.arrayOfCellData.count == 0) {
+        NSArray *list = [obj valueForKey:@"list"];
+        for (NSDictionary *obj in list) {
+            CounselInfoDetailCellData *cd = [[CounselInfoDetailCellData alloc] initWithObj:obj];
+            [self.arrayOfCellData addObject:cd];
+        }
+    } else {
+        CounselInfoDetailCellData *cd = [[CounselInfoDetailCellData alloc] initWithObj:nil];
+        cd.sendFrom = Global.instance.userInfo.userLoginId;
+        cd.sendFromName = Global.instance.userInfo.userName;
+        cd.sendTime = [TimeUtil timeWithFormat:@"YYYY-MM-dd HH:mm" date:[NSDate date]];
+        cd.content = self.text;
+        [self.arrayOfCellData addObject:cd];
+        
+        self.ctrlCounsel.ctrlTv.text = nil;
+        [self showToast:@"回复成功"];
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
+        [self showLoadError];
+    }
 }
 
 //完善参数
-- (void)completeQueryParams {
-    [self.queryParams setValue:self.messageId forKey:@"messageId"];
+- (void)completeQueryParams:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self.queryParams setValue:self.messageId forKey:@"messageId"];
+    } else if (tag == kHttpPostCounselTag) {
+        [self.queryParams setValue:self.messageId forKey:@"replyToMsgId"];
+        [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"sendFrom"];
+        [self.queryParams setValue:self.text forKey:@"content"];
+    }
+}
+
+
+
+#pragma mark -
+#pragma mark ------------------------------tableView----------------------------------
+/*------------------------------------------------------------------------------
+ |  tableView
+ |
+ -----------------------------------------------------------------------------*/
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.arrayOfCellData.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return 0;
+    }
+    
+    CounselInfoDetailCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    
+    return [CounselInfoDetailCell CellHeight:cd];
+}
+
+- (void) createCell:(UITableViewCell *)cell {
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    CounselInfoDetailCell *c = [[CounselInfoDetailCell alloc] initWithVc:self];
+    c.tag = 100;
+    [cell addSubview:c];
+}
+
+- (void)makeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
+    NSInteger row = indexPath.row;
+    
+    //容错
+    if (row >= self.arrayOfCellData.count) {
+        return;
+    }
+    
+    CounselInfoDetailCell *c = (CounselInfoDetailCell *)[cell viewWithTag:100];
+    CounselInfoDetailCellData *cd = [self.arrayOfCellData objectAtIndex:row];
+    //刷新
+    [c refreshWithCellData:cd];
+}
+
+
+
+#pragma mark -
+#pragma mark --------------------------CounselInfoPanel-------------------------
+/*------------------------------------------------------------------------------
+ |  CounselInfoPanel
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onCounselInfoPanelCmf:(CounselInfoPanel *)p text:(NSString *)text {
+    text = [StringUtil trimStr:text];
+    
+    if ([ChkUtil isEmptyStr:text] == NO) {
+        self.text = text;
+        [self loadData:kHttpPostCounselTag];
+        [self.ctrlCounsel.ctrlTv resignFirstResponder];
+        self.ctrlCounsel.hidden = YES;
+    }
 }
 
 
@@ -95,6 +223,10 @@
  |  其他
  |
  -----------------------------------------------------------------------------*/
+- (void)cmtBtnClicked:(UIButton *)btn {
+    //显示
+    [self.ctrlCounsel show];
+}
 
 
 

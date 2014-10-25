@@ -28,6 +28,14 @@ enum {
     [self changeTopTitle:@"我的咨询"];
     [self changeTopRightBtnTitle:@"咨询"];
     //内容面板-----------
+    //无信息提示
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    [iv setImage:[UIImage imageNamed:@"depression_face"]];
+    iv.hidden = YES;
+    iv.centerX = self.contentPanel.width / 2;
+    iv.centerY = self.contentPanel.height / 2 - 60;
+    [self.contentPanel addSubview:iv];
+    self.ctrlIv = iv;
     
     //咨询面板
     CounselInfoPanel *p = [[CounselInfoPanel alloc] initWithVc:self];
@@ -83,23 +91,43 @@ enum {
  -----------------------------------------------------------------------------*/
 - (void)loadData:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
-        [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getInquiryList.submit"] tag:tag];
+        [self showLoading];
+        [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.getInquiryList.submit"] tag:tag];
     } else if (tag == kHttpPostCounselTag) {
-        [self httpGet:[AppUtil healthUrl:@"message.MessagePRC.inquirySubmit.submit"] tag:tag];
-        
-        [self showToast:@"咨询提交成功"];
+        [self httpGet:[AppUtil fillUrl:@"message.MessagePRC.inquirySubmit.submit"] tag:tag];
     }
+}
+
+- (void)reloadData {
+    [self loadData:kHttpLoadDataTag];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
+        
         [self.arrayOfCellData removeAllObjects];
         NSArray *list = [obj valueForKey:@"list"];
-        [self.arrayOfCellData addObjectsFromArray:list];
-        
-        [self.tableView reloadData];
+        if (list.count>0) {
+            [self.arrayOfCellData addObjectsFromArray:list];
+            [self.tableView reloadData];
+            self.ctrlIv.hidden = YES;
+        } else {
+            [self showToast:@"暂时没有信息"];
+            self.ctrlIv.hidden = NO;
+        }
     } else if (tag == kHttpPostCounselTag) {
         [self loadData:kHttpLoadDataTag];
+        
+        self.ctrlCounselPanel.ctrlTv.text = nil;
+        [self showToast:@"咨询提交成功"];
+    }
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    if (tag == kHttpLoadDataTag) {
+        [self hideLoading];
+        [self showLoadError];
     }
 }
 

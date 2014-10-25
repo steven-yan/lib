@@ -104,7 +104,7 @@
         }
     }
     
-    [self.db executeUpdate:@"insert into generaltb(cdir, ckey, cvalue, csavetime) VALUES(?,?,?,?)", cleanDir, cleanKey, cleanValue, [TimeUtil timeStampStrFromNow]];
+    [self.db executeUpdate:@"insert into generaltb(cdir, ckey, cvalue, csavetime) VALUES(?,?,?,?)", cleanDir, cleanKey, cleanValue, [TimeUtil timeStamp]];
 }
 
 - (NSDictionary *)readDicWithDir:(NSString *)cdir key:(NSString *)ckey {

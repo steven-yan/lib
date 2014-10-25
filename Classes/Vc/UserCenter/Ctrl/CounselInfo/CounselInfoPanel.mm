@@ -73,7 +73,6 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)show {
-    self.ctrlTv.text = nil;
     self.hidden = NO;
     [self.ctrlTv becomeFirstResponder];
     [self bringToFont];

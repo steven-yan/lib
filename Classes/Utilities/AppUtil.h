@@ -8,7 +8,9 @@
 
 @interface AppUtil : NSObject
 
-+ (NSString *)healthUrl:(NSString *)res;
++ (NSString *)fillUrl:(NSString *)res;
++ (NSString *)appVersion;
++ (void)appRate;
 
 
 

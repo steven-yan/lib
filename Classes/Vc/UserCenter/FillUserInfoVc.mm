@@ -232,13 +232,15 @@ static int kFontSize = 15;
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.filledPersonInfo.submit"]];
+    [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.filledPersonInfo.submit"]];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
     UserInfoDto *user = [[UserInfoDto alloc] initWithObj:nil];
     //设置值
     user.userLoginId = Global.instance.userInfo.userLoginId;
+    //login
+    user.loginID = Global.instance.userInfo.loginID;
     //userName
     user.userName = self.ctrlTfName.text;
     //userPwd

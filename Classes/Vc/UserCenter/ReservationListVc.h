@@ -9,6 +9,9 @@
 
 @interface ReservationListVc : BaseSingleListVc
 
+//iv
+@property (nonatomic, strong) UIImageView *ctrlIv;
+
 //cd
 @property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 

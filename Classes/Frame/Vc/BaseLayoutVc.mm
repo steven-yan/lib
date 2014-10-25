@@ -7,6 +7,8 @@
 
 @implementation BaseLayoutVc
 static int kToastFontSize = 14;
+static int kHintContentOffset = 60;
+
 
 
 /*------------------------------------------------------------------------------
@@ -34,25 +36,40 @@ static int kToastFontSize = 14;
     self.contentPanel = cp;
     
     //数据加载提示------
-    //bg
-    UIView *hintBg = [[UIView alloc] initWithFrame:self.contentPanel.bounds];
+    //load bg------
+    UIView *hintBg = [[UIView alloc] initWithFrame:self.contentPanel.frame];
     [self.view addSubview:hintBg];
     hintBg.hidden = YES;
     self.ctrlLoading = hintBg;
     //label
-    UILabel *l = [UILabel labelWithLeft:14 Top:0 Width:70 Height:20 FontSize:16];
+    UILabel *l = [UILabel labelWithLeft:14 Top:0 Width:70 Height:20 FontSize:14];
     l.text = @"加载中...";
     l.textColor = [UIColor colorWithHexStr:@"#8e8e8e"];
-    l.textAlignment = NSTextAlignmentCenter;
-    l.centerX = hintBg.width / 2;
-    l.centerY = hintBg.height / 2 - 30;
+    l.textAlignment = NSTextAlignmentRight;
+    l.centerX = hintBg.width / 2 - 30;
+    l.centerY = hintBg.height / 2 - kHintContentOffset;
     [hintBg addSubview:l];
     //indicator
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.centerX = hintBg.width / 2;
-    indicator.centerY = hintBg.height / 2;
+    indicator.centerX = hintBg.width / 2 + 25;
+    indicator.centerY = hintBg.height / 2 - kHintContentOffset;
     [hintBg addSubview:indicator];
     self.ctrlIndicator = indicator;
+    //error bg----
+    hintBg = [[UIView alloc] initWithFrame:hintBg.frame];
+    [self.view addSubview:hintBg];
+    hintBg.hidden = YES;
+    self.ctrlLoadError = hintBg;
+    //加载失败按钮
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 14)];
+    [btn addTarget:self action:@selector(btnClicked:)];
+    [btn setTitle:@"加载失败,点击重新加载"];
+    [btn setTitleColor:[UIColor colorWithHexStr:@"#8e8e8e"]];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    btn.centerX = hintBg.width / 2;
+    btn.centerY = hintBg.height / 2 - kHintContentOffset;
+    [hintBg addSubview:btn];
+    self.ctrlLoadError = hintBg;
     
     //toast------
     //bg
@@ -149,18 +166,31 @@ static int kToastFontSize = 14;
  |  Loading
  |
  -----------------------------------------------------------------------------*/
-- (void)startLoading {
-    //隐藏
+- (void)showLoading {
     self.contentPanel.hidden = YES;
     self.ctrlLoading.hidden = NO;
+    self.ctrlLoadError.hidden = YES;
     [self.ctrlIndicator startAnimating];
 }
 
-- (void)stopLoading {
-    //显示
+- (void)hideLoading {
     self.contentPanel.hidden = NO;
     self.ctrlLoading.hidden = YES;
+    self.ctrlLoadError.hidden = YES;
     [self.ctrlIndicator stopAnimating];
+}
+
+- (void)showLoadError {
+    self.contentPanel.hidden = YES;
+    self.ctrlLoading.hidden = YES;
+    self.ctrlLoadError.hidden = NO;
+}
+
+- (void)btnClicked:(UIButton *)btn {
+    [self reloadData];
+}
+
+- (void)reloadData {
 }
 
 

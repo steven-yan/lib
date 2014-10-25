@@ -137,7 +137,7 @@ static int kLeftMargin = 15;
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.modifyPwd.submit"]];
+    [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.modifyPwd.submit"]];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)dic {

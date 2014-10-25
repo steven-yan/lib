@@ -56,7 +56,7 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"news.NewsPRC.getDoctorList.submit"]];
+    [self httpGet:[AppUtil fillUrl:@"news.NewsPRC.getDoctorList.submit"]];
 }
 
 - (void)onHttpRequestSuccess:(NSString *)response {

@@ -14,9 +14,12 @@
 @property (nonatomic, strong) UIScrollView *contentPanel;
 
 //提示----
+//load
 @property (nonatomic, strong) UIView *ctrlLoading;
 //指示器
 @property (nonatomic, strong) UIActivityIndicatorView *ctrlIndicator;
+//error
+@property (nonatomic, strong) UIView *ctrlLoadError;
 
 //toast----
 @property (nonatomic, strong) UILabel *ctrlToastHint;
@@ -38,8 +41,9 @@
 - (void)changeTopRightBtnTitle:(NSString *)title;
 
 //loading hint
-- (void)startLoading;
-- (void)stopLoading;
+- (void)showLoading;
+- (void)hideLoading;
+- (void)showLoadError;
 
 //toast----
 - (void)showToast:(NSString *)text;

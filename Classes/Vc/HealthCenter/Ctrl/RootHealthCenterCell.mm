@@ -30,8 +30,7 @@ static int kCellHeight = 80;
         UIImageView *v = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 50, 50)];
         v.layer.cornerRadius = 6;
         v.layer.masksToBounds = YES;
-        v.backgroundColor = [UIColor clearColor];
-        [v setImage:[UIImage imageNamed:@"rr_rmd"]];
+        v.backgroundColor = [UIColor grayColor];
         v.centerY = self.height / 2;
         [self addSubview:v];
         self.ctrlImg = v;
@@ -80,7 +79,7 @@ static int kCellHeight = 80;
 
 - (void)refreshWithCellData:(RootHealthCenterCellData *)data {
     //TODO: 图片
-    [self.ctrlImg sd_setImageWithURL:[NSURL URLWithString:data.imgUrl] placeholderImage:[UIImage imageNamed:@"rr_rmd"]];
+    [self.ctrlImg sd_setImageWithURL:[NSURL URLWithString:data.imgUrl] placeholderImage:nil];
     //名称
     self.ctrlLabelName.text = [@"" stringByAppendingString:data.name];
     //地址

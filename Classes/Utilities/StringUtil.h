@@ -14,6 +14,7 @@
 + (NSString *)boolToStr:(BOOL)b;
 + (NSString *)floatToStr:(float)i;
 + (NSString *)doubleToStr:(double)i;
++ (NSString *)filterHtml:(NSString *)html;
 
 
 

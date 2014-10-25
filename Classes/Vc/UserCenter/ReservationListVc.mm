@@ -25,6 +25,15 @@
     [self hideTopRightBtn];
     
     //内容面板-----------
+    //无信息提示
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    [iv setImage:[UIImage imageNamed:@"depression_face"]];
+    iv.hidden = YES;
+    iv.centerX = self.contentPanel.width / 2;
+    iv.centerY = self.contentPanel.height / 2 - 60;
+    [self.contentPanel addSubview:iv];
+    self.ctrlIv = iv;
+    
     //底部面板-----------
     //数据--------------
     self.arrayOfCellData = [[NSMutableArray alloc] init];
@@ -70,18 +79,35 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
-    [self httpGet:[AppUtil healthUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
+    [self showLoading];
+    [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
+}
+
+- (void)reloadData {
+    [self loadData];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    [self hideLoading];
+    
     [self.arrayOfCellData removeAllObjects];
     NSArray *list = [obj valueForKey:@"list"];
-    for (NSDictionary *dic in list) {
-        ReservationListCellData *cd = [[ReservationListCellData alloc] initWithObj:dic];
-        [self.arrayOfCellData addObject:cd];
+    if (list.count>0) {
+        for (NSDictionary *dic in list) {
+            ReservationListCellData *cd = [[ReservationListCellData alloc] initWithObj:dic];
+            [self.arrayOfCellData addObject:cd];
+        }
+        [self.tableView reloadData];
+        self.ctrlIv.hidden = YES;
+    } else {
+        [self showToast:@"暂无信息"];
+        self.ctrlIv.hidden = NO;
     }
-    
-    [self.tableView reloadData];
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    [self hideLoading];
+    [self showLoadError];
 }
 
 //完善参数

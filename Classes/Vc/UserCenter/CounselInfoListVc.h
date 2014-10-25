@@ -13,6 +13,9 @@
 
 //cp
 @property (nonatomic, strong) CounselInfoPanel *ctrlCounselPanel;
+//
+@property (nonatomic, strong) UIImageView *ctrlIv;
+
 //cd
 @property (nonatomic, strong) NSMutableArray *arrayOfCellData;
 

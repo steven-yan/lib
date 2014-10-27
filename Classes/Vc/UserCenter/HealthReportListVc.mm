@@ -80,10 +80,6 @@
     [self httpGet:[AppUtil fillUrl:@"pemaster.PEMasterPRC.myReportList.submit"]];
 }
 
-- (void)reloadData {
-    [self loadData];
-}
-
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
     //hide
     [self hideLoading];

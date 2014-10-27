@@ -76,6 +76,10 @@
     }
 }
 
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint {
+    [self.nrVc showToast:hint];
+}
+
 
 
 #pragma mark -

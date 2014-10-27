@@ -83,10 +83,6 @@
     [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.getReservationList.submit"]];
 }
 
-- (void)reloadData {
-    [self loadData];
-}
-
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
     [self hideLoading];
     

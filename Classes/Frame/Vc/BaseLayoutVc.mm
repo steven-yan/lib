@@ -6,7 +6,6 @@
 #import "BaseLayoutVc.h"
 
 @implementation BaseLayoutVc
-static int kToastFontSize = 14;
 static int kHintContentOffset = 60;
 
 
@@ -70,25 +69,6 @@ static int kHintContentOffset = 60;
     btn.centerY = hintBg.height / 2 - kHintContentOffset;
     [hintBg addSubview:btn];
     self.ctrlLoadError = hintBg;
-    
-    //toast------
-    //bg
-    UIView *toast = [[UIView alloc] init];
-    toast.layer.cornerRadius = 5.0f;
-    toast.layer.borderWidth = 1.0f;
-    toast.layer.borderColor = [[UIColor grayColor] colorWithAlphaComponent:0.5].CGColor;
-    toast.backgroundColor = [UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.75f];
-    //add to key window
-    UIWindow *win = [UIApplication sharedApplication].keyWindow;
-    [win addSubview:toast];
-    self.ctrlToastBg = toast;
-    //l
-    l = [UILabel labelWithLeft:0 Top:0 Width:self.contentPanel.width - 60 Height:0 FontSize:kToastFontSize];
-    l.numberOfLines = 0;
-    l.textAlignment = NSTextAlignmentCenter;
-    l.textColor = [UIColor whiteColor];
-    [toast addSubview:l];
-    self.ctrlToastHint = l;
     
     //数据-----------
 }
@@ -187,55 +167,10 @@ static int kHintContentOffset = 60;
 }
 
 - (void)btnClicked:(UIButton *)btn {
-    [self reloadData];
+    [self loadData];
 }
 
-- (void)reloadData {
-}
-
-
-
-#pragma mark -
-#pragma mark ----------------------------toast----------------------------------
-/*------------------------------------------------------------------------------
- |  toast
- |
- -----------------------------------------------------------------------------*/
-//show toast
-- (void)showToast:(NSString *)text {
-    [self.ctrlToastBg bringToFont];
-    CGSize size = [self.ctrlToastHint setDynamicWithStr:text fontSize:kToastFontSize];
-    self.ctrlToastBg.width = size.width + 12;
-    self.ctrlToastBg.height = size.height + 12;
-    self.ctrlToastBg.centerX = self.contentPanel.width / 2;
-    self.ctrlToastBg.bottom = SysInfo.instance.bounds.size.height - 60;
-    
-    self.ctrlToastHint.centerX = self.ctrlToastBg.width / 2;
-    self.ctrlToastHint.centerY = self.ctrlToastBg.height / 2;
-    [self showAnimationToast];
-    [self performSelector:@selector(hideToast:) withObject:nil afterDelay:2];
-}
-
-//hide toast
-- (void)hideToast:(id)toast {
-    [self hideAnimationToast];
-}
-
-- (void)showAnimationToast {
-    self.ctrlToastBg.alpha = 0;
-    [UIView beginAnimations:@"showAnimationToast" context:nil];
-    self.ctrlToastBg.alpha = 1.0f;
-    [UIView setAnimationDelay:0.3];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-    [UIView commitAnimations];
-}
-
-- (void)hideAnimationToast {
-    [UIView beginAnimations:@"showAnimationToast" context:nil];
-    self.ctrlToastBg.alpha = 0;
-    [UIView setAnimationDelay:1.0];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    [UIView commitAnimations];
+- (void)loadData {
 }
 
 
@@ -258,6 +193,10 @@ static int kHintContentOffset = 60;
  |  其他
  |
  -----------------------------------------------------------------------------*/
+//toast
+- (void)showToast:(NSString *)text {
+    [Toast.instance show:text];
+}
 
 
 

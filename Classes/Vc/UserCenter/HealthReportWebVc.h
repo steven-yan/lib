@@ -6,7 +6,7 @@
  *
  **/
 
-@interface HealthReportWebVc : BaseLayoutVc
+@interface HealthReportWebVc : BaseLayoutVc <UIWebViewDelegate>
 
 //webView
 @property (nonatomic, strong) UIWebView *ctrlWebView;

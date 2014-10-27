@@ -10,18 +10,26 @@
 
 @implementation RootUserCenter
 enum {
+    //btn
     kBtnSignUpTag = 100,
     kBtnSignInTag,
     kBtnSettingTag,
-    kBtnEvaluateAppTag,
+    kBtnRateAppTag,
     kBtnUpdateTag,
-    kBtnDeclareTag,
     kBtnCounselInfoTag,
     kBtnFillUserInfoTag,
     kBtnModifyPwdTag,
     kBtnUserImgTag,
     kBtnMkOrderTag,
     kBtnHealthReportTag,
+    
+    //alert
+    kAlertLogOutTag,
+    kAlertUpdateTag,
+    
+    //http
+    kHttpUpdateTag,
+    kHttpPostUserImgTag,
 };
 
 
@@ -68,6 +76,68 @@ enum {
     self.userState = Global.instance.userInfo.userState;
     //刷新
     [self.ctrlTableView reloadData];
+}
+
+
+
+#pragma mark -
+#pragma mark --------------------------获取和提交数据-----------------------------
+/*------------------------------------------------------------------------------
+ |  获取和提交数据
+ |
+ -----------------------------------------------------------------------------*/
+- (void)loadData:(NSInteger)tag {
+    if (tag == kHttpUpdateTag) {
+        [self httpGet:[AppUtil fillUrl:@"pubreference.PubReferencePRC.upgrade.submit"]];
+    } else if (tag == kHttpPostUserImgTag) {
+//        [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.imageUpload.submit"]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"userlogin.UserLoginPRC.imageUpload.submit?userLoginId=%@", Global.instance.userInfo.userLoginId]];
+        ASIFormDataRequest *req = [ASIFormDataRequest requestWithURL:url];
+        [req addRequestHeader:@"Content-Type" value:@"image/png"];
+        [req setTimeOutSeconds:60];
+        [req setRequestMethod:@"POST"];
+        
+        //[Request setPostValue:auth forKey:@"auth"];
+        UIImage *img = [UIImage scaleImg:self.image toSize:CGSizeMake(300, 300)];
+        [req setData:[Global.instance.userInfo.userLoginId dataUsingEncoding:NSUTF8StringEncoding] forKey:@"userLoginId"];
+        [req setData:[GTMBase64 encodeData:UIImagePNGRepresentation(img)] forKey:@"image"];
+        
+        [req setCompletionBlock:^{
+            
+        }];
+        
+        [req setFailedBlock:^{
+            NSString *str = [req responseString];
+            
+        }];
+        
+        [req startSynchronous];
+    }
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    NSString *version = [obj valueForKey:@"version"];
+    if (version && [version isEqualToString:[AppUtil appVersion]] == NO) {
+        [self alertWithTitle:@"提示" cancel:@"取消" msg:@"应用有更新" cmfTitle:@"更新" tag:kAlertUpdateTag];
+    } else {
+        [self.nrVc showToast:@"已是最新版"];
+    }
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+}
+
+//完善参数
+- (void)completeQueryParams:(NSInteger)tag {
+    if (tag == kHttpUpdateTag) {
+        [self.queryParams setValue:@"IOS" forKey:@"appType"];
+        [self.queryParams setValue:[AppUtil appVersion] forKey:@"version"];
+    } else if (tag == kHttpPostUserImgTag) {
+//        userLoginId				用户编号
+//        image				图片数据流字符串
+        [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
+        [self.queryParams setValue:[AppUtil appVersion] forKey:@"image"];
+    }
 }
 
 
@@ -229,17 +299,92 @@ enum {
 
 
 #pragma mark -
+#pragma mark ---------------------------actionSheetDelegate---------------------
+/*------------------------------------------------------------------------------
+ |  actionSheetDelegate
+ |
+ -----------------------------------------------------------------------------*/
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex >= 2) {
+        return;
+    }
+    
+    //设置 UIImagePickerController
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    NSString *str = nil;
+    BOOL flag = YES;
+    
+    if (buttonIndex == 0) {         //打开相机
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        } else {
+            flag = NO;
+            str = @"打开相机失败";
+        }
+    } else if (buttonIndex == 1) {  //打开相册
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        } else {
+            flag = NO;
+            str = @"打开相册失败";
+        }
+    }
+    
+    if (flag) {
+        [self.nrVc presentViewController:imagePicker animated:YES completion:nil];
+    } else {
+        [self.nrVc showToast:str];
+    }
+}
+
+
+
+#pragma mark -
+#pragma mark ---------------------UIImagePickerControllerDelegate-----------------
+/*--------------------------------------------------------------------------------
+ |  UIImagePickerControllerDelegate
+ |
+ -------------------------------------------------------------------------------*/
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *img = nil;
+    //选择照片
+    img = [info valueForKey:@"UIImagePickerControllerEditedImage"];
+    if (img == nil) {
+        img = [info valueForKey:@"UIImagePickerControllerOriginalImage"];
+    }
+    
+    //设置照片
+    if (img != nil) {
+        self.image = img;
+        [self loadData:kHttpPostUserImgTag];
+    } else {
+        [self.nrVc showToast:@"设置照片失败"];
+    }
+    
+    //隐藏
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
+#pragma mark -
 #pragma mark -----------------------------alert----------------------------------
 /*------------------------------------------------------------------------------
  |  alert
  |
  -----------------------------------------------------------------------------*/
-- (void)confirmAlert:(UIAlertView *)alertView {
-    //清空存储
-    [Cache.instance removeWithDir:kGlobalDir key:kGlobalKeyUser];
-    [Global.instance.userInfo clear];
-    self.userState = Global.instance.userInfo.userState;
-    [self.ctrlTableView reloadData];
+- (void)confirmAlert:(UIAlertView *)alertView tag:(NSInteger)tag {
+    if (tag == kAlertLogOutTag) {
+        //清空存储
+        [Cache.instance removeWithDir:kGlobalDir key:kGlobalKeyUser];
+        [Global.instance.userInfo clear];
+        self.userState = Global.instance.userInfo.userState;
+        [self.ctrlTableView reloadData];
+    } else if (tag == kAlertUpdateTag) {
+        [AppUtil appStoreUpdate];
+    }
 }
 
 
@@ -257,6 +402,7 @@ enum {
     [cell addSubview:bg];
     //------
     UIButton *btn = [[UIButton alloc] initWithFrame:bg.bounds];
+    btn.tag = kBtnUserImgTag;
     [btn addTarget:self action:@selector(btnClicked:)];
     [bg addSubview:btn];
     //图片
@@ -268,11 +414,15 @@ enum {
     iv.left = 10;
     iv.centerY = bg.height / 2;
     [bg addSubview:iv];
+    self.ctrlUserImg = iv;
     //title
     UILabel *l = [UILabel labelWithLeft:iv.right + 19 Top:0 Width:200 Height:20 FontSize:16];
     l.text = title;
     l.centerY = bg.height/2;
     [bg addSubview:l];
+    //img
+    [btn setImage:[UIImage imageNamed:@"ic_list"] forState:UIControlStateNormal];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.width - btn.imageView.width - 20, 0, 0)];
 }
 
 - (void)createAdditonCell:(UITableViewCell *)cell {
@@ -292,7 +442,7 @@ enum {
     //评分----
     btn = [UIButton btnCellWithTitle:@"给东方健康云评分" image:@"btn_star_big_pressed"];
     [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnEvaluateAppTag;
+    btn.tag = kBtnRateAppTag;
     btn.top = btn.height;
     [bg addSubview:btn];
     //分隔线
@@ -305,16 +455,6 @@ enum {
     btn.tag = kBtnUpdateTag;
     btn.top = btn.height*2;
     [bg addSubview:btn];
-//    //分隔线
-//    line = [UIView lineWithWidth:btn.width];
-//    line.bottom = btn.height;
-//    [btn addSubview:line];
-//    //声明----
-//    btn = [UIButton btnCellWithTitle:@"声明"];
-//    [btn addTarget:self action:@selector(btnClicked:)];
-//    btn.tag = kBtnDeclareTag;
-//    btn.top = btn.height * 3;
-//    [bg addSubview:btn];
     
     bg.height = btn.bottom;
 }
@@ -331,12 +471,11 @@ enum {
             break;
         case kBtnSettingTag:
             break;
-        case kBtnEvaluateAppTag:
-            [AppUtil appRate];
+        case kBtnRateAppTag:
+            [AppUtil appStoreRate];
             break;
         case kBtnUpdateTag:
-            break;
-        case kBtnDeclareTag:
+            [self loadData:kHttpUpdateTag];
             break;
         case kBtnModifyPwdTag:
             [self.nrVc navTo:@"ModifyPwdVc"];
@@ -352,14 +491,17 @@ enum {
             break;
         case  kBtnFillUserInfoTag:
             [self.nrVc navTo:@"FillUserInfoVc"];
-            
-        default:
+            break;
+        case  kBtnUserImgTag:
+            UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照上传", @"从相册上传", nil];
+            //打开actionSheet
+            [as showInView:self];
             break;
     }
 }
 
 - (void)logOutBtnClicked:(UIButton *)btn {
-    [self alert:@"确认退出登录?"];
+    [self alert:@"确认退出登录?" tag:kAlertLogOutTag];
 }
 
 

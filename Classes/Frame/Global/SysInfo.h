@@ -33,7 +33,7 @@
 //ios6 (支持ios6以上)
 @property BOOL isIos6Tag;
 
-+ (instancetype)instance;
++ (SysInfo *)instance;
 
 
 

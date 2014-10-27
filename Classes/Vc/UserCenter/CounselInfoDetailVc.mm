@@ -12,6 +12,7 @@
 enum {
     kHttpLoadDataTag = 100,
     kHttpPostCounselTag,
+    kHttpCleanInfo,
 };
 
 
@@ -26,7 +27,7 @@ enum {
 - (void)onCreate {
     //顶部面板-----------
     [self changeTopTitle:@"咨询详情"];
-    [self hideTopRightBtn];
+    [self changeTopRightBtnTitle:@"清空"];
     
     //内容面板-----------
     //背景------
@@ -84,6 +85,7 @@ enum {
 }
 
 - (void)topRightBtnClicked {
+    [self alert:@"清空咨询信息?"];
 }
 
 
@@ -100,41 +102,52 @@ enum {
         [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.getInquiryDetail.submit"] tag:tag];
     } else if (tag == kHttpPostCounselTag) {
         [self httpGet:[AppUtil fillUrl:@"message.MessagePRC.inquirySubmit.submit"] tag:tag];
+    } else if (tag == kHttpCleanInfo) {
+        [self httpGet:[AppUtil fillUrl:@"message.MessagePRC.deleteInquiry.submit"] tag:tag];
     }
 }
 
-- (void)reloadData {
+- (void)loadData {
     [self loadData:kHttpLoadDataTag];
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj tag:(NSInteger)tag {
-    [self hideLoading];
-    
-    if (self.arrayOfCellData.count == 0) {
-        NSArray *list = [obj valueForKey:@"list"];
-        for (NSDictionary *obj in list) {
-            CounselInfoDetailCellData *cd = [[CounselInfoDetailCellData alloc] initWithObj:obj];
-            [self.arrayOfCellData addObject:cd];
-        }
-    } else {
-        CounselInfoDetailCellData *cd = [[CounselInfoDetailCellData alloc] initWithObj:nil];
-        cd.sendFrom = Global.instance.userInfo.userLoginId;
-        cd.sendFromName = Global.instance.userInfo.userName;
-        cd.sendTime = [TimeUtil timeWithFormat:@"YYYY-MM-dd HH:mm" date:[NSDate date]];
-        cd.content = self.text;
-        [self.arrayOfCellData addObject:cd];
+    if (tag != kHttpCleanInfo) {
+        [self hideLoading];
         
-        self.ctrlCounsel.ctrlTv.text = nil;
-        [self showToast:@"回复成功"];
+        if (self.arrayOfCellData.count == 0) {
+            NSArray *list = [obj valueForKey:@"list"];
+            for (NSDictionary *obj in list) {
+                CounselInfoDetailCellData *cd = [[CounselInfoDetailCellData alloc] initWithObj:obj];
+                [self.arrayOfCellData addObject:cd];
+            }
+        } else {
+            CounselInfoDetailCellData *cd = [[CounselInfoDetailCellData alloc] initWithObj:nil];
+            cd.sendFrom = Global.instance.userInfo.userLoginId;
+            cd.sendFromName = Global.instance.userInfo.userName;
+            cd.sendTime = [TimeUtil timeWithFormat:@"YYYY-MM-dd HH:mm" date:[NSDate date]];
+            cd.content = self.text;
+            [self.arrayOfCellData addObject:cd];
+            
+            self.ctrlCounsel.ctrlTv.text = nil;
+            [self showToast:@"回复成功"];
+        }
+        
+        [self.tableView reloadData];
+    } else {
+        [self showToast:@"清空咨询详情成功"];
+        [self navBackWithParams:[NSDictionary dictionaryWithObject:@"needRefreshTag" forKey:@"1"]];
     }
-    
-    [self.tableView reloadData];
 }
 
 - (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
     if (tag == kHttpLoadDataTag) {
         [self hideLoading];
         [self showLoadError];
+    } else if (tag == kHttpPostCounselTag) {
+        [self showToast:@"回复信息失败"];
+    } else if (tag == kHttpCleanInfo) {
+        [self showToast:@"清空信息失败"];
     }
 }
 
@@ -146,6 +159,8 @@ enum {
         [self.queryParams setValue:self.messageId forKey:@"replyToMsgId"];
         [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"sendFrom"];
         [self.queryParams setValue:self.text forKey:@"content"];
+    } else if (tag == kHttpCleanInfo) {
+        [self.queryParams setValue:self.messageId forKey:@"messageId"];
     }
 }
 
@@ -194,6 +209,18 @@ enum {
     CounselInfoDetailCellData *cd = [self.arrayOfCellData objectAtIndex:row];
     //刷新
     [c refreshWithCellData:cd];
+}
+
+
+
+#pragma mark -
+#pragma mark ------------------------------alert--------------------------------
+/*------------------------------------------------------------------------------
+ |  alert
+ |
+ -----------------------------------------------------------------------------*/
+- (void)confirmAlert:(UIAlertView *)alertView {
+    [self loadData:kHttpCleanInfo];
 }
 
 

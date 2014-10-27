@@ -17,12 +17,16 @@
     return kAppVersion;
 }
 
-+ (void)appRate {
++ (void)appStoreRate {
     if (SysInfo.instance.isIos6Tag) {
         [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppRateUrl]];
     } else {
         [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppDetailUrl]];
     }
+}
+
++ (void)appStoreUpdate {
+    [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppDetailUrl]];
 }
 
 

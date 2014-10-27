@@ -10,7 +10,7 @@
 @interface Global : NSObject
 
 
-+ (instancetype)instance;
++ (Global *)instance;
 
 //sysInfo
 @property (nonatomic, strong) SysInfo *sysInfo;

@@ -10,7 +10,7 @@
 
 @implementation SysInfo
 
-+(instancetype)instance {
++(SysInfo *)instance {
     static SysInfo *sysInfo = nil;
     static dispatch_once_t onceToken;
     

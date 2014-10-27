@@ -5,6 +5,7 @@
  */
 
 #import "TopPanel.h"
+#import "Toast.h"
 
 @interface BaseLayoutVc : BaseHttpVc <TopPanelDelegate>
 
@@ -20,10 +21,6 @@
 @property (nonatomic, strong) UIActivityIndicatorView *ctrlIndicator;
 //error
 @property (nonatomic, strong) UIView *ctrlLoadError;
-
-//toast----
-@property (nonatomic, strong) UILabel *ctrlToastHint;
-@property (nonatomic, strong) UIView *ctrlToastBg;
 
 //顶部面板--------
 //显示隐藏------
@@ -47,6 +44,7 @@
 
 //toast----
 - (void)showToast:(NSString *)text;
-- (void)hideToast:(id)ss;
+
+
 
 @end

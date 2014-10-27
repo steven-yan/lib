@@ -26,6 +26,7 @@
     
     //内容面板-----------
     UIWebView *v = [[UIWebView alloc] initWithFrame:self.contentPanel.bounds];
+    v.delegate = self;
     [self.contentPanel addSubview:v];
     self.ctrlWebView = v;
     
@@ -72,8 +73,25 @@
  |
  -----------------------------------------------------------------------------*/
 - (void)loadData {
+    [self showLoading];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?peMasterId=%@", kAppHost, @"jsp/pemaster/MyReportDetail.jsp", self.peMasterId]]];
     [self.ctrlWebView loadRequest:request];
+}
+
+
+
+#pragma mark -
+#pragma mark ---------------------------web delegate----------------------------
+/*------------------------------------------------------------------------------
+ |  web delegate
+ |
+ -----------------------------------------------------------------------------*/
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self hideLoading];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [self showLoadError];
 }
 
 

@@ -55,6 +55,10 @@ enum {
 
 //解析导航返回
 - (void)onPraseNavBackParams:(NSDictionary *)params {
+    NSString *tag = [params valueForKey:@"needRefreshTag"];
+    if ([tag intValue]) {
+        [self loadData];
+    }
 }
 
 //窗体将要显示------
@@ -98,7 +102,7 @@ enum {
     }
 }
 
-- (void)reloadData {
+- (void)loadData {
     [self loadData:kHttpLoadDataTag];
 }
 

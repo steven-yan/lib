@@ -10,7 +10,8 @@
 
 + (NSString *)fillUrl:(NSString *)res;
 + (NSString *)appVersion;
-+ (void)appRate;
++ (void)appStoreRate;
++ (void)appStoreUpdate;
 
 
 

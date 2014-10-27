@@ -14,7 +14,7 @@
  |  初始化 ,销毁
  |
  -----------------------------------------------------------------------------*/
-+(instancetype)instance {
++(Global *)instance {
     static Global *global = nil;
     static dispatch_once_t onceToken;
     

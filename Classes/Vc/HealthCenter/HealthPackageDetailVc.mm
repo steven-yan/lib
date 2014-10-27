@@ -126,7 +126,7 @@ enum {
     }
 }
 
-- (void)reloadData {
+- (void)loadData {
     [self loadData:kHttpLoadDataTag];
 }
 

@@ -10,9 +10,13 @@
 		16019AED19F3D66500E687EB /* CounselInfoDetailCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16019AEC19F3D66500E687EB /* CounselInfoDetailCell.mm */; };
 		16019AF019F3D7EF00E687EB /* doctor_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 16019AEE19F3D7EF00E687EB /* doctor_default.png */; };
 		16019AF119F3D7EF00E687EB /* doctor_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16019AEF19F3D7EF00E687EB /* doctor_default@2x.png */; };
+		161256CB19FEA87F00E4B844 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 161256C819FEA87F00E4B844 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		161256CC19FEA87F00E4B844 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 161256CA19FEA87F00E4B844 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		161256CF19FEA89700E4B844 /* Toast.mm in Sources */ = {isa = PBXBuildFile; fileRef = 161256CE19FEA89700E4B844 /* Toast.mm */; };
+		161256D519FEA8DE00E4B844 /* BaseHttpView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 161256D219FEA8DE00E4B844 /* BaseHttpView.mm */; };
+		161256D619FEA8DE00E4B844 /* BaseView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 161256D419FEA8DE00E4B844 /* BaseView.mm */; };
+		161256DA19FEA92C00E4B844 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 161256D819FEA92C00E4B844 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1614BF79197114E9004402FA /* search_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1614BF78197114E9004402FA /* search_icon@2x.png */; };
-		16228B7319F56D93009607C6 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 16228B6C19F56D93009607C6 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		16228B7619F56D93009607C6 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 16228B7019F56D93009607C6 /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1629B5DE19EA730D002D1329 /* Cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5DD19EA730D002D1329 /* Cache.mm */; };
 		1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5E319EA7645002D1329 /* TimeUtil.mm */; };
 		1629B5E719EA867E002D1329 /* ReservationListCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1629B5E619EA867E002D1329 /* ReservationListCellData.m */; };
@@ -213,7 +217,6 @@
 		16CBAAF919F20B6800E0BA4A /* MapVc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16CBAAF819F20B6800E0BA4A /* MapVc.mm */; };
 		16CFB88619E8220A00162242 /* StringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CFB88519E8220A00162242 /* StringUtil.m */; };
 		16CFB88919E8372F00162242 /* AppUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16CFB88819E8372F00162242 /* AppUtil.mm */; };
-		16CFB88C19E83A6000162242 /* BaseHttpView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16CFB88B19E83A6000162242 /* BaseHttpView.mm */; };
 		16DD2D4919D710AE007698DE /* man_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 16DD2D4719D710AE007698DE /* man_big.png */; };
 		16DD2D4A19D710AE007698DE /* man_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 16DD2D4819D710AE007698DE /* man_small.png */; };
 		16E3A08B1971407500A1AB22 /* rr_rmd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 16E3A08A1971407500A1AB22 /* rr_rmd@2x.png */; };
@@ -224,12 +227,21 @@
 		16019AEC19F3D66500E687EB /* CounselInfoDetailCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CounselInfoDetailCell.mm; sourceTree = "<group>"; };
 		16019AEE19F3D7EF00E687EB /* doctor_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = doctor_default.png; sourceTree = "<group>"; };
 		16019AEF19F3D7EF00E687EB /* doctor_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doctor_default@2x.png"; sourceTree = "<group>"; };
+		161256C619FEA87F00E4B844 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		161256C719FEA87F00E4B844 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		161256C819FEA87F00E4B844 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		161256C919FEA87F00E4B844 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		161256CA19FEA87F00E4B844 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		161256CD19FEA89700E4B844 /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
+		161256CE19FEA89700E4B844 /* Toast.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Toast.mm; sourceTree = "<group>"; };
+		161256D119FEA8DE00E4B844 /* BaseHttpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseHttpView.h; sourceTree = "<group>"; };
+		161256D219FEA8DE00E4B844 /* BaseHttpView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseHttpView.mm; sourceTree = "<group>"; };
+		161256D319FEA8DE00E4B844 /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		161256D419FEA8DE00E4B844 /* BaseView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseView.mm; sourceTree = "<group>"; };
+		161256D719FEA92C00E4B844 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		161256D819FEA92C00E4B844 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		161256D919FEA92C00E4B844 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		1614BF78197114E9004402FA /* search_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_icon@2x.png"; sourceTree = "<group>"; };
-		16228B6A19F56D93009607C6 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		16228B6B19F56D93009607C6 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
-		16228B6C19F56D93009607C6 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
-		16228B6F19F56D93009607C6 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
-		16228B7019F56D93009607C6 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		1629B5DC19EA730D002D1329 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
 		1629B5DD19EA730D002D1329 /* Cache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cache.mm; sourceTree = "<group>"; };
 		1629B5E219EA7645002D1329 /* TimeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUtil.h; sourceTree = "<group>"; };
@@ -538,8 +550,6 @@
 		16CFB88519E8220A00162242 /* StringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringUtil.m; sourceTree = "<group>"; };
 		16CFB88719E8372F00162242 /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtil.h; sourceTree = "<group>"; };
 		16CFB88819E8372F00162242 /* AppUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppUtil.mm; sourceTree = "<group>"; };
-		16CFB88A19E83A6000162242 /* BaseHttpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseHttpView.h; sourceTree = "<group>"; };
-		16CFB88B19E83A6000162242 /* BaseHttpView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseHttpView.mm; sourceTree = "<group>"; };
 		16DD2D4719D710AE007698DE /* man_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man_big.png; sourceTree = "<group>"; };
 		16DD2D4819D710AE007698DE /* man_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man_small.png; sourceTree = "<group>"; };
 		16E3A08A1971407500A1AB22 /* rr_rmd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rr_rmd@2x.png"; sourceTree = "<group>"; };
@@ -569,14 +579,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		161256D019FEA8DE00E4B844 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				161256D119FEA8DE00E4B844 /* BaseHttpView.h */,
+				161256D219FEA8DE00E4B844 /* BaseHttpView.mm */,
+				161256D319FEA8DE00E4B844 /* BaseView.h */,
+				161256D419FEA8DE00E4B844 /* BaseView.mm */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		16228B6819F56D93009607C6 /* GTMNSString-HTML */ = {
 			isa = PBXGroup;
 			children = (
-				16228B6A19F56D93009607C6 /* GTMDefines.h */,
-				16228B6B19F56D93009607C6 /* GTMNSString+HTML.h */,
-				16228B6C19F56D93009607C6 /* GTMNSString+HTML.m */,
-				16228B6F19F56D93009607C6 /* NSString+HTML.h */,
-				16228B7019F56D93009607C6 /* NSString+HTML.m */,
+				161256C619FEA87F00E4B844 /* GTMDefines.h */,
+				161256C719FEA87F00E4B844 /* GTMNSString+HTML.h */,
+				161256C819FEA87F00E4B844 /* GTMNSString+HTML.m */,
+				161256C919FEA87F00E4B844 /* NSString+HTML.h */,
+				161256CA19FEA87F00E4B844 /* NSString+HTML.m */,
 			);
 			path = "GTMNSString-HTML";
 			sourceTree = "<group>";
@@ -964,6 +985,7 @@
 		16A4865119C9E5EF00135A5D /* Frame */ = {
 			isa = PBXGroup;
 			children = (
+				161256D019FEA8DE00E4B844 /* View */,
 				16A4868D19C9E5EF00135A5D /* Vc */,
 				1629B5DB19EA730D002D1329 /* Cache */,
 				16A4865E19C9E5EF00135A5D /* Global */,
@@ -978,6 +1000,8 @@
 		16A4865E19C9E5EF00135A5D /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				161256CD19FEA89700E4B844 /* Toast.h */,
+				161256CE19FEA89700E4B844 /* Toast.mm */,
 				16A4865F19C9E5EF00135A5D /* Global.h */,
 				16A4866019C9E5EF00135A5D /* Global.mm */,
 				16A4866119C9E5EF00135A5D /* SysInfo.h */,
@@ -1086,8 +1110,6 @@
 		16A4869A19C9E5EF00135A5D /* Ctrl */ = {
 			isa = PBXGroup;
 			children = (
-				16CFB88A19E83A6000162242 /* BaseHttpView.h */,
-				16CFB88B19E83A6000162242 /* BaseHttpView.mm */,
 				16468B7E19CE63930095EC7D /* TabBarContentPanel.h */,
 				16468B7F19CE63930095EC7D /* TabBarContentPanel.mm */,
 				16A4869B19C9E5EF00135A5D /* TabBarBottomPanel.h */,
@@ -1103,6 +1125,9 @@
 		16A486A119C9E5EF00135A5D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				161256D719FEA92C00E4B844 /* GTMBase64.h */,
+				161256D819FEA92C00E4B844 /* GTMBase64.m */,
+				161256D919FEA92C00E4B844 /* GTMDefines.h */,
 				1629B5E219EA7645002D1329 /* TimeUtil.h */,
 				1629B5E319EA7645002D1329 /* TimeUtil.mm */,
 				16CFB88719E8372F00162242 /* AppUtil.h */,
@@ -1301,7 +1326,7 @@
 				16A486CA19C9E5EF00135A5D /* const.mm in Sources */,
 				166B430319EA2AEB005C1431 /* HealthyCheckCenterCell.mm in Sources */,
 				166B434E19EA2F65005C1431 /* HealthReportListVc.mm in Sources */,
-				16228B7619F56D93009607C6 /* NSString+HTML.m in Sources */,
+				161256CC19FEA87F00E4B844 /* NSString+HTML.m in Sources */,
 				166A833219CEBAB200860F29 /* SDWebImageCompat.m in Sources */,
 				16A486D319C9E5EF00135A5D /* ASIDataDecompressor.m in Sources */,
 				166B435219EA3015005C1431 /* HealthReportListCell.mm in Sources */,
@@ -1312,6 +1337,7 @@
 				16A486E419C9E5EF00135A5D /* BaseSingleListVc.mm in Sources */,
 				1629B5E719EA867E002D1329 /* ReservationListCellData.m in Sources */,
 				1629B5E419EA7645002D1329 /* TimeUtil.mm in Sources */,
+				161256CF19FEA89700E4B844 /* Toast.mm in Sources */,
 				1698960819F29AE80076F323 /* ModifyPwdVc.mm in Sources */,
 				166B432819EA2DA9005C1431 /* ExpertDetailVc.mm in Sources */,
 				16A486E019C9E5EF00135A5D /* BaseHttpVc.mm in Sources */,
@@ -1325,9 +1351,10 @@
 				16A486E119C9E5EF00135A5D /* BaseLayoutVc.mm in Sources */,
 				1682D904196EC2C6008EDEE6 /* AppDelegate.m in Sources */,
 				166DD59319ED7AF900B56C66 /* HealthReportListCellData.m in Sources */,
+				161256DA19FEA92C00E4B844 /* GTMBase64.m in Sources */,
 				166B430819EA2B6C005C1431 /* RootExpertRmd.mm in Sources */,
 				16A486C619C9E5EF00135A5D /* UIImage+Addition.mm in Sources */,
-				16228B7319F56D93009607C6 /* GTMNSString+HTML.m in Sources */,
+				161256CB19FEA87F00E4B844 /* GTMNSString+HTML.m in Sources */,
 				166B434219EA2EE2005C1431 /* CounselInfoDetailVc.mm in Sources */,
 				166B430919EA2B6C005C1431 /* RootExpertRmdCell.mm in Sources */,
 				16A486D919C9E5EF00135A5D /* Reachability.m in Sources */,
@@ -1345,10 +1372,12 @@
 				166B432419EA2D50005C1431 /* CounselInfoCell.mm in Sources */,
 				166A833919CEBAB200860F29 /* UIImage+GIF.m in Sources */,
 				16A486DC19C9E5EF00135A5D /* FMDatabasePool.m in Sources */,
+				161256D519FEA8DE00E4B844 /* BaseHttpView.mm in Sources */,
 				166A833E19CEBAB200860F29 /* UIView+WebCacheOperation.m in Sources */,
 				168F4EBA19EAD641000387DD /* CSDatePicker.mm in Sources */,
 				166A833619CEBAB200860F29 /* SDWebImageManager.m in Sources */,
 				166A830B19CEB3C100860F29 /* RootHealthCenterCellData.m in Sources */,
+				161256D619FEA8DE00E4B844 /* BaseView.mm in Sources */,
 				166B431619EA2C8C005C1431 /* ForgetPwdVc.mm in Sources */,
 				16A486DA19C9E5EF00135A5D /* FMDatabase.m in Sources */,
 				166B430019EA2AEB005C1431 /* HealthPackageDetailCell.mm in Sources */,
@@ -1372,7 +1401,6 @@
 				16A486C719C9E5EF00135A5D /* UIView+Layout.mm in Sources */,
 				16A486D519C9E5EF00135A5D /* ASIFormDataRequest.m in Sources */,
 				166A833019CEBAB200860F29 /* NSData+ImageContentType.m in Sources */,
-				16CFB88C19E83A6000162242 /* BaseHttpView.mm in Sources */,
 				16A486C819C9E5EF00135A5D /* UserInfoDto.m in Sources */,
 				166B434D19EA2F65005C1431 /* FillUserInfoVc.mm in Sources */,
 				16A486E619C9E5EF00135A5D /* TabBarBottomPanel.mm in Sources */,

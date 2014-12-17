@@ -1,6 +1,6 @@
 /**
  *
- *  HanZiUtil
+ *  StringUtil
  *  @author steven
  *  @date August 14 2014
  *

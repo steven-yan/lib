@@ -19,14 +19,18 @@
 
 + (void)appStoreRate {
     if (SysInfo.instance.isIos6Tag) {
-        [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppRateUrl]];
+        [AppUtil openUrl:kAppRateUrl];
     } else {
-        [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppDetailUrl]];
+        [AppUtil openUrl:kAppDetailUrl];
     }
 }
 
 + (void)appStoreUpdate {
-    [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:kAppDetailUrl]];
+    [AppUtil openUrl:kAppDetailUrl];
+}
+
++ (void)openUrl:(NSString *)url {
+    [[UIApplication sharedApplication]  openURL:[NSURL URLWithString:url]];
 }
 
 

@@ -136,7 +136,7 @@ enum {
         [self.tableView reloadData];
     } else {
         [self showToast:@"清空咨询详情成功"];
-        [self navBackWithParams:[NSDictionary dictionaryWithObject:@"needRefreshTag" forKey:@"1"]];
+        [self navBackWithParams:[NSDictionary dictionaryWithObject:@"1" forKey:@"needRefreshTag"]];
     }
 }
 

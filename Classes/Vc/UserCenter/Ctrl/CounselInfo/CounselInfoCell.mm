@@ -80,13 +80,13 @@ static int kCellHeight = 66;
 }
 
 - (void)refreshWithDic:(NSDictionary *)dic {
-    NSString *messageId = [dic valueForKey:@"messageId"];
+//    NSString *messageId = [dic valueForKey:@"messageId"];
     NSString *content = [dic valueForKey:@"content"];
     NSString *sendTime = [dic valueForKey:@"sendTime"];
     NSString *unReadCount = [dic valueForKey:@"unReadCount"];
     
     //handle nil
-    messageId = [ChkUtil handleNil:messageId];
+//    messageId = [ChkUtil handleNil:messageId];
     content = [ChkUtil handleNil:content];
     sendTime = [ChkUtil handleNil:sendTime];
     unReadCount = [ChkUtil handleNil:unReadCount];

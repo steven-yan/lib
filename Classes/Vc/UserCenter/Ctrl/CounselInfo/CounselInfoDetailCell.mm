@@ -111,7 +111,7 @@ static int kFontSize = 14;
         self.ctrlContentBg.layer.borderWidth = 0.5;
         self.ctrlContentBg.right = self.ctrlIvUser.right;
         self.ctrlContent.right = self.ctrlContentBg.right - kMarginWidth;
-        [self.ctrlIvUser sd_setImageWithURL:[NSURL URLWithString:d.photoPath] placeholderImage:[UIImage imageNamed:@"portrait_default"]];
+        [self.ctrlIvUser sd_setImageWithURL:[NSURL URLWithString:Global.instance.userInfo.photoPath] placeholderImage:[UIImage imageNamed:@"portrait_default"]];
     } else {
         self.ctrlIvUser.left = kMarginWidth;
         self.ctrlName.left = self.ctrlIvUser.right + 5;

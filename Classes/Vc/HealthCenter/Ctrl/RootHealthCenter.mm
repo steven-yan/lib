@@ -42,7 +42,9 @@
 - (void)onWillShow {
     [self.nrVc changeTopTitle:@"体检中心"];
     //加载数据
-    [self loadData];
+    if (self.arrayOfCellData.count <= 0) {
+         [self loadData];
+    }
 }
 
 - (void)onWillHide {

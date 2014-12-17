@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2D27D3C6-FCD6-47C7-917C-26DC3909866B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>lib</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
+		<string>https://github.com/steven-yan/e-healthy.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>lib.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/steven-yan/e-healthy.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AEB73AE683B81A1A78354F55AD29ACCC959090EA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AEB73AE683B81A1A78354F55AD29ACCC959090EA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>utility</string>
+		</dict>
+	</array>
+</dict>
+</plist>

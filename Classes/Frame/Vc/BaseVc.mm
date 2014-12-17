@@ -74,6 +74,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self onShow];
+    //保存图片----
+    self._swipeBackTag = YES;
+    [self savePic];
 }
 - (void)onShow {
 }
@@ -84,6 +87,10 @@
     [super viewWillDisappear:animated];
 }
 - (void)onWillHide {
+    //清空标记
+    self._navToTag = NO;
+    self._navBackTag = NO;
+    self._swipeBackTag = NO;
 }
 
 // viewDidDisappear
@@ -158,6 +165,12 @@
 - (void)navBackWithStyle:(NavStyle)style {
     [self navBackTo:nil style:style];
 }
+- (void)navBackSwipe {
+    [self navBackSwipeWithParams:nil];
+}
+- (void)navBackSwipeWithParams:(NSDictionary *)params {
+    [self navBackTo:nil params:params style:NavStyleNoEffect];
+}
 - (void)navBackWithParams:(NSDictionary *)params {
     [self navBackTo:nil params:params];
 }
@@ -187,6 +200,11 @@
         //返回上一个页面
         rvc = [a objectAtIndex:a.count - 2];
         flag = YES;
+        //清空图片
+        if ([self canSwipeBack]) {
+            NavVc *nav = (NavVc *)self.navigationController;
+            [nav cleanVcPic:self];
+        }
     } else {
         for (NSInteger i = a.count - 2; i >=0; i--) {
             //遍历页面
@@ -194,6 +212,12 @@
             if ([rvc isKindOfClass:NSClassFromString(vcKey)]) {
                 flag = YES;
                 break;
+            }
+            
+            //清空图片
+            if ([[a objectAtIndex:i+1] canSwipeBack]) {
+                NavVc *nav = (NavVc *)self.navigationController;
+                [nav cleanVcPic:rvc];
             }
         }
     }
@@ -227,6 +251,26 @@
     } else {
         [self.navigationController popToViewController:rvc animated:YES];
     }
+}
+
+
+
+#pragma mark -
+#pragma mark ------------------------------SwipeBack----------------------------------
+/*------------------------------------------------------------------------------
+ |  SwipeBack
+ |
+ -----------------------------------------------------------------------------*/
+- (void)onSwipeBack {
+    if (self._swipeBackTag) {
+        [self navBackSwipe];
+    }
+}
+- (BOOL)canSwipeBack {
+    return self._swipeBackTag && [self supportSwipeBack];
+}
+- (BOOL)supportSwipeBack {
+    return YES;
 }
 
 
@@ -284,6 +328,16 @@
  |  其他
  |
  -----------------------------------------------------------------------------*/
+- (void)savePic {
+    NSArray *list = self.navigationController.viewControllers;
+    //保存图片
+    if ([self canSwipeBack] && list.count > 1) {
+        NavVc *nav = (NavVc *)self.navigationController;
+        BaseVc *vc = [self.navigationController.viewControllers objectAtIndex:list.count - 2];
+        [nav setVcPic:self view:vc.view];
+    }
+}
+
 -(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

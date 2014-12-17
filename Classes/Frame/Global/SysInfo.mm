@@ -50,6 +50,10 @@
             self.isIphone5Tag = YES;
         }
         
+        //ipad
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+            self.isIpadTag = YES;
+        }
         self.contentHeight = rect.size.height - self.topPanelHeight - 20;
     }
     

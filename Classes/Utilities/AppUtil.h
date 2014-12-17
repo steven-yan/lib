@@ -12,6 +12,7 @@
 + (NSString *)appVersion;
 + (void)appStoreRate;
 + (void)appStoreUpdate;
++ (void)openUrl:(NSString *)url;
 
 
 

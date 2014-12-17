@@ -294,7 +294,8 @@
 	NSUInteger i=0;
 	NSUInteger count = [[self postData] count]-1;
 	for (NSDictionary *val in [self postData]) {
-        NSString *data = [NSString stringWithFormat:@"%@=%@%@", [self encodeURL:[val objectForKey:@"key"]], [self encodeURL:[val objectForKey:@"value"]],(i<count ?  @"&" : @"")]; 
+        NSString *data = [NSString stringWithFormat:@"%@=%@%@", [self encodeURL:[val objectForKey:@"key"]], [self encodeURL:[val objectForKey:@"value"]],(i<count ?  @"&" : @"")];
+//        NSString *data = [NSString stringWithFormat:@"%@=%@%@", [val objectForKey:@"key"], [val objectForKey:@"value"],(i<count ?  @"&" : @"")];
 		[self appendPostString:data];
 		i++;
 	}

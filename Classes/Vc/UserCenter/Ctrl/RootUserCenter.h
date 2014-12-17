@@ -25,6 +25,9 @@
 //state
 @property (nonatomic) EN_LOGIN_STATE_T userState;
 
+//upgradeUrl
+@property (nonatomic, strong) NSString *upgradeUrl;
+
 //init
 - (id)initWithVc:(BaseLayoutVc *)vc;
 

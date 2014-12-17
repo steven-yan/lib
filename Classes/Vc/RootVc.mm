@@ -53,6 +53,9 @@
 
 //窗体将要显示
 - (void)onWillShow {
+    if ([ChkUtil isEmptyStr:Global.instance.userInfo.loginID] == NO && [ChkUtil isEmptyStr:Global.instance.userInfo.userPwd] == NO) {
+        [self loadData];
+    }
 }
 
 //窗体显示
@@ -69,6 +72,39 @@
 }
 
 - (void)topRightBtnClicked {
+}
+
+
+
+#pragma mark -
+#pragma mark --------------------------获取和提交数据-----------------------------
+/*------------------------------------------------------------------------------
+ |  获取和提交数据
+ |
+ -----------------------------------------------------------------------------*/
+- (void)loadData {
+    //登录
+    [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.loginForApp.submit"]];
+}
+
+- (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
+    //存储用户信息
+    UserInfoDto *user = [[UserInfoDto alloc] initWithObj:obj];
+    Global.instance.userInfo.photoPath = user.photoPath;
+    [Global.instance.userInfo save];
+}
+
+- (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint {
+    if (err == EnHttpResponseErrorHintTag) {
+        [Global.instance.userInfo clear];
+        [Global.instance.userInfo save];
+    }
+}
+
+//完善参数
+- (void)completeQueryParams {
+    [self.queryParams setValue:Global.instance.userInfo.loginID forKey:@"loginID"];
+    [self.queryParams setValue:Global.instance.userInfo.userPwd forKey:@"loginPwd"];
 }
 
 

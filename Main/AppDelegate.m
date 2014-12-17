@@ -20,7 +20,9 @@
     
     //window
     UIWindow *win = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[RootVc alloc] init]];
+    RootVc *vc = [[RootVc alloc] init];
+    vc._navToTag = YES;
+    NavVc *nvc = [[NavVc alloc] initWithRootViewController:vc];
     nvc.navigationBarHidden = YES;
     win.rootViewController = nvc;
     [win makeKeyAndVisible];

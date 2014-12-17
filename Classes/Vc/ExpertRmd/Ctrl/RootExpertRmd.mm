@@ -42,7 +42,9 @@
 - (void)onWillShow {
     [self.nrVc changeTopTitle:@"专家推荐"];
     //加载数据
-    [self loadData];
+    if (self.arrayOfCellData.count <= 0) {
+         [self loadData];
+    }
 }
 
 - (void)onWillHide {

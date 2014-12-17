@@ -62,7 +62,7 @@
     [self httpGet:url tag:-1];
 }
 - (void)httpGet:(NSString *)url tag:(NSInteger)tag {
-    [self httpGet:url params:[self makeQueryParams] tag:tag];
+    [self httpGet:url params:[self makeQueryParamsWithTag:tag] tag:tag];
 }
 - (void)httpGet:(NSString *)url params:(NSDictionary *)params tag:(NSInteger)tag {
     [self httpGet:url params:params postData:nil timeOut:5 tag:tag];

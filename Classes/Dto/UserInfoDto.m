@@ -10,6 +10,7 @@
 
 @implementation UserInfoDto
 
+//WANGCHENGDING
 
 
 #pragma mark -
@@ -107,6 +108,7 @@
     [dic setValue:self.marryStatus forKey:@"marryStatus"];
     [dic setValue:self.cardType forKey:@"cardType"];
     [dic setValue:self.cardNumber forKey:@"cardNumber"];
+    [dic setValue:self.photoPath forKey:@"photoPath"];
     
     return dic;
 }

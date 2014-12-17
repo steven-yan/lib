@@ -93,12 +93,12 @@
             ReservationListCellData *cd = [[ReservationListCellData alloc] initWithObj:dic];
             [self.arrayOfCellData addObject:cd];
         }
-        [self.tableView reloadData];
         self.ctrlIv.hidden = YES;
     } else {
-        [self showToast:@"暂无信息"];
+        [self showToast:@"暂时没有信息"];
         self.ctrlIv.hidden = NO;
     }
+    [self.tableView reloadData];
 }
 
 - (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {

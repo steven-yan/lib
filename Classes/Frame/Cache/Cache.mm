@@ -30,25 +30,16 @@
         NSString *dbPath = [dbDir stringByAppendingPathComponent:@"cache.db"];
         
         //创建数据库
-        self.db = [FMDatabase databaseWithPath:dbPath];
-        if (self.db.open) {
-            //创建通用数据表(保存简单数据)
-            [self.db executeUpdate:@"create table if not exists generaltb (generalid integer primary key autoincrement, cdir text, ckey text, csavetime text, cvalue text)"];
-            [self.db executeUpdate:@"create index if not exists idx_cdir on generaltb(cdir)"];
-            [self.db executeUpdate:@"create index if not exists idx_kdir on generaltb(ckey)"];
-            [self.db executeUpdate:@"create index if not exists idx_save_time on generaltb(csavetime)"];
-            
-            //创建推送消息表
-            [self.db executeUpdate:@"create table if not exists msgtb (msgid integer primary key autoincrement, user_lid text, dev_lid text, push_time text, save_time text, value text)"];
-            [self.db executeUpdate:@"create index if not exists idx_user_lid on msgtb(user_lid)"];
-            [self.db executeUpdate:@"create index if not exists idx_dev_lid on msgtb(dev_lid)"];
-            [self.db executeUpdate:@"create index if not exists idx_push_time on msgtb(push_time)"];
-            [self.db executeUpdate:@"create index if not exists idx_save_time on msgtb(save_time)"];
-            
-            //创建皮肤表
-            [self.db executeUpdate:@"create table if not exists skintb (skin_id text primary key, skin_name text, skin_version text, skin_md5 text, skin_icon_url text, skin_url text, skin_author text, device_type text, save_time text)"];
-            [self.db executeUpdate:@"create index if not exists idx_device_type on skintb(device_type)"];
-        }
+        self.dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
+        [self.dbQueue inDatabase:^(FMDatabase *db) {
+            if (db.open) {
+                //创建通用数据表(保存简单数据)
+                [db executeUpdate:@"create table if not exists generaltb (generalid integer primary key autoincrement, cdir text, ckey text, csavetime text, cvalue text)"];
+                [db executeUpdate:@"create index if not exists idx_cdir on generaltb(cdir)"];
+                [db executeUpdate:@"create index if not exists idx_kdir on generaltb(ckey)"];
+                [db executeUpdate:@"create index if not exists idx_save_time on generaltb(csavetime)"];
+            }
+        }];
     }
     
     return self;
@@ -56,7 +47,7 @@
 
 - (void)dealloc {
 	//关闭数据库
-    [self.db close];
+    [self.dbQueue close];
 }
 
 
@@ -95,16 +86,18 @@
         return;
     }
     
-    int i = [self.db intForQuery:@"select count(*) from generaltb where cdir=? and ckey=?",cleanDir,cleanKey];
-    if (i>0) {
-        if (forceTag) {         //更新
-            [self.db executeUpdate:@"delete from generaltb where cdir=? and ckey=?",cleanDir,cleanKey];
-        } else {            //不需更新
-            return;
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        int i = [db intForQuery:@"select count(*) from generaltb where cdir=? and ckey=?",cleanDir,cleanKey];
+        if (i>0) {
+            if (forceTag) {         //更新
+                [db executeUpdate:@"delete from generaltb where cdir=? and ckey=?",cleanDir,cleanKey];
+            } else {            //不需更新
+                return;
+            }
         }
-    }
-    
-    [self.db executeUpdate:@"insert into generaltb(cdir, ckey, cvalue, csavetime) VALUES(?,?,?,?)", cleanDir, cleanKey, cleanValue, [TimeUtil timeStamp]];
+        
+        [db executeUpdate:@"insert into generaltb(cdir, ckey, cvalue, csavetime) VALUES(?,?,?,?)", cleanDir, cleanKey, cleanValue, [TimeUtil timeStamp]];
+    }];
 }
 
 - (NSDictionary *)readDicWithDir:(NSString *)cdir key:(NSString *)ckey {
@@ -134,14 +127,17 @@
         return nil;
     }
     
-    FMResultSet *rs = [self.db executeQuery:@"select cvalue from generaltb where cdir=? and ckey=?", cleanDir, cleanKey];
-    NSString *result = nil;
-    if (rs != nil) {
-        while ([rs next]) {
-            result = [rs stringForColumn:@"cvalue"];
-            break;
+    __block NSString *result = nil;
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:@"select cvalue from generaltb where cdir=? and ckey=?", cleanDir, cleanKey];
+        if (rs != nil) {
+            while ([rs next]) {
+                result = [rs stringForColumn:@"cvalue"];
+                break;
+            }
         }
-    }
+        [rs close];
+    }];
     
     return result;
 }
@@ -156,7 +152,12 @@
         return NO;
     }
     
-    return [self.db executeUpdate:@"delete from generaltb where cdir=? and ckey=?", cleanDir, cleanKey];
+    __block BOOL r;
+    [self.dbQueue inDatabase:^(FMDatabase *db) {
+        r = [db executeUpdate:@"delete from generaltb where cdir=? and ckey=?", cleanDir, cleanKey];
+    }];
+    
+    return r;
 }
 
 

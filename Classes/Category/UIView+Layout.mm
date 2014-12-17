@@ -152,12 +152,22 @@
     self.backgroundColor = bgColor;
 }
 
+
+
 @end
 
 @implementation UIView (Line)
+
 + (instancetype)lineWithWidth:(CGFloat)width {
-    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 0.5)];
+    float height = 0.5;
+    if (SysInfo.instance.isIpadTag) {
+        height = 1;
+    }
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
     v.backgroundColor = [UIColor colorWithHexStr:@"#cccccc"];
     return v;
 }
+
+
+
 @end

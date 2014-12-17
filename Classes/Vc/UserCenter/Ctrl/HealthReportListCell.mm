@@ -77,7 +77,7 @@ static int kLeftMargin = 20;
     //peisname
     self.ctrlPeisName.text = [@"体检中心:  " stringByAppendingString:d.peisName];
     //预约状态和预约时间
-    self.ctrlDate.text = [@"预约日期:  " stringByAppendingString:d.peDate];
+    self.ctrlDate.text = [@"体检日期:  " stringByAppendingString:d.peDate];
 }
 
 

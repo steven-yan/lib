@@ -114,12 +114,12 @@ enum {
         NSArray *list = [obj valueForKey:@"list"];
         if (list.count>0) {
             [self.arrayOfCellData addObjectsFromArray:list];
-            [self.tableView reloadData];
             self.ctrlIv.hidden = YES;
         } else {
             [self showToast:@"暂时没有信息"];
             self.ctrlIv.hidden = NO;
         }
+        [self.tableView reloadData];
     } else if (tag == kHttpPostCounselTag) {
         [self loadData:kHttpLoadDataTag];
         

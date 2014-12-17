@@ -88,43 +88,62 @@ enum {
  -----------------------------------------------------------------------------*/
 - (void)loadData:(NSInteger)tag {
     if (tag == kHttpUpdateTag) {
-        [self httpGet:[AppUtil fillUrl:@"pubreference.PubReferencePRC.upgrade.submit"]];
+        [self httpGet:[AppUtil fillUrl:@"pubreference.PubReferencePRC.upgrade.submit"] tag:kHttpUpdateTag];
     } else if (tag == kHttpPostUserImgTag) {
-//        [self httpGet:[AppUtil fillUrl:@"userlogin.UserLoginPRC.imageUpload.submit"]];
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"userlogin.UserLoginPRC.imageUpload.submit?userLoginId=%@", Global.instance.userInfo.userLoginId]];
-        ASIFormDataRequest *req = [ASIFormDataRequest requestWithURL:url];
-        [req addRequestHeader:@"Content-Type" value:@"image/png"];
+        NSURL *url = [NSURL URLWithString:[AppUtil fillUrl:[NSString stringWithFormat:@"userlogin.UserLoginPRC.imageUpload2.submit?userLoginId=%@", Global.instance.userInfo.userLoginId]]];
+        UIImage *img = [UIImage scaleImg:self.image toSize:CGSizeMake(200, 200)];
+        NSData *d = UIImagePNGRepresentation(img);
+        NSData *base64 = [GTMBase64 encodeData:d];
+        
+        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:url];
+        [req addRequestHeader:@"Content-Type" value:[NSString stringWithFormat:@"application/x-www-form-urlencoded;"]];
         [req setTimeOutSeconds:60];
-        [req setRequestMethod:@"POST"];
+        [req appendPostData:base64];
         
-        //[Request setPostValue:auth forKey:@"auth"];
-        UIImage *img = [UIImage scaleImg:self.image toSize:CGSizeMake(300, 300)];
-        [req setData:[Global.instance.userInfo.userLoginId dataUsingEncoding:NSUTF8StringEncoding] forKey:@"userLoginId"];
-        [req setData:[GTMBase64 encodeData:UIImagePNGRepresentation(img)] forKey:@"image"];
-        
+        __weak ASIHTTPRequest *reqWeak = req;
         [req setCompletionBlock:^{
-            
+            NSString *str = [reqWeak responseString];
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[str dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+            if ([dic valueForKey:@"photoPath"]) {
+                Global.instance.userInfo.photoPath = [dic valueForKey:@"photoPath"];
+                [Global.instance.userInfo save];
+                [self.ctrlUserImg setImage:img];
+            }
         }];
         
         [req setFailedBlock:^{
-            NSString *str = [req responseString];
-            
+            [self.nrVc showToast:@"上传图片失败"];
         }];
         
-        [req startSynchronous];
+        [req startAsynchronous];
     }
 }
 
 - (void)onHttpRequestSuccessObj:(NSDictionary *)obj {
     NSString *version = [obj valueForKey:@"version"];
     if (version && [version isEqualToString:[AppUtil appVersion]] == NO) {
-        [self alertWithTitle:@"提示" cancel:@"取消" msg:@"应用有更新" cmfTitle:@"更新" tag:kAlertUpdateTag];
+        if ([ChkUtil isEmptyStr:[obj valueForKey:@"description"]] == NO) {
+            NSString *str = [obj valueForKey:@"description"];
+            if ([ChkUtil isEmptyStr:str]) {
+                str = @"应用有更新";
+            }
+            //upgradeUrl
+            self.upgradeUrl = [obj valueForKey:@"upgradeUrl"];
+            if ([ChkUtil isEmptyStr:self.upgradeUrl] == NO) {
+                [self alertWithTitle:@"提示" cancel:@"取消" msg:str cmfTitle:@"更新" tag:kAlertUpdateTag];
+            } else {
+                [self.nrVc showToast:@"已是最新版"];
+            }
+        } else {
+            [self.nrVc showToast:@"已是最新版"];
+        }
     } else {
         [self.nrVc showToast:@"已是最新版"];
     }
 }
 
 - (void)onHttpRequestFailed:(EnHttpRequestFailed)err hint:(NSString *)hint tag:(NSInteger)tag {
+    [self.nrVc showToast:hint];
 }
 
 //完善参数
@@ -135,19 +154,8 @@ enum {
     } else if (tag == kHttpPostUserImgTag) {
 //        userLoginId				用户编号
 //        image				图片数据流字符串
-        [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"userLoginId"];
-        [self.queryParams setValue:[AppUtil appVersion] forKey:@"image"];
     }
 }
-
-
-
-#pragma mark -
-#pragma mark ------------------------------方法----------------------------------
-/*------------------------------------------------------------------------------
- |  方法
- |
- -----------------------------------------------------------------------------*/
 
 
 
@@ -177,7 +185,7 @@ enum {
         if (row == 0) {
             height = 160;
         } else {
-            height = 120;
+            height = 150;
         }
     } else {
         if (row == 0) {
@@ -185,7 +193,7 @@ enum {
         } else if (row == 1) {
             height = 220;
         } else if (row == 2){
-            height = 160;
+            height = 120;
         } else if (row == 3) {
             height = 80;
         }
@@ -383,7 +391,10 @@ enum {
         self.userState = Global.instance.userInfo.userState;
         [self.ctrlTableView reloadData];
     } else if (tag == kAlertUpdateTag) {
-        [AppUtil appStoreUpdate];
+        if ([ChkUtil isEmptyStr:self.upgradeUrl] == NO) {
+            [AppUtil openUrl:self.upgradeUrl];
+        }
+//        [AppUtil appStoreUpdate];
     }
 }
 
@@ -410,7 +421,7 @@ enum {
     iv.layer.cornerRadius = 8;
     iv.layer.masksToBounds = YES;
     iv.backgroundColor = [UIColor lightGrayColor];
-    [iv setImage:[UIImage imageNamed:@"man_small"]];
+    [iv sd_setImageWithURL:[NSURL URLWithString:Global.instance.userInfo.photoPath] placeholderImage:[UIImage imageNamed:@"man_small"]];
     iv.left = 10;
     iv.centerY = bg.height / 2;
     [bg addSubview:iv];
@@ -431,29 +442,30 @@ enum {
     [cell addSubview:bg];
     
     //设置----
-    UIButton *btn = [UIButton btnCellWithTitle:@"设置" image:@"ucenter_icon_setting"];
+//    UIButton *btn = [UIButton btnCellWithTitle:@"设置" image:@"ucenter_icon_setting"];
+//    [btn addTarget:self action:@selector(btnClicked:)];
+//    btn.tag = kBtnSettingTag;
+//    [bg addSubview:btn];
+//    //分隔线
+//    UIView *line = [UIView lineWithWidth:btn.width];
+//    line.bottom = btn.height;
+//    [btn addSubview:line];
+    //评分----
+    UIButton *btn = [UIButton btnCellWithTitle:@"给东方健康云评分" image:@"btn_star_big_pressed"];
     [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnSettingTag;
+    btn.tag = kBtnRateAppTag;
+//    btn.top = btn.height;
     [bg addSubview:btn];
     //分隔线
     UIView *line = [UIView lineWithWidth:btn.width];
-    line.bottom = btn.height;
-    [btn addSubview:line];
-    //评分----
-    btn = [UIButton btnCellWithTitle:@"给东方健康云评分" image:@"btn_star_big_pressed"];
-    [btn addTarget:self action:@selector(btnClicked:)];
-    btn.tag = kBtnRateAppTag;
-    btn.top = btn.height;
-    [bg addSubview:btn];
-    //分隔线
-    line = [UIView lineWithWidth:btn.width];
     line.bottom = btn.height;
     [btn addSubview:line];
     //检查更新----
     btn = [UIButton btnCellWithTitle:@"检查更新" image:@"ucenter_icon_update"];
     [btn addTarget:self action:@selector(btnClicked:)];
     btn.tag = kBtnUpdateTag;
-    btn.top = btn.height*2;
+//    btn.top = btn.height*2;
+    btn.top = btn.height;
     [bg addSubview:btn];
     
     bg.height = btn.bottom;

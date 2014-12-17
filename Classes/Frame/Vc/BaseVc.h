@@ -5,7 +5,6 @@
  */
 
 #import "TopPanel.h"
-#import "MBProgressHUD.h"
 
 typedef enum {
     NavStyleDefault = 0, 
@@ -20,9 +19,11 @@ typedef enum {
 @interface BaseVc : UIViewController
 
 //导航前进标识
-@property BOOL _navToTag;
+@property (nonatomic) BOOL _navToTag;
 //导航返回标识
-@property BOOL _navBackTag;
+@property (nonatomic) BOOL _navBackTag;
+//swipeBack tag
+@property (nonatomic) BOOL _swipeBackTag;
 
 //导航前进参数
 @property (nonatomic, strong)  NSDictionary *_tmpNavToParams;
@@ -49,12 +50,19 @@ typedef enum {
 
 - (void)navBack;
 - (void)navBackWithStyle:(NavStyle)style;
+- (void)navBackSwipe;
+- (void)navBackSwipeWithParams:(NSDictionary *)params;
 - (void)navBackWithParams:(NSDictionary *)params;
 - (void)navBackWithParams:(NSDictionary *)params style:(NavStyle)style;
 - (void)navBackTo:(NSString *)vcKey;
 - (void)navBackTo:(NSString *)vcKey style:(NavStyle)style;
 - (void)navBackTo:(NSString *)vcKey params:(NSDictionary *)params;
 - (void)navBackTo:(NSString *)vcKey params:(NSDictionary *)params style:(NavStyle)style;
+
+//swipe back
+- (BOOL)canSwipeBack;
+- (BOOL)supportSwipeBack;
+- (void)onSwipeBack;
 
 //alert--------
 - (void)alert:(NSString *)msg;
@@ -67,7 +75,6 @@ typedef enum {
 - (void)alertView:(UIAlertView *)alertView dismissWithBtnIndex:(NSInteger)index;
 - (void)confirmAlert:(UIAlertView *)alertView tag:(NSInteger)tag;
 - (void)confirmAlert:(UIAlertView *)alertView;
-
 
 
 

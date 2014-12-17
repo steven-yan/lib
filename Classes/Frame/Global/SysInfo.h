@@ -32,6 +32,7 @@
 @property float iosVersion;
 //ios6 (支持ios6以上)
 @property BOOL isIos6Tag;
+@property BOOL isIpadTag;
 
 + (SysInfo *)instance;
 

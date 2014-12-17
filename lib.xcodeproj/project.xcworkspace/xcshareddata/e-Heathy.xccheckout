@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7F3E9442-FB33-4493-96C9-5907C25F2C56</string>
+	<key>IDESourceControlProjectName</key>
+	<string>e-Heathy</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
+		<string>https://github.com/steven-yan/e-healthy.git</string>
+		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
+		<string>https://github.com/AFNetworking/AFNetworking/</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>e-Heathy.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AEB73AE683B81A1A78354F55AD29ACCC959090EA</key>
+		<string>../..</string>
+		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
+		<string>../../Classes/Frame/ThirdParty/AFNetworking</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/steven-yan/e-healthy.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AEB73AE683B81A1A78354F55AD29ACCC959090EA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AFNetworking</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AEB73AE683B81A1A78354F55AD29ACCC959090EA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>e-healthy</string>
+		</dict>
+	</array>
+</dict>
+</plist>

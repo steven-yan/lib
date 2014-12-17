@@ -13,7 +13,7 @@
  |
  -----------------------------------------------------------------------------*/
 //debug状态
-#define kAppDebugTag 1
+#define kAppDebugTag 0
 
 //空字符串
 NSString * const kEmptyStr = @"";
@@ -22,7 +22,7 @@ NSString * const kAppInfoUrl = @"http://itunes.apple.com/lookup?id=";
 //app 评价地址
 NSString * const kAppRateUrl = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", kAppId];
 //appstore下载url
-NSString * const kAppDetailUrl = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/ding-can-xiao-mi-shu/id%@?mt=8&uo=4", kAppId];
+NSString * const kAppDetailUrl = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/id%@", kAppId];
 
 
 
@@ -35,9 +35,9 @@ NSString * const kAppDetailUrl = [NSString stringWithFormat:@"https://itunes.app
 //general color
 NSString * const kGeneralColor = @"#43ce50";
 //app version
-NSString * const kAppVersion = @"1.0";
+NSString * const kAppVersion = @"1";
 //app id
-NSString * const kAppId = @"776882837";
+NSString * const kAppId = @"936378969";
 //host and port
 #if kAppDebugTag
 NSString * const kAppHost = @"http://114.80.79.37/peis/";
@@ -54,7 +54,7 @@ NSString * const kAppHost = @"http://180.166.93.195:8888/";
  |
  -----------------------------------------------------------------------------*/
 //dir------
-NSString * const kGlobalDir = @"kDirConst";
+NSString * const kGlobalDir = @"kGlobalDir";
 //key------
 //用户信息
 NSString * const kGlobalKeyUser = @"kGlobalKeyUser";

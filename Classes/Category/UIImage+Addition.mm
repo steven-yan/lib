@@ -26,6 +26,16 @@
     return scaledImage;
 }
 
++ (UIImage *)imageForView:(UIView *)v {
+    UIGraphicsBeginImageContextWithOptions(v.frame.size, v.opaque, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [v.layer renderInContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 
 
 @end

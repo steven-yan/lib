@@ -10,8 +10,8 @@
 
 @interface Cache : NSObject
 
-//db
-@property (nonatomic, strong) FMDatabase *db;
+//db queue
+@property (nonatomic, strong) FMDatabaseQueue *dbQueue;
 
 + (instancetype)instance;
 

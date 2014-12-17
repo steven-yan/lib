@@ -258,12 +258,14 @@ static int kFontSize = 15;
     } else {
         user.email = Global.instance.userInfo.email;
     }
+    //photo
+    user.photoPath = Global.instance.userInfo.photoPath;
     //sex 0 男， 1 女
-    user.sex = [NSString stringWithFormat:@"%d", self.ctrlSegSex.selectedSegmentIndex];
+    user.sex = [NSString stringWithFormat:@"%ld", (long)self.ctrlSegSex.selectedSegmentIndex];
     //marryStatus  0 已婚， 1未婚
-    user.marryStatus = [NSString stringWithFormat:@"%d", self.ctrlSegMarrage.selectedSegmentIndex];
+    user.marryStatus = [NSString stringWithFormat:@"%ld", (long)self.ctrlSegMarrage.selectedSegmentIndex];
     //cardType   0 身份证 1 军官证
-    user.cardType = [NSString stringWithFormat:@"%d", self.ctrlSegIdType.selectedSegmentIndex];
+    user.cardType = [NSString stringWithFormat:@"%ld", (long)self.ctrlSegIdType.selectedSegmentIndex];
     //cardNumber
     user.cardNumber = self.ctrlTfId.text;
     
@@ -286,9 +288,9 @@ static int kFontSize = 15;
     [self.queryParams setValue:self.ctrlTfName.text forKey:@"userName"];
     [self.queryParams setValue:self.ctrlTfPhone.text forKey:@"mobile"];
     [self.queryParams setValue:self.ctrlTfMail.text forKey:@"email"];
-    [self.queryParams setValue:[NSString stringWithFormat:@"%d", self.ctrlSegIdType.selectedSegmentIndex] forKey:@"sex"];
-    [self.queryParams setValue:[NSString stringWithFormat:@"%d", self.ctrlSegMarrage.selectedSegmentIndex] forKey:@"marryStatus"];
-    [self.queryParams setValue:[NSString stringWithFormat:@"%d", self.ctrlSegIdType.selectedSegmentIndex] forKey:@"cardType"];
+    [self.queryParams setValue:[NSString stringWithFormat:@"%ld", (long)self.ctrlSegSex.selectedSegmentIndex] forKey:@"sex"];
+    [self.queryParams setValue:[NSString stringWithFormat:@"%ld", (long)self.ctrlSegMarrage.selectedSegmentIndex] forKey:@"marryStatus"];
+    [self.queryParams setValue:[NSString stringWithFormat:@"%ld", (long)self.ctrlSegIdType.selectedSegmentIndex] forKey:@"cardType"];
     [self.queryParams setValue:Global.instance.userInfo.userLoginId forKey:@"cardNumber"];
 }
 

@@ -12,7 +12,7 @@
 static char objectKey = 0;
 static int kMaxHoldWidth = SysInfo.instance.fullWidth * 0.66;
 static int kMaxVelocity = 500;
-static float kDefaultAlpha = 0.6;
+static float kDefaultAlpha = 1;
 
 
 
@@ -112,6 +112,9 @@ static float kDefaultAlpha = 0.6;
     
     pan.view.centerX = pan.view.centerX + p.x;
     [pan setTranslation:CGPointZero inView:[pan.view superview]];
+    pan.view.layer.shadowOffset = CGSizeMake(-2, 0);
+    pan.view.layer.shadowOpacity = 0.6;
+    pan.view.layer.shadowColor = [UIColor grayColor].CGColor;
     
     if (self.ctrlSnap == nil) {
         UIImageView *snap = [[UIImageView alloc] initWithFrame:self.view.bounds];
